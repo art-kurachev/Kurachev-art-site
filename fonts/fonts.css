@@ -1,0 +1,30 @@
+@font-face {
+  font-family:'SONGER G Regular';
+  src: url("SONGER_G_Regular.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family:'SONGER SE ExtraBold'; 
+  src: url("SONGER_SE_ExtraBold.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family:'SONGER SE Bold';
+  src: url("SONGER_SE_Bold.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family:'SONGER SE Medium';
+  src: url("SONGER_SE_Medium.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family:'SONGER SE Regular'; 
+  src: url("SONGER_SE_Regular.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avant Garde Std';
+  src: url("ITCAvantGardeStd-Bold.ttf") format("truetype");
+  font-display: swap;
+}

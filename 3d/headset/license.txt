@@ -1,0 +1,11 @@
+Model Information:
+* title:	Arctis 5 steelseries Headphone
+* source:	https://sketchfab.com/3d-models/arctis-5-steelseries-headphone-c416a2943aa84875b761b8b48ffbb7e4
+* author:	yarankepang (https://sketchfab.com/yarankepang)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Arctis 5 steelseries Headphone" (https://sketchfab.com/3d-models/arctis-5-steelseries-headphone-c416a2943aa84875b761b8b48ffbb7e4) by yarankepang (https://sketchfab.com/yarankepang) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

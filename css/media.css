@@ -1,0 +1,248 @@
+@media screen and (max-width: 768px) {
+  /* Отключаем блоки */
+  .model-container-moon,
+  .model-container-headset{
+    display: none;
+  }
+  /* Первый экран */
+  .fstScr-container{
+    max-height: unset;
+    height: 100vh;
+  }
+  .prelogo{
+    top: 48.5%;
+  }
+  .fstScr-text h2{
+    font-size: 15.5rem;
+  }
+  .containerTitle{
+    font-size: 4.5rem;
+  }
+  .h3Clip{
+    margin-bottom: 6rem;
+  }
+  .bgvideo,
+  .myphoto-container img,
+  .motto-container img{
+    width: calc(100% + 1px);
+    object-fit: cover;
+  }
+  .mobileFrame{
+    display: block;
+  }
+  .ul__reset{
+    font-size: 4rem;
+  }
+  .logotype{
+    top: 11rem;
+    left: 9rem;
+  }
+  .logotype svg{
+    height: 12rem;
+    width: 12rem;
+  }
+  .logotype .rotatelogo svg{
+    height: 16.5rem;
+    width: 16.5rem;
+  }
+  .logotype .rotatelogo{
+    right: -7.5px;
+    top: -7.5px;
+  }
+  .preloader{
+    background-size: 300%;
+    background-position-y: 45%;
+  }
+  .prelogo .rotatelogo{
+    top: 2px;
+  }
+  .preProc{
+    font-size: 8rem;
+  }
+  .preBtn .preTitle{
+    font-size: 6rem;
+  }
+  .about-text{
+    width: 85%;
+  }
+  .about-text h2,
+  .myphoto-text h2,
+  .motto-text h2{
+    font-size: 14em;
+    line-height: 1;
+  }
+  .about{
+    padding-top: 45rem;
+  }
+  section{
+    padding: 45rem 0;
+  }
+  .strokeAnimateItem h1, 
+  .strokeAnimateItem2 h1{
+    padding-left: 21rem;
+  }
+  .texxt,
+  .texxt2,
+  .texxt3{
+    font-size: 20rem;
+    font-family: 'SONGER G Regular';
+  }
+  .histPS{
+    padding-left: 11rem;
+  }
+  .sectionSkills .texxt2 p, .sectionMoon .texxt2 p {
+    display: none;
+  }
+  .sectionSkills .texxt2 b, .sectionSkills .texxt2 p, .sectionMoon .texxt2 b, .sectionMoon .texxt2 p{
+    width: 100%;
+  }
+  .myphoto-container{
+    max-height: unset;
+    height: 100vh;
+  }
+  .myphoto-text{
+    width: 85%;
+  }
+  .myphoto-container img{
+    margin-bottom: 167rem !important;
+  }
+  #history .texxt3,
+  #history .texxt2{
+    box-sizing: border-box;
+    font-size: 7rem;
+    max-width: 100vw;
+    padding-left: 10rem;
+  }
+  .histRaw h4{
+    font-size: 3rem;
+  }
+  .histRaw p{
+    line-height: 1;
+  }
+  .histRaw{
+    gap: 6rem;
+    padding: 10rem 0;
+  }
+  .hist{
+    left: 10rem;
+  }
+  .feedbackItem .leftKav{
+    font-size: 20rem;
+    left: 0;
+    top: 15rem;
+  }
+  #feedback h2{
+    font-size: 12rem;
+  }
+  .feedbackItem{
+    width: 90%;
+    padding: 30rem 0;
+  }
+  .fbItemCont{
+    padding-top: 20rem;
+  }
+  .fbItemName,
+  .fbItemProf{
+    font-size: 5rem;
+  }
+  .fbAvaItem{
+    height: 18rem;
+    width: 18rem;
+  }
+  .fbAvaCont{
+    box-sizing: border-box;
+    gap: 7rem;
+    right: 10rem;
+    padding: 48rem 0;
+  }
+  .arrowAv{
+    height: 8rem;
+    width: 6rem;
+    left: -5rem;
+  }
+  .motto-container{
+    max-height: 80vh;
+  }
+  .motto-text h2{
+    font-size: 11rem;
+  }
+  .mottoName{
+    font-size: 4.5rem;
+  }
+  .motto-text .leftKav{
+    top: 14rem;
+    font-size: 19rem;
+    left: -8rem;
+  }
+  .motto-text .rightKav{
+    bottom: 6rem;
+    font-size: 19rem;
+    right: -6rem;
+  }
+  .motto-container img{
+    margin-bottom: 470rem;
+    height: 100vh;
+  }
+  footer{
+    padding: 20rem 0;
+  }
+  .footerStroke{
+    font-size: 7rem;
+  }
+  .footerColumn{
+    width: 90%;
+    flex-direction: column;
+  }
+  footer .h3Clip{
+    width: 90%;
+  }
+  .colOne a::before{
+    width: 5rem;
+    height: 5rem;
+    left: -3rem;
+    top: 3rem;
+  }
+  .colTwo{
+    gap: 5rem;
+    padding: 8rem 0;
+  }
+  .colTwo h2 b{
+    font-size: 6.25rem;
+  }
+  .colTwo h2 p{
+    font-size: 4.25rem;
+  }
+  .colOne,
+  .colTwo{
+    width: 98%;
+  }
+  .net_works{
+    display: none;
+    /* width: 100vw;
+    padding: 2rem 5rem;
+    gap: 5rem;
+    justify-content: center; */
+  }
+  .press{
+    z-index: 10;
+    display: flex;
+    bottom: 6rem;
+    transform: translateX(-50%);
+    left: 50%;
+    position: fixed;
+    height: 20rem;
+    align-items: center;
+  }
+  .press img{
+    height: 40%;
+  }
+  .icotap{
+    position: absolute;
+    right: -220%;  
+    -webkit-animation: rotating 10s linear infinite;
+    -moz-animation: rotating 10s linear infinite;
+    -ms-animation: rotating 10s linear infinite;
+    -o-animation: rotating 10s linear infinite;
+    animation: rotating 10s linear infinite;
+  }
+}

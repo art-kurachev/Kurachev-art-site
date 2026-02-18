@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Planet Design System - Документация дизайн-системы для Flutter приложения">
+    <meta name="keywords" content="design system, flutter, ui, colors, components">
+    <meta name="author" content="Planet Team">
+    <title>Planet Design System - Документация</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/desys.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">🪐 Planet</div>
+        <div class="tagline">Дизайн-система для мобильного приложения на Flutter</div>
+        <div class="version-badge">v1.0.0 • Flutter 3.x</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#overview" class="nav-link active">Обзор</a>
+            <a href="#themes" class="nav-link">Темы</a>
+            <a href="#colors" class="nav-link">Цвета</a>
+            <a href="#components" class="nav-link">Компоненты</a>
+            <a href="#typography" class="nav-link">Типографика</a>
+            <a href="#code" class="nav-link">Код</a>
+            <a href="#resources" class="nav-link">Ресурсы</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats -->
+        <div id="overview" class="stats-grid" data-animate>
+            <div class="stat-card">
+                <div class="stat-number">44</div>
+                <div class="stat-label">Цветовых токенов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Темы (Light/Dark)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Готовых виджетов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Flutter готово</div>
+            </div>
+        </div>
+
+        <!-- Theme Showcase -->
+        <section id="themes" class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🌓</span>
+                Темы приложения
+            </h2>
+            <p class="section-subtitle">Полная поддержка светлой и темной темы</p>
+            
+            <div class="theme-showcase">
+                <div class="theme-preview light">
+                    <div class="theme-preview-title">
+                        ☀️ Light Theme
+                    </div>
+                    <p style="margin-bottom: 16px; opacity: 0.8;">Светлая, чистая, дневная</p>
+                    <div class="theme-preview-grid">
+                        <div class="theme-color-dot" style="background: #6788EC;"></div>
+                        <div class="theme-color-dot" style="background: #FFFFFF; border: 1px solid #E9EDF4;"></div>
+                        <div class="theme-color-dot" style="background: #2E3345;"></div>
+                        <div class="theme-color-dot" style="background: #F4F6FA;"></div>
+                        <div class="theme-color-dot" style="background: #27AE60;"></div>
+                        <div class="theme-color-dot" style="background: #EB5757;"></div>
+                        <div class="theme-color-dot" style="background: #FFB22B;"></div>
+                        <div class="theme-color-dot" style="background: #7460EE;"></div>
+                    </div>
+                </div>
+                
+                <div class="theme-preview dark">
+                    <div class="theme-preview-title">
+                        🌙 Dark Theme
+                    </div>
+                    <p style="margin-bottom: 16px; opacity: 0.8;">Тёмная, элегантная, ночная</p>
+                    <div class="theme-preview-grid">
+                        <div class="theme-color-dot" style="background: #6788EC;"></div>
+                        <div class="theme-color-dot" style="background: #1E212B;"></div>
+                        <div class="theme-color-dot" style="background: #F6F8FF;"></div>
+                        <div class="theme-color-dot" style="background: #242836;"></div>
+                        <div class="theme-color-dot" style="background: #27AE60;"></div>
+                        <div class="theme-color-dot" style="background: #EB5757;"></div>
+                        <div class="theme-color-dot" style="background: #FFB22B;"></div>
+                        <div class="theme-color-dot" style="background: #7460EE;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 32px; padding: 24px; background: var(--surface-card); border-radius: 16px; border: 1px solid var(--border-default);">
+                <p style="font-size: 16px; margin-bottom: 16px; color: var(--text-secondary);">
+                    💡 Нажмите на кнопку в правом нижнем углу, чтобы переключить тему сайта
+                </p>
+                <div style="display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; background: var(--brand-primary); color: white; border-radius: 12px; font-weight: 600;">
+                    <span style="font-size: 24px;">☀️ / 🌙</span>
+                    <span>Попробуйте прямо сейчас!</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Colors Section -->
+        <section id="colors" class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🎨</span>
+                Цветовая палитра
+            </h2>
+            <p class="section-subtitle">Полная система цветов с поддержкой светлой и темной тем</p>
+            
+            <h3 style="font-size: 24px; font-weight: 700; margin: 40px 0 20px;">Brand Colors</h3>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6788EC;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Primary</div>
+                        <div class="color-values">
+                            <span class="color-value" onclick="copyToClipboard('#6788EC')">#6788EC</span>
+                            <span class="color-value" onclick="copyToClipboard('103, 136, 236')">RGB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-preview" style="background: #94B7F4;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Soft</div>
+                        <div class="color-values">
+                            <span class="color-value" onclick="copyToClipboard('#94B7F4')">#94B7F4</span>
+                            <span class="color-value" onclick="copyToClipboard('148, 183, 244')">RGB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 24px; font-weight: 700; margin: 40px 0 20px;">Status Colors</h3>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-preview" style="background: #27AE60;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Success</div>
+                        <div class="color-values">
+                            <span class="color-value" onclick="copyToClipboard('#27AE60')">#27AE60</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-preview" style="background: #EB5757;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Error</div>
+                        <div class="color-values">
+                            <span class="color-value" onclick="copyToClipboard('#EB5757')">#EB5757</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-preview" style="background: #FFB22B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Warning</div>
+                        <div class="color-values">
+                            <span class="color-value" onclick="copyToClipboard('#FFB22B')">#FFB22B</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-preview" style="background: #7460EE;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Violet</div>
+                        <div class="color-values">
+                            <span class="color-value" onclick="copyToClipboard('#7460EE')">#7460EE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Components Section -->
+        <section id="components" class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🧩</span>
+                Компоненты
+            </h2>
+            <p class="section-subtitle">Готовые к использованию Flutter виджеты</p>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-title">Кнопки</div>
+                    <div class="button-group">
+                        <button class="button button-primary">Primary</button>
+                        <button class="button button-secondary">Secondary</button>
+                        <button class="button button-success">Success</button>
+                        <button class="button button-danger">Danger</button>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-title">Status Badges</div>
+                    <div>
+                        <span class="badge badge-success">✓ Успешно</span>
+                        <span class="badge badge-error">✕ Ошибка</span>
+                        <span class="badge badge-warning">⚠ Внимание</span>
+                        <span class="badge badge-violet">ℹ Информация</span>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-title">Карточки</div>
+                    <div class="example-card">
+                        <h3>Заголовок карточки</h3>
+                        <p>Это пример карточки с содержимым. Наведите курсор для интерактивности.</p>
+                    </div>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-title">Поля ввода</div>
+                    <input type="text" class="input" placeholder="Введите текст...">
+                    <input type="email" class="input" placeholder="Email адрес">
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Section -->
+        <section id="typography" class="section">
+            <h2 class="section-title">
+                <span class="section-icon">📝</span>
+                Типографика
+            </h2>
+            <p class="section-subtitle">Иерархия текстовых стилей</p>
+            
+            <div class="component-card" style="max-width: 100%;">
+                <h1 style="font-size: 48px; font-weight: 800; margin-bottom: 16px;">Display Large (48px)</h1>
+                <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 12px;">Headline Large (32px)</h2>
+                <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 12px;">Title Large (24px)</h3>
+                <p style="font-size: 16px; margin-bottom: 12px;">Body Large (16px) - Основной текст для чтения</p>
+                <p style="font-size: 14px; color: var(--text-secondary);">Body Medium (14px) - Вторичный текст</p>
+            </div>
+        </section>
+
+        <!-- Code Section -->
+        <section id="code" class="section">
+            <h2 class="section-title">
+                <span class="section-icon">💻</span>
+                Примеры кода
+            </h2>
+            <p class="section-subtitle">Быстрый старт с Flutter</p>
+            
+            <div class="code-block">
+<span class="code-keyword">import</span> <span class="code-string">'package:flutter/material.dart'</span>;
+<span class="code-keyword">import</span> <span class="code-string">'theme/planet_colors.dart'</span>;
+<span class="code-keyword">import</span> <span class="code-string">'theme/planet_widgets.dart'</span>;
+
+<span class="code-keyword">class</span> <span class="code-function">MyScreen</span> <span class="code-keyword">extends</span> StatelessWidget {
+  <span class="code-keyword">@override</span>
+  Widget <span class="code-function">build</span>(BuildContext context) {
+    <span class="code-keyword">final</span> colors = context.colors;
+    
+    <span class="code-keyword">return</span> <span class="code-function">Scaffold</span>(
+      backgroundColor: colors.surfacePrimary,
+      body: <span class="code-function">PlanetCard</span>(
+        child: <span class="code-function">Column</span>(
+          children: [
+            <span class="code-function">Text</span>(
+              <span class="code-string">'Привет, Planet!'</span>,
+              style: <span class="code-function">TextStyle</span>(color: colors.textPrimary),
+            ),
+            <span class="code-function">PlanetButton</span>(
+              text: <span class="code-string">'Начать'</span>,
+              onPressed: () {},
+              variant: PlanetButtonVariant.accept,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section">
+            <h2 class="section-title">
+                <span class="section-icon">📚</span>
+                Ресурсы
+            </h2>
+            <p class="section-subtitle">Документация и файлы для интеграции</p>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <div class="component-title">📄 Документация</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Полное руководство по дизайн-системе</p>
+                    <button class="button button-primary" onclick="window.open('DESIGN_SYSTEM_RULES_FLUTTER_RU.md')">
+                        Открыть документацию
+                    </button>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-title">🚀 Интеграция</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Пошаговое руководство по установке</p>
+                    <button class="button button-primary" onclick="window.open('FLUTTER_INTEGRATION_README.md')">
+                        Гайд по интеграции
+                    </button>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-title">🎨 Figma</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Исходные дизайны</p>
+                    <button class="button button-primary" onclick="window.open('https://www.figma.com/design/ObxjfzMRKkNsshVJROr2RZ/Planet-Mobile-App')">
+                        Открыть в Figma
+                    </button>
+                </div>
+
+                <div class="component-card">
+                    <div class="component-title">💾 Файлы</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Dart файлы для Flutter</p>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <button class="button button-secondary" style="width: 100%;">planet_colors.dart</button>
+                        <button class="button button-secondary" style="width: 100%;">planet_theme.dart</button>
+                        <button class="button button-secondary" style="width: 100%;">planet_widgets.dart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" class="footer-link">GitHub</a>
+                <a href="#" class="footer-link">Документация</a>
+                <a href="https://www.figma.com/design/ObxjfzMRKkNsshVJROr2RZ/Planet-Mobile-App" class="footer-link">Figma</a>
+                <a href="https://flutter.dev" class="footer-link">Flutter</a>
+            </div>
+            <div class="footer-copy">
+                © 2026 Planet Design System • Создано для Flutter 3.x
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-icon sun">☀️</span>
+        <span class="theme-icon moon">🌙</span>
+    </button>
+
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <!-- Scripts -->
+    <script src="/js/desys.js"></script>
+</body>
+</html>
