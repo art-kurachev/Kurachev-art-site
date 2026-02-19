@@ -1,465 +1,409 @@
-// Прокрутка вверх перед загрузкой
-window.onbeforeunload = function () {
-  window.scrollTo(0, 0);
-}
+/* ============================================
+   KURACHEV.ART - Main JavaScript
+   ============================================ */
 
-// Прелоадер
-window.onload = function() {
-  document.body.style.overflowY = 'hidden';
-  document.querySelector('.circleLoadItem').style.strokeDashoffset = '0';
-  setTimeout(() => {
-
-      const preBtn = document.querySelector('.preBtn').style;
-      
-      setTimeout(()=>{
-        preBtn.transform = 'translateY(-80%)';
-        preBtn.opacity = 1;
-      }, 500);
-      
-      document.querySelector('.prelogo').style.transform = 'translateY(-80%)';
-      preBtn.pointerEvents = 'auto';
-      document.querySelector('.circleLoadItem').style.opacity = 0;
-      document.querySelector('.preProc').style.opacity = 0;
-      document.querySelector('.preProc').style.transform = 'translateY(-50%)';
-    }, 3500);
+// --- Константы ---
+const CONFIG = {
+  preloader: {
+    duration: 3500,
+    btnDelay: 500,
+    strokeDelay: 800,
+  },
+  scroll: {
+    mottoThreshold: 670,
+    titleThreshold: 870,
+    clipDivisor: 7,
+    maskHeightDivisor: 1.2,
+  },
+  cursor: {
+    maskSizeActive: 30,
+    headerSmall: { w: '0.3125rem', h: '0.3125rem', t: '0.125rem', l: '0.125rem' },
+    headerNormal: { w: '1.875rem', h: '1.875rem', t: '-1.0625rem', l: '-0.9375rem' },
+  },
+  magnetic: { offset: 33 },
+  three: {
+    headsetScrollY: 4000,
+    headsetScrollX: 5000,
+    headsetBobSpeed: 0.5,
+    moonRotationSpeed: 0.05,
+  },
+  feedback: { stickRatio: 0.55, stickRatioMobile: 0.65, mobileThreshold: 768 },
 };
 
-//Изменение процента загрузки
-for (let i = 1; i < 101; i++) {
-  let preProc = document.querySelector('.preProc');
-  setTimeout(
-    function (){
-      preProc.textContent = [i] + '%';
-    }
-    , [i]*28);
+// --- Кэш DOM (инициализируется при загрузке) ---
+const DOM = {};
+
+function cacheDOM() {
+  DOM.preloader = document.querySelector('.preloader');
+  DOM.preBtn = document.querySelector('.preBtn');
+  DOM.prelogo = document.querySelector('.prelogo');
+  DOM.preProc = document.querySelector('.preProc');
+  DOM.circleLoadItem = document.querySelector('.circleLoadItem');
+  DOM.logotype = document.querySelector('.logotype');
+  DOM.cursor = document.querySelector('.cursor');
+  DOM.maskedFirst = document.querySelector('.maskedFirst');
+  DOM.headerMenu = document.querySelector('.header_menu');
+  DOM.fstScrContainer = document.querySelector('.fstScr-container');
+  DOM.mottoText = document.querySelector('.motto-text');
+  DOM.rightKav = document.querySelector('.rightKav');
+  DOM.mottoName = document.querySelector('.mottoName');
+  DOM.feedback = document.querySelector('#feedback');
+  DOM.fbAvaCont = document.querySelector('.fbAvaCont');
+  DOM.arrowAv = document.querySelector('.arrowAv');
+  DOM.ava1 = document.querySelector('.ava1');
+  DOM.ava2 = document.querySelector('.ava2');
+  DOM.ava3 = document.querySelector('.ava3');
+  DOM.feedbackItem = document.querySelector('.feedbackItem');
+  DOM.item2 = document.querySelector('.item2');
 }
 
-//Функция проигрывания звука
+cacheDOM();
+
+// --- Утилиты ---
 function playSound() {
-  var sound = document.getElementById("audio");
-  sound.play();
+  const audio = document.getElementById('audio');
+  if (audio) audio.play();
 }
 
-//Вход на сайт по кнопке
-document.querySelector('.preBtn').onclick = () => {
-  let preloader = document.querySelector('.preloader');
-
-  playSound();
-  innerCursor.classList.add('active-cursor');
-  document.querySelector('.prelogo').style.opacity = 0;
-  document.querySelector('.preBtn').style.opacity = 0;
-  preloader.style.zIndex = -10;
-  preloader.style.backgroundSize = 0;
-  document.body.style.overflowY = 'auto';
-
-  setTimeout(() => {
-    strokeAnimate ('.fstScrAnimate');
-    strokeAnimate ('.fstScrAnimateMask');
-    strokeAnimate ('.artkurachev');
-  }, 800);
-}
-
-//Скролл наверх по лого
-document.querySelector('.logotype').onclick = () => {
-  document.querySelector('.fstScr-container').scrollIntoView({
-    behavior: 'smooth',
-    block: 'start'
-  })
-}
-
-// Заполнение строки маской
-document.querySelectorAll('.mask').forEach((item) => {
-  window.addEventListener('scroll', function() {
-
-    let  pepi = item.getBoundingClientRect().top;
-    let proc = (window.innerHeight - pepi) / 7;
-
-    proc = Math.max(0, Math.min(proc, 100));
-    item.style.clipPath = 'inset(0 0 0 ' + proc + '%)';
-  })
-})
-
-
-
-// Заполнение строки через клип
-document.querySelectorAll('.clip-texxt').forEach((item) => {
-  window.addEventListener('scroll', function() {
-
-    let  pepi = item.getBoundingClientRect().top;
-    let proc = 100 - (window.innerHeight - pepi) / 7;
-
-    proc = Math.max(0, Math.min(proc, 100));
-    item.style.clipPath = 'inset(0 ' + proc + '% 0 0)';
-  })
-})
-
-//Построчное
-function StrokeMask (takeClass) {
-  document.querySelectorAll(takeClass).forEach((item) => {
-    window.addEventListener('scroll', function() {
-
-      let  pepi = item.getBoundingClientRect().top;
-      let proc = window.innerHeight / 1.2 - pepi;
-
-      proc = 100 - proc;
-      proc = Math.max(0, Math.min(proc, 100));
-      item.style.clipPath = 'inset(0 ' + proc + '% 0 0)';
-    })
-  })
-}
-StrokeMask('.mask-text-mp');
-
-//Анимация всплытия текста построчно
-function strokeAnimate (className) {
+function strokeAnimate(className) {
   document.querySelectorAll(className).forEach((item, index) => {
-    setTimeout(
-      function(){
-        item.classList.add('stroke-visible');
-      }, 200 * index
-    );
-  })
+    setTimeout(() => item.classList.add('stroke-visible'), 200 * index);
+  });
 }
 
-//Анимация цитаты
-window.addEventListener('scroll', function(){
-  if (document.querySelector('.motto-text').getBoundingClientRect().top <= 670) {
-    strokeAnimate ('.motto-stroke');
-    setTimeout( function() {
-      strokeAnimate ('.leftKav');
-      document.querySelector('.rightKav').style.opacity = 1;
-      document.querySelector('.mottoName').classList.add('visibleSeven');
-    }, 1000);
-  }
-})
-
-//Анимация заголовка
-document.querySelectorAll('.containerTitle').forEach((item) => {
-  window.addEventListener('scroll', function(){
-    if (item.getBoundingClientRect().top <= 870) {
-      item.classList.add('visibleSeven');
+function throttle(fn, ms) {
+  let last = 0, timer;
+  return function (...args) {
+    const now = Date.now();
+    const remaining = ms - (now - last);
+    if (remaining <= 0) {
+      if (timer) clearTimeout(timer);
+      last = now;
+      fn.apply(this, args);
+    } else if (!timer) {
+      timer = setTimeout(() => { last = Date.now(); timer = null; fn.apply(this, args); }, remaining);
     }
-  })
-})
+  };
+}
 
+// --- Прелоадер ---
+function initPreloader() {
+  window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
 
+  window.addEventListener('load', () => {
+    document.body.style.overflowY = 'hidden';
+    DOM.circleLoadItem?.style && (DOM.circleLoadItem.style.strokeDashoffset = '0');
 
-// Задаем начальную позицию курсора за пределами экрана
-let clientX;
-let clientY;
-let maskSize = 0;
-const innerCursor = document.querySelector(".cursor");
+    for (let i = 1; i <= 100; i++) {
+      setTimeout(() => {
+        if (DOM.preProc) DOM.preProc.textContent = i + '%';
+      }, i * 28);
+    }
 
-const initCursor = () => {
-  //Скрываем курсор на блоках текста
-  document.querySelectorAll('.cursorHide').forEach((item) => {
-    item.addEventListener('mouseover', () => {
-      innerCursor.classList.add('active-cursor');
-      maskSize = '30';
-    })
-    item.addEventListener('mouseleave', () => {
-      innerCursor.classList.remove('active-cursor');
-      maskSize = 0;
-    })
-  })  
+    setTimeout(() => {
+      if (!DOM.preBtn) return;
+      const preBtnStyle = DOM.preBtn.style;
+      setTimeout(() => {
+        preBtnStyle.transform = 'translateY(-80%)';
+        preBtnStyle.opacity = '1';
+      }, CONFIG.preloader.btnDelay);
 
-  // добавляем прослушиватель для отслеживания текущей позиции мыши
-  document.addEventListener("mousemove", e => {
-    clientX = e.clientX;
-    clientY = e.clientY;
-    innerCursor.classList.remove('hidden-cursor');
-    innerCursor.classList.add('visible-cursor');
+      DOM.prelogo?.style && (DOM.prelogo.style.transform = 'translateY(-80%)');
+      preBtnStyle.pointerEvents = 'auto';
+      DOM.circleLoadItem?.style && (DOM.circleLoadItem.style.opacity = '0');
+      DOM.preProc?.style && (DOM.preProc.style.opacity = '0', DOM.preProc.style.transform = 'translateY(-50%)');
+    }, CONFIG.preloader.duration);
   });
 
-  // преобразуем innerCursor в текущую позицию мыши
-  // используем requestAnimationFrame() для плавной работы
+  DOM.preBtn?.addEventListener('click', () => {
+    playSound();
+    DOM.cursor?.classList.add('active-cursor');
+    DOM.prelogo?.style && (DOM.prelogo.style.opacity = '0');
+    DOM.preBtn?.style && (DOM.preBtn.style.opacity = '0');
+    DOM.preloader?.style && (DOM.preloader.style.zIndex = '-10', DOM.preloader.style.backgroundSize = '0');
+    document.body.style.overflowY = 'auto';
+
+    setTimeout(() => {
+      strokeAnimate('.fstScrAnimate');
+      strokeAnimate('.fstScrAnimateMask');
+      strokeAnimate('.artkurachev');
+    }, CONFIG.preloader.strokeDelay);
+  });
+}
+
+// --- Скролл-эффекты (один обработчик) ---
+function initScrollEffects() {
+  const maskItems = document.querySelectorAll('.mask');
+  const clipItems = document.querySelectorAll('.clip-texxt');
+  const maskTextItems = document.querySelectorAll('.mask-text-mp');
+  const mottoStrokes = document.querySelectorAll('.motto-stroke');
+  const mottoPlayed = { motto: false };
+  const containerTitles = document.querySelectorAll('.containerTitle');
+  const menuContainers = document.querySelectorAll('.menuItemCont');
+  const menuItems = document.querySelectorAll('.header_menu_item');
+  const mottoText = DOM.mottoText;
+  const { mottoThreshold, titleThreshold, clipDivisor, maskHeightDivisor } = CONFIG.scroll;
+
+  const onScroll = () => {
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+
+    // Mask / clip-path анимации
+    maskItems.forEach((item) => {
+      const top = item.getBoundingClientRect().top;
+      let proc = (vh - top) / clipDivisor;
+      proc = Math.max(0, Math.min(proc, 100));
+      item.style.clipPath = `inset(0 0 0 ${proc}%)`;
+    });
+
+    clipItems.forEach((item) => {
+      const top = item.getBoundingClientRect().top;
+      let proc = 100 - (vh - top) / clipDivisor;
+      proc = Math.max(0, Math.min(proc, 100));
+      item.style.clipPath = `inset(0 ${proc}% 0 0)`;
+    });
+
+    maskTextItems.forEach((item) => {
+      const top = item.getBoundingClientRect().top;
+      let proc = vh / maskHeightDivisor - top;
+      proc = 100 - proc;
+      proc = Math.max(0, Math.min(proc, 100));
+      item.style.clipPath = `inset(0 ${proc}% 0 0)`;
+    });
+
+    // Анимация цитаты
+    if (mottoText?.getBoundingClientRect().top <= mottoThreshold && !mottoPlayed.motto) {
+      mottoPlayed.motto = true;
+      strokeAnimate('.motto-stroke');
+      setTimeout(() => {
+        strokeAnimate('.leftKav');
+        DOM.rightKav?.style && (DOM.rightKav.style.opacity = '1');
+        DOM.mottoName?.classList.add('visibleSeven');
+      }, 1000);
+    }
+
+    // Анимация заголовков
+    containerTitles.forEach((item) => {
+      if (item.getBoundingClientRect().top <= titleThreshold) {
+        item.classList.add('visibleSeven');
+      }
+    });
+
+    // Активный пункт меню
+    menuContainers.forEach((item, i) => {
+      const sectionTop = item.getBoundingClientRect().top;
+      if (-item.offsetHeight < sectionTop - 2 && sectionTop - 2 < 0) {
+        menuItems.forEach((el) => el.classList.remove('is-active'));
+        menuItems[i]?.classList.add('is-active');
+      }
+    });
+  };
+
+  window.addEventListener('scroll', throttle(onScroll, 16), { passive: true });
+}
+
+// --- Курсор ---
+function initCursor() {
+  if (!DOM.cursor) return;
+  let clientX = 0, clientY = 0;
+  let maskSize = 0;
+  const cursor = DOM.cursor;
+
+  document.querySelectorAll('.cursorHide').forEach((item) => {
+    item.addEventListener('mouseover', () => {
+      cursor.classList.add('active-cursor');
+      maskSize = String(CONFIG.cursor.maskSizeActive);
+    });
+    item.addEventListener('mouseleave', () => {
+      cursor.classList.remove('active-cursor');
+      maskSize = 0;
+    });
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    clientX = e.clientX;
+    clientY = e.clientY;
+    cursor.classList.remove('hidden-cursor');
+    cursor.classList.add('visible-cursor');
+  });
+
   const render = () => {
-    innerCursor.style.transform = `translate(${clientX}px, ${clientY}px)`; 
-    document.querySelector('.maskedFirst').style.cssText = `--x:${clientX+15}px; --y:${clientY+this.scrollY}px;--sizeMask:${maskSize}rem`;  
+    cursor.style.transform = `translate(${clientX}px, ${clientY}px)`;
+    if (DOM.maskedFirst) {
+      DOM.maskedFirst.style.cssText = `--x:${clientX + 15}px; --y:${clientY + window.scrollY}px;--sizeMask:${maskSize}rem`;
+    }
     requestAnimationFrame(render);
   };
   requestAnimationFrame(render);
-};
-initCursor();
+}
 
-//Плавное изчезновение курсора за края документа
 document.body.addEventListener('mouseleave', () => {
-  innerCursor.classList.add('hidden-cursor');
-  innerCursor.classList.remove('visible-cursor');
-})
+  DOM.cursor?.classList.add('hidden-cursor');
+  DOM.cursor?.classList.remove('visible-cursor');
+});
 
-
-//Скрываем курсор на строках
-const links = document.querySelectorAll('.strokeAnimateItem');
-for (let i = 0; i < links.length; i++) {
-  links[i].addEventListener('mouseover', () => {
-    innerCursor.classList.add('active-cursor');
-  })
-  links[i].addEventListener('mouseleave', () => {
-    innerCursor.classList.remove('active-cursor');
-  })
+function bindCursorActive(selector) {
+  if (!DOM.cursor) return;
+  document.querySelectorAll(selector).forEach((el) => {
+    el.addEventListener('mouseover', () => DOM.cursor.classList.add('active-cursor'));
+    el.addEventListener('mouseleave', () => DOM.cursor.classList.remove('active-cursor'));
+  });
 }
+bindCursorActive('.strokeAnimateItem');
+bindCursorActive('.footerStroke');
 
-const foot = document.querySelectorAll('.footerStroke');
-for (let i = 0; i < foot.length; i++) {
-  foot[i].addEventListener('mouseover', () => {
-    innerCursor.classList.add('active-cursor');
-  })
-  foot[i].addEventListener('mouseleave', () => {
-    innerCursor.classList.remove('active-cursor');
-  })
-}
+// Меню — уменьшение курсора
+DOM.headerMenu?.addEventListener('mouseover', () => {
+  const s = DOM.cursor.style;
+  const c = CONFIG.cursor.headerSmall;
+  s.width = c.w; s.height = c.h; s.top = c.t; s.left = c.l;
+});
+DOM.headerMenu?.addEventListener('mouseleave', () => {
+  const s = DOM.cursor.style;
+  const c = CONFIG.cursor.headerNormal;
+  s.width = c.w; s.height = c.h; s.top = c.t; s.left = c.l;
+});
 
+// --- Магнитная кнопка ---
+function initMagnetic() {
+  let cur = false;
+  const offset = CONFIG.magnetic.offset;
 
+  document.body.addEventListener('mouseenter', (e) => {
+    if (e.target.classList.contains('magnetic') && !cur) {
+      const rect = e.target.getBoundingClientRect();
+      cur = { el: e.target, x: rect.left, y: rect.top };
+    }
+  }, true);
 
-//Уменьшение курсора в меню
-document.querySelector('.header_menu').addEventListener('mouseover', () => {
-  document.querySelector(".cursor").style.width = '0.3125rem';
-  document.querySelector(".cursor").style.top = '0.125rem';
-  document.querySelector(".cursor").style.height = '0.3125rem';
-  document.querySelector(".cursor").style.left = '0.125rem';
-})
-document.querySelector('.header_menu').addEventListener('mouseleave', () => {
-  document.querySelector(".cursor").style.width = '1.875rem';
-  document.querySelector(".cursor").style.top = '-1.0625rem';
-  document.querySelector(".cursor").style.height = '1.875rem';
-  document.querySelector(".cursor").style.left = '-0.9375rem';
-})
-
-
-
-
-
-//Магнитная кнопка
-//offset это расстояние от центра элемента, при котором будет происходить "разрыв" примагничивания.
-let offset = 33, cur = false;
-document.body.addEventListener('mouseenter', function(e) {
-  if(e.target.classList.contains('magnetic') && cur === false) {
-    cur = {
-        e: e.target,
-      x: e.target.getBoundingClientRect().left,
-      y: e.target.getBoundingClientRect().top
-    };
-  }
-}, true);
-
-document.addEventListener('mousemove', function(e) {
-  if(cur !== false) {
-    let x = (e.clientX - cur.x) - (cur.e.getBoundingClientRect().width / 2),
-            y = (e.clientY - cur.y) - (cur.e.getBoundingClientRect().height / 2);
-    cur.e.style.transform = `translate(${x}px,${y}px)`;
-    //
-    if(Math.abs(x) >= offset || Math.abs(y) >= offset) {
-        cur.e.style.transform = 'translate(0,0)';
+  document.addEventListener('mousemove', (e) => {
+    if (!cur) return;
+    const r = cur.el.getBoundingClientRect();
+    const x = (e.clientX - cur.x) - r.width / 2;
+    const y = (e.clientY - cur.y) - r.height / 2;
+    cur.el.style.transform = `translate(${x}px,${y}px)`;
+    if (Math.abs(x) >= offset || Math.abs(y) >= offset) {
+      cur.el.style.transform = 'translate(0,0)';
       cur = false;
     }
-  }
-});
-
-
-
-//Анимация при наведении на строки
-document.querySelectorAll('.strokeAnimateItem').forEach((item) => {
-  let ishover = item.querySelector('.texxt2');
-  item.addEventListener('mouseover', () => {
-    ishover.classList.add('texxt-hover')
-  })
-  item.addEventListener('mouseleave', () => {
-    ishover.classList.remove('texxt-hover');
-  })
-})
-
-document.querySelectorAll('.footerStroke').forEach((item) => {
-  let ishover = item.querySelector('.footerMask');
-  item.addEventListener('mouseover', () => {
-    ishover.classList.add('texxt-hover')
-  })
-  item.addEventListener('mouseleave', () => {
-    ishover.classList.remove('texxt-hover');
-  })
-})
-
-//Плавный скролл по меню
-const anchors = document.querySelectorAll('.header_menu_item a')
-for (let anchor of anchors) {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault()
-    const blockID = anchor.getAttribute('href').substr(1)
-    document.getElementById(blockID).scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    })
-  })
+  });
 }
 
-
-
-//Определение активного элемента меню
-window.addEventListener('scroll', () => {
-  document.querySelectorAll('.menuItemCont').forEach((item, i) => {
-    let sectionTop = item.getBoundingClientRect().top;
-    if (-item.offsetHeight < sectionTop -2 && sectionTop - 2 < 0) {
-      let elementMenu = document.querySelectorAll('.header_menu_item');
-      elementMenu.forEach((el) => {
-        if (el.classList.contains('is-active')) {
-          el.classList.remove('is-active')
-        }
-      })
-      elementMenu[i].classList.add('is-active');
-    }
-  })
+// --- Hover на строках ---
+document.querySelectorAll('.strokeAnimateItem').forEach((item) => {
+  const texxt = item.querySelector('.texxt2');
+  if (!texxt) return;
+  item.addEventListener('mouseover', () => texxt.classList.add('texxt-hover'));
+  item.addEventListener('mouseleave', () => texxt.classList.remove('texxt-hover'));
+});
+document.querySelectorAll('.footerStroke').forEach((item) => {
+  const mask = item.querySelector('.footerMask');
+  if (!mask) return;
+  item.addEventListener('mouseover', () => mask.classList.add('texxt-hover'));
+  item.addEventListener('mouseleave', () => mask.classList.remove('texxt-hover'));
 });
 
+// --- Навигация и лого ---
+DOM.logotype?.addEventListener('click', () => {
+  DOM.fstScrContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
+document.querySelectorAll('.header_menu_item a').forEach((anchor) => {
+  anchor.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = anchor.getAttribute('href')?.slice(1);
+    if (id) document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
 
-//3d сцена c луной
-let sceneMoon = new THREE.Scene();
-let cameraMoon = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-cameraMoon.position.z = 30; // Отдаление камеры
+// --- Three.js: Луна ---
+const sceneMoon = new THREE.Scene();
+const cameraMoon = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+cameraMoon.position.z = 30;
 
-let rendererMoon = new THREE.WebGLRenderer({ alpha: true } );
-rendererMoon.setClearColor( 0x000000, 0 );
+const rendererMoon = new THREE.WebGLRenderer({ alpha: true });
+rendererMoon.setClearColor(0x000000, 0);
 rendererMoon.setSize(innerWidth, innerHeight);
+rendererMoon.domElement.setAttribute('id', 'Church3DObj');
+document.querySelector('.model-container-moon')?.insertBefore(rendererMoon.domElement, document.querySelector('.model-container-moon').firstChild);
 
-rendererMoon.domElement.setAttribute("id", "Church3DObj");
-document.querySelector('.model-container-moon').insertBefore(rendererMoon.domElement, document.querySelector('.model-container-moon').firstChild);
-
-let controlsMoon = new THREE.OrbitControls(cameraMoon, rendererMoon.domElement);
-
+new THREE.OrbitControls(cameraMoon, rendererMoon.domElement);
 const aLightMoon = new THREE.DirectionalLight(0xffffff, 1.5);
 aLightMoon.position.setScalar(10);
 sceneMoon.add(aLightMoon, new THREE.AmbientLight(0xffffff, 0.5));
 
-let loaderMoon = new THREE.GLTFLoader();
-let objMoon = null;
-
-if (window.innerWidth > 768) {
-  loaderMoon.load('./3d/moon/moon.gltf', function(gltf) {
-    objMoon = gltf.scene;
-    sceneMoon.add(objMoon);
-  });
+if (window.innerWidth > CONFIG.feedback.mobileThreshold) {
+  new THREE.GLTFLoader().load('./3d/moon/moon.gltf', (gltf) => sceneMoon.add(gltf.scene));
 }
 
-rendererMoon.setAnimationLoop(_ => {
+const clockMoon = new THREE.Clock();
+rendererMoon.setAnimationLoop(() => {
+  sceneMoon.rotation.y = clockMoon.getElapsedTime() * CONFIG.three.moonRotationSpeed;
   rendererMoon.render(sceneMoon, cameraMoon);
-})
+});
 
+// --- Three.js: Наушники ---
+const sceneHeadset = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 33;
 
-//Вращение по скроллу
-window.onscroll = (e) => {
-  // sceneMoon.rotation.y = window.innerHeight + this.scrollY / 1500.0;
+const renderer = new THREE.WebGLRenderer({ alpha: true });
+renderer.setClearColor(0x000000, 0);
+renderer.setSize(innerWidth / 1.5, innerHeight / 1.5);
+renderer.domElement.setAttribute('id', 'Church3DObj');
+document.querySelector('.model-container-headset')?.insertBefore(renderer.domElement, document.querySelector('.model-container-headset').firstChild);
 
-  sceneHeadset.rotation.y = window.innerHeight + 700 + this.scrollY / 4000.0;
-  sceneHeadset.rotation.x = -this.scrollY / 5000.0;
-}
-
-
-
-//3d сцена c наушниками
-let sceneHeadset = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 33; // Отдаление камеры
-
-let renderer = new THREE.WebGLRenderer({ alpha: true } );
-renderer.setClearColor( 0x000000, 0 );
-renderer.setSize(innerWidth/1.5, innerHeight/1.5);
-
-renderer.domElement.setAttribute("id", "Church3DObj");
-document.querySelector('.model-container-headset').insertBefore(renderer.domElement, document.querySelector('.model-container-headset').firstChild);
-
-let controls = new THREE.OrbitControls(camera, renderer.domElement);
-
+new THREE.OrbitControls(camera, renderer.domElement);
 const aLight = new THREE.DirectionalLight(0xffffff, 1.5);
 aLight.position.setScalar(10);
 sceneHeadset.add(aLight, new THREE.AmbientLight(0xffffff, 0.5));
 
-let loader = new THREE.GLTFLoader();
-let obj = null;
-
-if (window.innerWidth > 768) {
-  loader.load('./3d/headset/headset.gltf', function(gltf) {
-    obj = gltf.scene;
-    sceneHeadset.add(obj);
-  });
+if (window.innerWidth > CONFIG.feedback.mobileThreshold) {
+  new THREE.GLTFLoader().load('./3d/headset/headset.gltf', (gltf) => sceneHeadset.add(gltf.scene));
 }
 
-
-renderer.setAnimationLoop(_ => {
-  renderer.render(sceneHeadset, camera);
-})
-
-
-
-//Инверсия при наведении
-function InverseItem (item) {
-  document.querySelector(item).addEventListener('mouseover', function () {
-    document.querySelector('.cursor').style.mixBlendMode = 'difference';
-  });
-  document.querySelector(item).addEventListener('mouseleave', function () {
-    document.querySelector('.cursor').style.mixBlendMode = 'normal';
-  });
-}
-
-InverseItem ('.net_works');
-InverseItem ('.logotype');
-InverseItem ('.prelogo');
-
-//Aнимация up-down наушников
 const clock = new THREE.Clock();
-let lastElaptedTime = 0;
+renderer.setAnimationLoop(() => {
+  sceneHeadset.position.y = Math.sin(clock.getElapsedTime() * CONFIG.three.headsetBobSpeed);
+  renderer.render(sceneHeadset, camera);
+});
 
-const tick = () => {
-  const elapsedTime = clock.getElapsedTime();
-  const deltaTime = elapsedTime - lastElaptedTime;
-  lastElaptedTime = elapsedTime;
+// Вращение наушников по скроллу
+window.addEventListener('scroll', throttle(() => {
+  const sy = window.scrollY;
+  sceneHeadset.rotation.y = window.innerHeight + 700 + sy / CONFIG.three.headsetScrollY;
+  sceneHeadset.rotation.x = -sy / CONFIG.three.headsetScrollX;
+}, 16), { passive: true });
 
-  if (!!sceneHeadset){
-    sceneHeadset.position.y = Math.sin(elapsedTime * 0.5);
-  }
-  renderer.render(sceneHeadset,camera)
+// --- CSS переменная скролла ---
+window.addEventListener('scroll', throttle(() => {
+  document.body.style.setProperty('--scrollTop', `${window.scrollY}px`);
+}, 16), { passive: true });
 
-  window.requestAnimationFrame(tick)
-}
-tick();
+// --- Инверсия курсора ---
+['.net_works', '.logotype', '.prelogo'].forEach((sel) => {
+  const el = document.querySelector(sel);
+  if (!el || !DOM.cursor) return;
+  el.addEventListener('mouseover', () => { DOM.cursor.style.mixBlendMode = 'difference'; });
+  el.addEventListener('mouseleave', () => { DOM.cursor.style.mixBlendMode = 'normal'; });
+});
 
-//Задаём переменную скролла для CSS
-window.addEventListener('scroll', e => {
-  document.body.style.cssText = `--scrollTop:${this.scrollY}px`
-})
+// --- Feedback: фиксированные аватарки ---
+window.addEventListener('scroll', throttle(() => {
+  const AvaCont = DOM.fbAvaCont;
+  const feedback = DOM.feedback;
+  if (!AvaCont || !feedback) return;
 
+  const scrollTop = feedback.getBoundingClientRect().top;
+  const ins = window.innerWidth <= CONFIG.feedback.mobileThreshold
+    ? CONFIG.feedback.stickRatioMobile
+    : CONFIG.feedback.stickRatio;
 
-
-//Aнимация вращения луны
-const clockMoon = new THREE.Clock();
-
-const moonRotation = () => {
-  const TimeTwo = clockMoon.getElapsedTime();
-
-  if (!!sceneMoon){
-    sceneMoon.rotation.y = TimeTwo * 0.05;
-  }
-
-  window.requestAnimationFrame(moonRotation);
-}
-moonRotation();
-
-
-//Фиксим аватарки при прокрутке
-window.addEventListener('scroll', e => {
-  const AvaCont = document.querySelector('.fbAvaCont');
-  const a = document.querySelector('#feedback')
-  let scrollContainer = a.getBoundingClientRect().top;
-  let ins = 0.55;
-
-  if (window.innerWidth <= 768) {
-    ins = 0.65;
-  }
-
-  if (scrollContainer <= 0) {
+  if (scrollTop <= 0) {
     AvaCont.style.position = 'fixed';
-    AvaCont.style.top = 0;
-    let offset = document.querySelector('#feedback').offsetHeight * ins;
-  
-    if (scrollContainer <= -offset) {
+    AvaCont.style.top = '0';
+    const offset = feedback.offsetHeight * ins;
+    if (scrollTop <= -offset) {
       AvaCont.style.position = 'absolute';
       AvaCont.style.transform = `translateY(${offset}px)`;
     } else {
@@ -469,43 +413,44 @@ window.addEventListener('scroll', e => {
     AvaCont.style.position = 'absolute';
     AvaCont.style.top = '0';
   }
-})
+}, 16), { passive: true });
 
-//Поведение аватаров
-window.addEventListener('scroll', e => {
-  let item = document.querySelector('.feedbackItem').getBoundingClientRect().top,
-  item2 = document.querySelector('.item2').getBoundingClientRect().top,
-  ava1 = document.querySelector('.ava1'),
-  ava2 = document.querySelector('.ava2'),
-  ava3 = document.querySelector('.ava3'),
-  topPos = '22rem', midPos = '30.2rem', botPos = '37.5rem', itt = 0;
+// --- Поведение аватаров ---
+window.addEventListener('scroll', throttle(() => {
+  const item = DOM.feedbackItem?.getBoundingClientRect().top ?? 0;
+  const item2 = DOM.item2?.getBoundingClientRect().top ?? 0;
+  const ava1 = DOM.ava1, ava2 = DOM.ava2, ava3 = DOM.ava3;
+  const arrow = DOM.arrowAv;
+  if (!ava1 || !ava2 || !ava3 || !arrow) return;
 
-  if (window.innerWidth <= 768) {
-    topPos = '53.5rem';
-    midPos = '78.2rem';
-    botPos = '103.5rem';
-    itt = 250;
-  }
+  const isMobile = window.innerWidth <= CONFIG.feedback.mobileThreshold;
+  const topPos = isMobile ? '53.5rem' : '22rem';
+  const midPos = isMobile ? '78.2rem' : '30.2rem';
+  const botPos = isMobile ? '103.5rem' : '37.5rem';
+  const itt = isMobile ? 250 : 0;
 
-  if (item <= 0 - itt) {
-    document.querySelector('.arrowAv').style.top = midPos;
+  if (item <= -itt) {
+    arrow.style.top = midPos;
     ava1.style.opacity = '0.3';
     ava2.style.opacity = '1';
-
-    if (item2 <= 0 - itt) {
-      document.querySelector('.arrowAv').style.top = botPos;
+    if (item2 <= -itt) {
+      arrow.style.top = botPos;
       ava2.style.opacity = '0.3';
       ava3.style.opacity = '1';
     } else {
-      document.querySelector('.arrowAv').style.top = midPos;
       ava2.style.opacity = '1';
       ava3.style.opacity = '0.3';
     }
-    
   } else {
     ava1.style.opacity = '1';
     ava2.style.opacity = '0.3';
-    document.querySelector('.arrowAv').style.top = topPos;
+    ava3.style.opacity = '0.3';
+    arrow.style.top = topPos;
   }
+}, 16), { passive: true });
 
-})
+// --- Инициализация ---
+initPreloader();
+initScrollEffects();
+initCursor();
+initMagnetic();
