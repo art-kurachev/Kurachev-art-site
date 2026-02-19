@@ -244,7 +244,11 @@
         </div>
       </div>
 
-      <video autoplay loop muted class="bgvideo">
+      <video loop muted playsinline webkit-playsinline
+        preload="none"
+        controlsList="nodownload nofullscreen noremoteplayback"
+        disablePictureInPicture
+        class="bgvideo">
         <source src="/video/Misc01.mp4" type="video/mp4"></source>
       </video>
     </div>

@@ -43,6 +43,8 @@ function playSound() {
 //Вход на сайт по кнопке
 document.querySelector('.preBtn').onclick = () => {
   let preloader = document.querySelector('.preloader');
+  const bgVideo = document.querySelector('.bgvideo');
+  if (bgVideo) bgVideo.play().catch(() => {});
 
   playSound();
   innerCursor.classList.add('active-cursor');
