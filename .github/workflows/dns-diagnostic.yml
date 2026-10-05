@@ -1,0 +1,30 @@
+name: Diagnose domain DNS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dns:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check public and authoritative DNS
+        shell: bash
+        run: |
+          name='_github-pages-challenge-art-kurachev.kurachev.art'
+          dig kurachev.art NS +time=5 +tries=1
+          for resolver in 1.1.1.1 8.8.8.8 9.9.9.9 ns1.reg.ru ns2.reg.ru; do
+            echo "Resolver: $resolver"
+            dig "@$resolver" "$name" TXT +time=5 +tries=1 || true
+            dig "@$resolver" "$name" TXT +tcp +time=5 +tries=1 || true
+          done
+          for ns in ns1.reg.ru ns2.reg.ru; do
+            for ip in $(dig +short "$ns" A); do
+              echo "Authoritative address: $ns $ip"
+              dig "@$ip" "$name" TXT +time=3 +tries=1 || true
+              dig "@$ip" "$name" TXT +tcp +time=3 +tries=1 || true
+            done
+          done
