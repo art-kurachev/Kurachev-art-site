@@ -181,13 +181,25 @@ const initCursor = () => {
   // используем requestAnimationFrame() для плавной работы
   const maskedFirst = document.querySelector('.maskedFirst');
   const baseFirst = document.querySelector('.cursorHide');
+  //На телефоне берём координаты пальца
+  const touchPos = (e) => {
+    clientX = e.touches[0].clientX;
+    clientY = e.touches[0].clientY;
+  };
+  document.addEventListener('touchstart', touchPos, { passive: true });
+  document.addEventListener('touchmove', touchPos, { passive: true });
+
   const render = () => {
     innerCursor.style.transform = `translate(${clientX}px, ${clientY}px)`;
-    const maskVars = `--x:${clientX+15}px; --y:${clientY+this.scrollY}px;--sizeMask:${maskSize}rem`;
+    //Пока координат нет, круг не показываем
+    const ready = clientX !== undefined;
+    const size = ready ? maskSize : 0;
+    const maskVars = `--x:${(clientX || 0)+15}px; --y:${(clientY || 0)+this.scrollY}px;--sizeMask:${size}rem`;
     maskedFirst.style.cssText = maskVars;
     //Тот же круг вырезаем в нижнем тексте, чтобы он не просвечивал по краям букв
     const mRect = maskedFirst.getBoundingClientRect(), bRect = baseFirst.getBoundingClientRect();
     baseFirst.style.cssText = `${maskVars}; --ox:${bRect.left - mRect.left}px; --oy:${bRect.top - mRect.top}px`;
+    baseFirst.classList.toggle('maskReady', ready);
     requestAnimationFrame(render);
   };
   requestAnimationFrame(render);

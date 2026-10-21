@@ -935,14 +935,14 @@ footer .h3Clip {
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Нижний текст первого экрана: вырезаем в нём круг маски */
-.cursorHide{
+/* Нижний текст первого экрана: вырезаем в нём круг маски (после первого движения курсора или касания) */
+.cursorHide.maskReady{
   -webkit-mask-image: url("../img/EllipseBG.svg"), linear-gradient(#000, #000);
   mask-image: url("../img/EllipseBG.svg"), linear-gradient(#000, #000);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: var(--sizeMask, 0rem), 100% 100%;
-  mask-size: var(--sizeMask, 0rem), 100% 100%;
+  -webkit-mask-size: var(--sizeMask, 0rem) var(--sizeMask, 0rem), 100% 100%;
+  mask-size: var(--sizeMask, 0rem) var(--sizeMask, 0rem), 100% 100%;
   -webkit-mask-position: calc(var(--x, 0px) - var(--ox, 0px) - var(--sizeMask, 0rem)/2) calc(var(--y, 0px) - var(--oy, 0px) - var(--sizeMask, 0rem)/2), 0 0;
   mask-position: calc(var(--x, 0px) - var(--ox, 0px) - var(--sizeMask, 0rem)/2) calc(var(--y, 0px) - var(--oy, 0px) - var(--sizeMask, 0rem)/2), 0 0;
   -webkit-mask-composite: xor;

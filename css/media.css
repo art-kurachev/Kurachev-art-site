@@ -109,7 +109,9 @@
     margin-bottom: 167rem !important;
   }
   #history .texxt3,
-  #history .texxt2{
+  #history .texxt2,
+  .sectionProjects .texxt3,
+  .sectionProjects .texxt2{
     box-sizing: border-box;
     font-size: 7rem;
     max-width: 100vw;
@@ -252,5 +254,33 @@
 @media screen and (max-width: 768px) {
   .projectPreview{
     display: none;
+  }
+}
+
+/* Мобильный: текст не вылезает за экран */
+@media screen and (max-width: 768px) {
+  .strokeAnimateItem h1,
+  .strokeAnimateItem2 h1{
+    box-sizing: border-box;
+  }
+  .about-text h2,
+  .myphoto-text h2{
+    font-size: 10.5em;
+  }
+  .sectionSkills .texxt2 b,
+  .sectionMoon .texxt2 b{
+    font-size: .85em;
+  }
+  /* «Design Systems» должно влезать в одну строку */
+  .sectionSkills .texxt,
+  .sectionSkills .texxt2{
+    font-size: 17rem;
+  }
+  /* Отзывы не заходят под колонку аватарок справа */
+  .feedbackItem{
+    width: 75%;
+  }
+  #feedback h2{
+    font-size: 8.5rem;
   }
 }
