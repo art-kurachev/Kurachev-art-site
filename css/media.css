@@ -248,3 +248,9 @@
     animation: rotating 10s linear infinite;
   }
 }
+/* Превью проектов только для мыши */
+@media screen and (max-width: 768px) {
+  .projectPreview{
+    display: none;
+  }
+}

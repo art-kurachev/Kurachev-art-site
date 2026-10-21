@@ -26,7 +26,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 32px;
-  border: 2px solid #B7AB98;
+  border: 2px solid #E9D4C3;
   opacity: 0;
   will-change: opacity, transform, background-color;
   transition: opacity .5s ease-out, transform .5s ease-out, background-color .5s ease-out;
@@ -42,7 +42,7 @@
   transition: .3s ease-out;
 }
 .preBtn:hover{
-  background-color: #B7AB98;
+  background-color: #E9D4C3;
 }
 .preBtn:hover .preTitle{
   color: #0D0D0D;
@@ -72,7 +72,7 @@
   transition-delay: .4s;
 }
 .prelogo:hover svg{
-  fill:#7800EA;
+  fill:var(--accent);
 }
 .prelogo .rotatelogo{
   right: 4px;
@@ -99,7 +99,7 @@
   top: -1.125rem;
   border-radius: 50%;
   z-index: 727;
-  background: #7800EA;
+  background: var(--accent);
   transition: transform .3s ease-out;
   opacity: 1;
   will-change: transform;
@@ -151,14 +151,14 @@
 .hr-text{
   width: 100%;
   height: 0.0625rem;
-  background-color: hsla(37,18%,66%,.15);;
+  background-color: rgba(233,212,195,.15);;
   margin: 0;
   border: none;
 }
 .texxt, .texxt2, .texxt3{
   width: 100%;
   display: inline-block;
-  color: #B7AB98;
+  color: #E9D4C3;
   font-family: var(--texxt);
   font-size: 8.135rem;
   font-style: normal;
@@ -190,7 +190,7 @@ section {
 .texxt-mask{
   color: #0D0D0D;
   position: absolute;
-  background: #7800EA;
+  background: var(--accent);
   transition: clip-path .4s cubic-bezier(.165,.84,.44,1),-webkit-clip-path .4s cubic-bezier(.165,.84,.44,1);
   clip-path: inset(50% 0 50% 0);
   pointer-events: none;
@@ -277,7 +277,7 @@ section {
       -webkit-transform .4s cubic-bezier(.165,.84,.44,1);
 }
 .header_menu_item_link__active {
-  color: #b7ab98;
+  color: #E9D4C3;
   position: absolute;
   right: 0;
   top: 0;
@@ -309,12 +309,12 @@ section {
   will-change: transform;
 }
 .magnetic svg{
-  fill: #B7AB98;
+  fill: #E9D4C3;
   -webkit-transition: fill .4s cubic-bezier(.165,.84,.44,1);
   transition: fill .4s cubic-bezier(.165,.84,.44,1);
 }
 .magnetic:hover svg{
-  fill:#7800EA;
+  fill:var(--accent);
 }
 .net_works{
   z-index: 5;
@@ -434,7 +434,7 @@ section {
   pointer-events: none;
   width: 100%;
   height: 100%;
-  background-color: #7800EA;
+  background-color: var(--accent);
   -webkit-mask-image: url("../img/EllipseBG.svg");
   mask-image: url("../img/EllipseBG.svg");
   -webkit-mask-repeat: no-repeat;
@@ -454,7 +454,7 @@ section {
   position: relative;
   z-index: 1;
   display: inline-block;
-  color: #B7AB98;
+  color: #E9D4C3;
   opacity: 0.4;
   font-family: var(--text-block);
   font-size: 5.3rem;
@@ -482,7 +482,7 @@ section {
 .motto-text h2 span,
 .fstScr-text h2 span,
 .about-text h2 span {
-  color: #7800EA;
+  color: var(--accent);
 }
 .mask-text-mp {
   position: absolute !important;
@@ -502,7 +502,7 @@ section {
 }
 .containerTitle{
   letter-spacing: .5em;
-  color: #B7AB98;
+  color: #E9D4C3;
   list-style: none;
   font-style: normal;
   font-weight: 700;
@@ -530,20 +530,20 @@ section {
 .preProc,
 .histRaw h4{
   padding-top: 1.25rem;
-  color: #B7AB98;
+  color: #E9D4C3;
   text-transform: initial;
   font-family: var(--text-block);
   font-size: 1.25rem;
   letter-spacing: .1em;
 }
 .mottoName:hover{
-  color: #7800EA;
+  color: var(--accent);
 }
 .leftKav,
 .rightKav{
   position: absolute;
   font-size: 8.135rem;
-  color: #7800EA; 
+  color: var(--accent); 
   font-family: var(--motto);
 }
 .leftKav{
@@ -701,7 +701,7 @@ footer .h3Clip {
   list-style: none;
   margin-left: 0.5em;
   position: relative;
-  color: #B7AB98;
+  color: #E9D4C3;
   font-size: 2rem;
   font-family: var(--text-block);
   font-weight: 700;
@@ -723,7 +723,7 @@ footer .h3Clip {
   top: 0;
   left: 0;
   color: #0D0D0D;
-  background-color: #7800EA;
+  background-color: var(--accent);
   clip-path: inset(50% 0 50% 0);
   will-change: clip-path;
   transition: clip-path .4s cubic-bezier(.165,.84,.44,1),-webkit-clip-path .4s cubic-bezier(.165,.84,.44,1);
@@ -781,7 +781,7 @@ footer .h3Clip {
   padding: 5rem 0;
 }
 .feedbackItem{
-  color: #B7AB98;
+  color: #E9D4C3;
   font-weight: 700;
   font-family: var(--text-block);
   font-size: 1.25rem;
@@ -904,3 +904,62 @@ footer .h3Clip {
 }
 
 
+
+/* Проекты */
+.sectionProjects{
+  align-items: flex-start;
+}
+.sectionProjects > a{
+  display: block;
+  width: 100%;
+}
+.projectPreview{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 26rem;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.85);
+  transition: opacity .3s ease-out, transform .3s ease-out;
+  will-change: transform, opacity;
+}
+.projectPreview img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.projectPreview.is-visible{
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Нижний текст первого экрана: вырезаем в нём круг маски */
+.cursorHide{
+  -webkit-mask-image: url("../img/EllipseBG.svg"), linear-gradient(#000, #000);
+  mask-image: url("../img/EllipseBG.svg"), linear-gradient(#000, #000);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: var(--sizeMask, 0rem), 100% 100%;
+  mask-size: var(--sizeMask, 0rem), 100% 100%;
+  -webkit-mask-position: calc(var(--x, 0px) - var(--ox, 0px) - var(--sizeMask, 0rem)/2) calc(var(--y, 0px) - var(--oy, 0px) - var(--sizeMask, 0rem)/2), 0 0;
+  mask-position: calc(var(--x, 0px) - var(--ox, 0px) - var(--sizeMask, 0rem)/2) calc(var(--y, 0px) - var(--oy, 0px) - var(--sizeMask, 0rem)/2), 0 0;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: -webkit-mask-position .3s cubic-bezier(0,.09,.65,1), -webkit-mask-size .3s cubic-bezier(0,.09,.65,1), mask-position .3s cubic-bezier(0,.09,.65,1), mask-size .3s cubic-bezier(0,.09,.65,1);
+}
+
+/* Жирность для шрифтов SONGER: ровная обводка вместо ложного bold браузера */
+.texxt, .texxt2, .texxt3,
+.histRaw,
+.fstScr-text h2,
+.motto-text h2,
+.containerTitle,
+.ul__reset{
+  -webkit-text-stroke: .035em currentColor;
+}
+.texxt p, .texxt2 p, .texxt3 p,
+.texxt h4, .texxt2 h4, .texxt3 h4{
+  -webkit-text-stroke: 0;
+}

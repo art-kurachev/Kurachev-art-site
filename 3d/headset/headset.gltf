@@ -529,7 +529,7 @@
       "uri": "textures/Speakers.1_metallicRoughness.png"
     },
     {
-      "uri": "textures/Speakers.1_emissive.jpeg"
+      "uri": "textures/Speakers.1_emissive_green.jpeg"
     }
   ],
   "materials": [

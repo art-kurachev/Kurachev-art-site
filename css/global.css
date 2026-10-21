@@ -1,5 +1,7 @@
 html{
   font-size: .8vw;
+  /* Шрифты уже жирные: запрещаем браузеру дорисовывать ложный bold */
+  font-synthesis: none;
 }
 
 body {
@@ -35,4 +37,6 @@ p, h2, h1, h3, h4, h5{
   --text-menu:'SONGER SE Medium';
   --motto: 'Avant Garde Std';
   --text-first:'SONGER SE Bold';
+  /* colors */
+  --accent: #7E8772;
 }

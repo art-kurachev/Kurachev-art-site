@@ -100,10 +100,13 @@ function StrokeMask (takeClass) {
   document.querySelectorAll(takeClass).forEach((item) => {
     window.addEventListener('scroll', function() {
 
+      //Заливка начинается, когда строка поднялась до 75% высоты экрана,
+      //и заканчивается на 45%: растянута на треть экрана, а не на 100px
       let  pepi = item.getBoundingClientRect().top;
-      let proc = window.innerHeight / 1.2 - pepi;
+      const start = window.innerHeight * 0.75,
+            end = window.innerHeight * 0.45;
+      let proc = (pepi - end) / (start - end) * 100;
 
-      proc = 100 - proc;
       proc = Math.max(0, Math.min(proc, 100));
       item.style.clipPath = 'inset(0 ' + proc + '% 0 0)';
     })
@@ -122,9 +125,11 @@ function strokeAnimate (className) {
   })
 }
 
-//Анимация цитаты
+//Анимация цитаты (запускаем один раз)
+let mottoShown = false;
 window.addEventListener('scroll', function(){
-  if (document.querySelector('.motto-text').getBoundingClientRect().top <= 670) {
+  if (!mottoShown && document.querySelector('.motto-text').getBoundingClientRect().top <= 670) {
+    mottoShown = true;
     strokeAnimate ('.motto-stroke');
     setTimeout( function() {
       strokeAnimate ('.leftKav');
@@ -174,9 +179,15 @@ const initCursor = () => {
 
   // преобразуем innerCursor в текущую позицию мыши
   // используем requestAnimationFrame() для плавной работы
+  const maskedFirst = document.querySelector('.maskedFirst');
+  const baseFirst = document.querySelector('.cursorHide');
   const render = () => {
-    innerCursor.style.transform = `translate(${clientX}px, ${clientY}px)`; 
-    document.querySelector('.maskedFirst').style.cssText = `--x:${clientX+15}px; --y:${clientY+this.scrollY}px;--sizeMask:${maskSize}rem`;  
+    innerCursor.style.transform = `translate(${clientX}px, ${clientY}px)`;
+    const maskVars = `--x:${clientX+15}px; --y:${clientY+this.scrollY}px;--sizeMask:${maskSize}rem`;
+    maskedFirst.style.cssText = maskVars;
+    //Тот же круг вырезаем в нижнем тексте, чтобы он не просвечивал по краям букв
+    const mRect = maskedFirst.getBoundingClientRect(), bRect = baseFirst.getBoundingClientRect();
+    baseFirst.style.cssText = `${maskVars}; --ox:${bRect.left - mRect.left}px; --oy:${bRect.top - mRect.top}px`;
     requestAnimationFrame(render);
   };
   requestAnimationFrame(render);
@@ -232,29 +243,39 @@ document.querySelector('.header_menu').addEventListener('mouseleave', () => {
 
 
 //Магнитная кнопка
-//offset это расстояние от центра элемента, при котором будет происходить "разрыв" примагничивания.
-let offset = 33, cur = false;
-document.body.addEventListener('mouseenter', function(e) {
-  if(e.target.classList.contains('magnetic') && cur === false) {
-    cur = {
-        e: e.target,
-      x: e.target.getBoundingClientRect().left,
-      y: e.target.getBoundingClientRect().top
-    };
-  }
-}, true);
+//reach это расстояние от края элемента, с которого он начинает тянуться к курсору.
+//pull это сила притяжения: какую часть пути до курсора проходит элемент.
+const magnetReach = 40, magnetPull = 0.35;
+const magnets = [...document.querySelectorAll('.magnetic')].map((el) => ({ el, x: 0, y: 0 }));
 
 document.addEventListener('mousemove', function(e) {
-  if(cur !== false) {
-    let x = (e.clientX - cur.x) - (cur.e.getBoundingClientRect().width / 2),
-            y = (e.clientY - cur.y) - (cur.e.getBoundingClientRect().height / 2);
-    cur.e.style.transform = `translate(${x}px,${y}px)`;
-    //
-    if(Math.abs(x) >= offset || Math.abs(y) >= offset) {
-        cur.e.style.transform = 'translate(0,0)';
-      cur = false;
+  magnets.forEach((m) => {
+    const rect = m.el.getBoundingClientRect();
+    //Центр элемента без учёта текущего смещения
+    const cx = rect.left + rect.width / 2 - m.x,
+          cy = rect.top + rect.height / 2 - m.y;
+    const dx = e.clientX - cx,
+          dy = e.clientY - cy;
+    const radius = Math.max(rect.width, rect.height) / 2 + magnetReach;
+
+    if (Math.hypot(dx, dy) < radius) {
+      m.x = dx * magnetPull;
+      m.y = dy * magnetPull;
+    } else {
+      m.x = 0;
+      m.y = 0;
     }
-  }
+    m.el.style.transform = `translate(${m.x}px,${m.y}px)`;
+  });
+});
+
+//Возвращаем кнопки на место, когда курсор уходит со страницы
+document.addEventListener('mouseleave', () => {
+  magnets.forEach((m) => {
+    m.x = 0;
+    m.y = 0;
+    m.el.style.transform = 'translate(0,0)';
+  });
 });
 
 
@@ -385,10 +406,6 @@ if (window.innerWidth > 768) {
 }
 
 
-renderer.setAnimationLoop(_ => {
-  renderer.render(sceneHeadset, camera);
-})
-
 
 
 //Инверсия при наведении
@@ -425,7 +442,23 @@ tick();
 
 //Задаём переменную скролла для CSS
 window.addEventListener('scroll', e => {
-  document.body.style.cssText = `--scrollTop:${this.scrollY}px`
+  document.body.style.setProperty('--scrollTop', `${this.scrollY}px`)
+})
+
+//Подгоняем 3D-сцены под новый размер окна
+window.addEventListener('resize', () => {
+  cameraMoon.aspect = window.innerWidth / window.innerHeight;
+  cameraMoon.updateProjectionMatrix();
+  rendererMoon.setSize(innerWidth, innerHeight);
+
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth/1.5, innerHeight/1.5);
+})
+
+//Пустые ссылки в футере не перезагружают страницу
+document.querySelectorAll('a[href=""]').forEach((link) => {
+  link.addEventListener('click', (e) => e.preventDefault());
 })
 
 
@@ -511,3 +544,22 @@ window.addEventListener('scroll', e => {
   }
 
 })
+
+//Превью проекта при наведении
+const projectPreview = document.querySelector('.projectPreview');
+const projectPreviewImg = projectPreview.querySelector('img');
+
+document.querySelectorAll('.projectLink').forEach((link) => {
+  link.addEventListener('mouseenter', () => {
+    projectPreviewImg.src = link.dataset.preview;
+    projectPreview.classList.add('is-visible');
+  });
+  link.addEventListener('mouseleave', () => {
+    projectPreview.classList.remove('is-visible');
+  });
+});
+
+document.addEventListener('mousemove', (e) => {
+  projectPreview.style.left = `${e.clientX}px`;
+  projectPreview.style.top = `${e.clientY}px`;
+});
