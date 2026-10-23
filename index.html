@@ -7,7 +7,7 @@
 
     <!-- Прямая ссылка на кейс: без прелоадера, главную закрываем чёрным до открытия поп-апа -->
     <script>
-      if (/^#case-(sum|planeta-erp|planeta-mobile)$/.test(location.hash)) {
+      if (/^#case-(sum|planeta-erp|planeta-mobile|tanceklass|unit-systems)$/.test(location.hash)) {
         document.documentElement.classList.add('skip-preloader', 'case-pending');
         //Страховка: если js/case-popup.js не загрузился, не держим чёрный экран.
         //Скрипт с defer открывает поп-ап до DOMContentLoaded, так что после него снимаем с запасом
@@ -529,7 +529,10 @@
         </div>
       </a>
       <hr class="hr-text">
-      <a href="https://www.behance.net/gallery/184011893/tancklass-shkola-tancev-(UXUI-Design)" target="_blank" rel="noopener" class="projectLink" data-preview="./img/projects/tanceklass.jpg">
+      <a href="#case-tanceklass" class="projectLink" data-case="tanceklass"
+        data-behance="https://www.behance.net/gallery/184011893/tancklass-shkola-tancev-(UXUI-Design)"
+        data-preview="./img/projects/tanceklass.jpg"
+        aria-haspopup="dialog" aria-label="Открыть кейс Танцкласс — школа танцев, 2023">
         <div class="strokeAnimateItem">
           <h1 class="texxt3 histRaw">
             <b>2o23</b>
@@ -548,7 +551,10 @@
         </div>
       </a>
       <hr class="hr-text">
-      <a href="https://www.behance.net/gallery/146313759/Unit-Systems-sorporate-Websites" target="_blank" rel="noopener" class="projectLink" data-preview="./img/projects/unit-systems.jpg">
+      <a href="#case-unit-systems" class="projectLink" data-case="unit-systems"
+        data-behance="https://www.behance.net/gallery/146313759/Unit-Systems-sorporate-Websites"
+        data-preview="./img/projects/unit-systems.jpg"
+        aria-haspopup="dialog" aria-label="Открыть кейс Unit Systems — Corporate Websites, 2022">
         <div class="strokeAnimateItem">
           <h1 class="texxt3 histRaw">
             <b>2o22</b>
@@ -1485,6 +1491,236 @@
           <div class="case-popup__actions">
             <a class="case-popup__btn case-popup__btn--primary" href="https://t.me/artkurachev" target="_blank" rel="noopener">Написать в Telegram<span class="visually-hidden">, откроется в новой вкладке</span></a>
             <a class="case-popup__btn case-popup__btn--secondary" href="https://www.behance.net/gallery/256313731/Planeta-Mobile-Product-Design-UXUI" target="_blank" rel="noopener">Смотреть на Behance<span class="visually-hidden">, откроется в новой вкладке</span></a>
+          </div>
+          <a class="case-popup__mail" href="mailto:art.kurachev@ya.ru">Написать на почту: art.kurachev@ya.ru</a>
+          <button type="button" class="case-popup__back">Вернуться к проектам</button>
+        </footer>
+      </div>
+      <p class="visually-hidden case-popup__live" aria-live="polite"></p>
+    </dialog>
+    <!-- Поп-ап кейса Танцкласс -->
+    <dialog id="case-tanceklass-dialog" class="case-popup" aria-labelledby="case-tanceklass-title">
+      <button type="button" class="case-popup__close" aria-label="Закрыть кейс" title="Закрыть (Esc)">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M3 3L17 17M17 3L3 17"/>
+        </svg>
+      </button>
+      <div class="case-popup__inner">
+        <header class="case-popup__head">
+          <img class="case-popup__avatar" src="./img/avatar.webp" width="40" height="40" alt="">
+          <div class="case-popup__titles">
+            <h1 id="case-tanceklass-title" class="case-popup__title" tabindex="-1">Танцкласс — сайт школы танцев</h1>
+            <p class="case-popup__author">Артём Курачев</p>
+          </div>
+        </header>
+        <div class="case-popup__canvas">
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/01-1440.webp"
+              srcset="./img/cases/tanceklass/01-960.webp 960w, ./img/cases/tanceklass/01-1440.webp 1440w, ./img/cases/tanceklass/01-1920.webp 1920w, ./img/cases/tanceklass/01-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="731" loading="lazy" decoding="async" fetchpriority="high"
+              alt="Обложка кейса: «Танцкласс» — первая школа танцев в Москве">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/02-1440.webp"
+              srcset="./img/cases/tanceklass/02-960.webp 960w, ./img/cases/tanceklass/02-1440.webp 1440w, ./img/cases/tanceklass/02-1920.webp 1920w, ./img/cases/tanceklass/02-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1719" loading="lazy" decoding="async"
+              alt="Главный экран сайта «Танцкласс» на десктопе и телефоне и общее описание проекта">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/03-1440.webp"
+              srcset="./img/cases/tanceklass/03-960.webp 960w, ./img/cases/tanceklass/03-1440.webp 1440w, ./img/cases/tanceklass/03-1920.webp 1920w, ./img/cases/tanceklass/03-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1465" loading="lazy" decoding="async"
+              alt="Расписание занятий, фильтры занятий и страница отдельной группы">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/04-1440.webp"
+              srcset="./img/cases/tanceklass/04-960.webp 960w, ./img/cases/tanceklass/04-1440.webp 1440w, ./img/cases/tanceklass/04-1920.webp 1920w, ./img/cases/tanceklass/04-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1085" loading="lazy" decoding="async"
+              alt="Карта сайта">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/05-1440.webp"
+              srcset="./img/cases/tanceklass/05-960.webp 960w, ./img/cases/tanceklass/05-1440.webp 1440w, ./img/cases/tanceklass/05-1920.webp 1920w, ./img/cases/tanceklass/05-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="2680" loading="lazy" decoding="async"
+              alt="Проблемы лендинга: старая версия лендинга и редизайн">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/06-1440.webp"
+              srcset="./img/cases/tanceklass/06-960.webp 960w, ./img/cases/tanceklass/06-1440.webp 1440w, ./img/cases/tanceklass/06-1920.webp 1920w, ./img/cases/tanceklass/06-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1440" loading="lazy" decoding="async"
+              alt="Элементы UI Kit: кнопки, поля, карточки и фильтры">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/07-1440.webp"
+              srcset="./img/cases/tanceklass/07-960.webp 960w, ./img/cases/tanceklass/07-1440.webp 1440w, ./img/cases/tanceklass/07-1920.webp 1920w, ./img/cases/tanceklass/07-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="4300" loading="lazy" decoding="async"
+              alt="Главная страница: десктоп 1920px и мобайл 320px">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/08-1440.webp"
+              srcset="./img/cases/tanceklass/08-960.webp 960w, ./img/cases/tanceklass/08-1440.webp 1440w, ./img/cases/tanceklass/08-1920.webp 1920w, ./img/cases/tanceklass/08-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1820" loading="lazy" decoding="async"
+              alt="Внутренние страницы: открытое меню, преподаватели и залы">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/09-1440.webp"
+              srcset="./img/cases/tanceklass/09-960.webp 960w, ./img/cases/tanceklass/09-1440.webp 1440w, ./img/cases/tanceklass/09-1920.webp 1920w, ./img/cases/tanceklass/09-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3350" loading="lazy" decoding="async"
+              alt="Внутренние страницы: события, новости и контакты">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/10-1440.webp"
+              srcset="./img/cases/tanceklass/10-960.webp 960w, ./img/cases/tanceklass/10-1440.webp 1440w, ./img/cases/tanceklass/10-1920.webp 1920w, ./img/cases/tanceklass/10-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="2300" loading="lazy" decoding="async"
+              alt="Страницы категории «Расписание»: общее расписание на десктопе и телефоне">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/11-1440.webp"
+              srcset="./img/cases/tanceklass/11-960.webp 960w, ./img/cases/tanceklass/11-1440.webp 1440w, ./img/cases/tanceklass/11-1920.webp 1920w, ./img/cases/tanceklass/11-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="4430" loading="lazy" decoding="async"
+              alt="Типовые страницы зала, группы, стиля, уровня подготовки, преподавателя и цен">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/tanceklass/12-1440.webp"
+              srcset="./img/cases/tanceklass/12-960.webp 960w, ./img/cases/tanceklass/12-1440.webp 1440w, ./img/cases/tanceklass/12-1920.webp 1920w, ./img/cases/tanceklass/12-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="444" loading="lazy" decoding="async"
+              alt="Спасибо за уделённое время моей работе! Kurachev Art">
+          </figure>
+        </div>
+        <footer class="case-popup__foot">
+          <h2 class="case-popup__foot-title">Танцкласс — сайт школы танцев</h2>
+          <p class="case-popup__foot-sub">UX/UI-дизайн · Website · 2023</p>
+          <p class="case-popup__foot-lead">Нужен продуктовый дизайнер в команду или на проект? Напишите — отвечу в течение дня.</p>
+          <div class="case-popup__actions">
+            <a class="case-popup__btn case-popup__btn--primary" href="https://t.me/artkurachev" target="_blank" rel="noopener">Написать в Telegram<span class="visually-hidden">, откроется в новой вкладке</span></a>
+            <a class="case-popup__btn case-popup__btn--secondary" href="https://www.behance.net/gallery/184011893/tancklass-shkola-tancev-(UXUI-Design)" target="_blank" rel="noopener">Смотреть на Behance<span class="visually-hidden">, откроется в новой вкладке</span></a>
+          </div>
+          <a class="case-popup__mail" href="mailto:art.kurachev@ya.ru">Написать на почту: art.kurachev@ya.ru</a>
+          <button type="button" class="case-popup__back">Вернуться к проектам</button>
+        </footer>
+      </div>
+      <p class="visually-hidden case-popup__live" aria-live="polite"></p>
+    </dialog>
+    <!-- Поп-ап кейса Unit Systems -->
+    <dialog id="case-unit-systems-dialog" class="case-popup" aria-labelledby="case-unit-systems-title">
+      <button type="button" class="case-popup__close" aria-label="Закрыть кейс" title="Закрыть (Esc)">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M3 3L17 17M17 3L3 17"/>
+        </svg>
+      </button>
+      <div class="case-popup__inner">
+        <header class="case-popup__head">
+          <img class="case-popup__avatar" src="./img/avatar.webp" width="40" height="40" alt="">
+          <div class="case-popup__titles">
+            <h1 id="case-unit-systems-title" class="case-popup__title" tabindex="-1">Unit Systems — корпоративные сайты</h1>
+            <p class="case-popup__author">Артём Курачев</p>
+          </div>
+        </header>
+        <div class="case-popup__canvas">
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/01-1440.webp"
+              srcset="./img/cases/unit-systems/01-960.webp 960w, ./img/cases/unit-systems/01-1440.webp 1440w, ./img/cases/unit-systems/01-1920.webp 1920w, ./img/cases/unit-systems/01-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1199" loading="lazy" decoding="async" fetchpriority="high"
+              alt="Обложка кейса Unit Systems: страницы корпоративных сайтов">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/02-1440.webp"
+              srcset="./img/cases/unit-systems/02-960.webp 960w, ./img/cases/unit-systems/02-1440.webp 1440w, ./img/cases/unit-systems/02-1920.webp 1920w, ./img/cases/unit-systems/02-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1143" loading="lazy" decoding="async"
+              alt="Unit Systems: о проекте и главный экран сайта">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/03-1440.webp"
+              srcset="./img/cases/unit-systems/03-960.webp 960w, ./img/cases/unit-systems/03-1440.webp 1440w, ./img/cases/unit-systems/03-1920.webp 1920w, ./img/cases/unit-systems/03-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="798" loading="lazy" decoding="async"
+              alt="Логотип Unit Systems на синем фоне">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/04-1440.webp"
+              srcset="./img/cases/unit-systems/04-960.webp 960w, ./img/cases/unit-systems/04-1440.webp 1440w, ./img/cases/unit-systems/04-1920.webp 1920w, ./img/cases/unit-systems/04-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1113" loading="lazy" decoding="async"
+              alt="Components: кнопки, поля и элементы интерфейса">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/05-1440.webp"
+              srcset="./img/cases/unit-systems/05-960.webp 960w, ./img/cases/unit-systems/05-1440.webp 1440w, ./img/cases/unit-systems/05-1920.webp 1920w, ./img/cases/unit-systems/05-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1091" loading="lazy" decoding="async"
+              alt="Типографика: шрифт Montserrat, SemiBold и Regular">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/06-1440.webp"
+              srcset="./img/cases/unit-systems/06-960.webp 960w, ./img/cases/unit-systems/06-1440.webp 1440w, ./img/cases/unit-systems/06-1920.webp 1920w, ./img/cases/unit-systems/06-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="640" loading="lazy" decoding="async"
+              alt="Цветовая палитра">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/07-1440.webp"
+              srcset="./img/cases/unit-systems/07-960.webp 960w, ./img/cases/unit-systems/07-1440.webp 1440w, ./img/cases/unit-systems/07-1920.webp 1920w, ./img/cases/unit-systems/07-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3278" loading="lazy" decoding="async"
+              alt="Unit Pages: главная страница на десктопе и телефоне">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/08-1440.webp"
+              srcset="./img/cases/unit-systems/08-960.webp 960w, ./img/cases/unit-systems/08-1440.webp 1440w, ./img/cases/unit-systems/08-1920.webp 1920w, ./img/cases/unit-systems/08-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="4200" loading="lazy" decoding="async"
+              alt="Внутренние страницы: о компании, услуги, блог, цены и контакты">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/09-1440.webp"
+              srcset="./img/cases/unit-systems/09-960.webp 960w, ./img/cases/unit-systems/09-1440.webp 1440w, ./img/cases/unit-systems/09-1920.webp 1920w, ./img/cases/unit-systems/09-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="2568" loading="lazy" decoding="async"
+              alt="Страница проекта 1С на десктопе и телефоне">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/10-1440.webp"
+              srcset="./img/cases/unit-systems/10-960.webp 960w, ./img/cases/unit-systems/10-1440.webp 1440w, ./img/cases/unit-systems/10-1920.webp 1920w, ./img/cases/unit-systems/10-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="911" loading="lazy" decoding="async"
+              alt="Формы обратной связи">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/11-1440.webp"
+              srcset="./img/cases/unit-systems/11-960.webp 960w, ./img/cases/unit-systems/11-1440.webp 1440w, ./img/cases/unit-systems/11-1920.webp 1920w, ./img/cases/unit-systems/11-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1239" loading="lazy" decoding="async"
+              alt="Unit Mobile: страницы сайта на телефоне">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/unit-systems/12-1440.webp"
+              srcset="./img/cases/unit-systems/12-960.webp 960w, ./img/cases/unit-systems/12-1440.webp 1440w, ./img/cases/unit-systems/12-1920.webp 1920w, ./img/cases/unit-systems/12-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1185" loading="lazy" decoding="async"
+              alt="Сайт Unit Systems на трёх телефонах">
+          </figure>
+        </div>
+        <footer class="case-popup__foot">
+          <h2 class="case-popup__foot-title">Unit Systems — корпоративные сайты</h2>
+          <p class="case-popup__foot-sub">UX/UI-дизайн · Corporate Websites · 2022</p>
+          <p class="case-popup__foot-lead">Нужен продуктовый дизайнер в команду или на проект? Напишите — отвечу в течение дня.</p>
+          <div class="case-popup__actions">
+            <a class="case-popup__btn case-popup__btn--primary" href="https://t.me/artkurachev" target="_blank" rel="noopener">Написать в Telegram<span class="visually-hidden">, откроется в новой вкладке</span></a>
+            <a class="case-popup__btn case-popup__btn--secondary" href="https://www.behance.net/gallery/146313759/Unit-Systems-sorporate-Websites" target="_blank" rel="noopener">Смотреть на Behance<span class="visually-hidden">, откроется в новой вкладке</span></a>
           </div>
           <a class="case-popup__mail" href="mailto:art.kurachev@ya.ru">Написать на почту: art.kurachev@ya.ru</a>
           <button type="button" class="case-popup__back">Вернуться к проектам</button>
