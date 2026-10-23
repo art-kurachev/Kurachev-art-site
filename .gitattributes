@@ -1,0 +1,4 @@
+# Dev-only files: keep them out of `git archive`, which the server uses to build releases
+.studio export-ignore
+CLAUDE.md export-ignore
+.gitattributes export-ignore
