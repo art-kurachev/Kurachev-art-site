@@ -11,4 +11,4 @@
 | 1 | Разбор поп-апа Behance: открытие, закрытие, URL, скролл, мобильная версия → .studio/ux/behance-popup.md | ux-designer | — | ✅ |
 | 2 | Флоу поп-апа для kurachev.art: точка входа, открытие и закрытие (крестик, Esc, фон, «назад»), deep link, блокировка скролла главной, edge cases → .studio/ux/case-popup-flow.md | ux-designer | 1 | ✅ |
 | 3 | Структура кейса СУМ: слайды из Figma, размеры, формат (WebP/текст) → .studio/ux/case-sum.md | ux-designer | — | ✅ |
-| 4 | Тексты интерфейса поп-апа и alt-тексты слайдов → дополнение к case-popup-flow.md | ux-designer | 2, 3 | ⬜ |
+| 4 | Тексты интерфейса поп-апа и alt-тексты слайдов → дополнение к case-popup-flow.md | ux-designer | 2, 3 | ✅ |
