@@ -1,5 +1,6 @@
 /* Поп-ап кейса (как на Behance). Логика: js/case-popup.js, флоу: .studio/ux/case-popup-flow.md
-   Размеры в px: у html font-size .8vw, rem тянется вместе с окном */
+   Размеры в px: у html font-size .8vw, rem тянется вместе с окном.
+   Размеры сняты с поп-апа Behance 2026-10-23: поля по 85px, полотно до 1400px, шапка 83px, крестик 35px */
 
 /* Прямая ссылка #case-sum: прелоадер не показываем, главную прячем до открытия поп-апа */
 .skip-preloader .preloader{
@@ -33,7 +34,7 @@ html.case-open .cursor{
   --case-text: #fff;
   --case-muted: rgba(255, 255, 255, .7);
   --case-subtle: rgba(255, 255, 255, .6);
-  --case-width: min(1400px, calc(100vw - 160px));
+  --case-width: min(1400px, calc(100vw - 170px));
   --case-ease: cubic-bezier(.2, .8, .2, 1);
 
   position: fixed;
@@ -108,17 +109,18 @@ html.case-open .cursor{
 /* Крестик: всегда в углу окна */
 .case-popup__close{
   position: fixed;
-  top: 24px;
-  right: 24px;
+  top: 10px;
+  right: 20px;
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   padding: 0;
   border: 0;
-  background: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .65);
   color: var(--case-text);
   transition: opacity .2s ease-out;
 }
@@ -127,6 +129,8 @@ html.case-open .cursor{
 }
 .case-popup__close svg{
   display: block;
+  width: 16px;
+  height: 16px;
 }
 
 .case-popup__inner{
@@ -139,15 +143,15 @@ html.case-open .cursor{
 .case-popup__head{
   display: flex;
   align-items: center;
-  height: 88px;
-  padding: 24px 0;
+  height: 83px;
+  padding: 20px 0;
   box-sizing: border-box;
 }
 .case-popup__avatar{
   flex: none;
   width: 40px;
   height: 40px;
-  margin-right: 12px;
+  margin-right: 10px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -156,8 +160,8 @@ html.case-open .cursor{
 }
 .case-popup__title{
   overflow: hidden;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 21px;
   font-weight: 700;
   color: var(--case-text);
   white-space: nowrap;
@@ -169,7 +173,7 @@ html.case-open .cursor{
 .case-popup__author{
   font-size: 14px;
   line-height: 18px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--case-muted);
 }
 
@@ -334,20 +338,8 @@ html.case-open .cursor{
   opacity: .6;
 }
 
-/* Полотно уже */
-@media screen and (max-width: 1279px) {
-  .case-popup{
-    --case-width: calc(100vw - 96px);
-  }
-}
-@media screen and (max-width: 1023px) {
-  .case-popup{
-    --case-width: calc(100vw - 48px);
-  }
-}
-
-/* Телефон: проект на весь экран, панель с названием закреплена сверху */
-@media screen and (max-width: 768px) {
+/* Планшет и телефон (как на Behance до 1024px): проект на весь экран, панель с названием закреплена сверху */
+@media screen and (max-width: 1024px) {
   .case-popup{
     --case-bg: #000;
     --case-width: 100%;
@@ -382,7 +374,12 @@ html.case-open .cursor{
     right: 4px;
     width: 44px;
     height: 44px;
+    background: none;
   }
+}
+
+/* Телефон */
+@media screen and (max-width: 768px) {
   .case-popup__foot{
     padding: 40px 16px;
   }
