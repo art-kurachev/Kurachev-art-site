@@ -9,8 +9,11 @@
     <script>
       if (location.hash === '#case-sum') {
         document.documentElement.classList.add('skip-preloader', 'case-pending');
-        //Страховка: если js/case-popup.js не загрузился, не держим чёрный экран
-        setTimeout(function () { document.documentElement.classList.remove('case-pending'); }, 4000);
+        //Страховка: если js/case-popup.js не загрузился, не держим чёрный экран.
+        //Скрипт с defer открывает поп-ап до DOMContentLoaded, так что после него снимаем с запасом
+        document.addEventListener('DOMContentLoaded', function () {
+          setTimeout(function () { document.documentElement.classList.remove('case-pending'); }, 500);
+        });
       }
     </script>
 
@@ -1196,7 +1199,7 @@
           <p class="case-popup__foot-lead">Нужен продуктовый дизайнер в команду или на проект? Напишите — отвечу в течение дня.</p>
           <div class="case-popup__actions">
             <a class="case-popup__btn case-popup__btn--primary" href="https://t.me/artkurachev" target="_blank" rel="noopener">Написать в Telegram<span class="visually-hidden">, откроется в новой вкладке</span></a>
-            <a class="case-popup__btn case-popup__btn--secondary" href="https://www.behance.net/gallery/257238445/sum-upravlenie-videostenoj-UXUI-Redesign" target="_blank" rel="noopener" data-case-behance>Смотреть на Behance<span class="visually-hidden">, откроется в новой вкладке</span></a>
+            <a class="case-popup__btn case-popup__btn--secondary" href="https://www.behance.net/gallery/257238445/sum-upravlenie-videostenoj-UXUI-Redesign" target="_blank" rel="noopener">Смотреть на Behance<span class="visually-hidden">, откроется в новой вкладке</span></a>
           </div>
           <a class="case-popup__mail" href="mailto:art.kurachev@ya.ru">Написать на почту: art.kurachev@ya.ru</a>
           <button type="button" class="case-popup__back">Вернуться к проектам</button>

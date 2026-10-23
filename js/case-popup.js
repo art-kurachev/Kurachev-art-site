@@ -32,6 +32,7 @@
   let state = 'closed'; // closed | opening | open | closing
   let lastTrigger = null;
   let openTimer = null;
+  let closeRequested = false; // history.back() уже вызван, ждём popstate
   let failCount = 0;
   let liveAnnounced = false;
 
@@ -73,7 +74,9 @@
 
   //Закрытие
   function requestClose() {
-    if (state !== 'open') return;
+    //Закрыть можно и во время анимации открытия. Повторный клик или Esc до popstate игнорируем
+    if ((state !== 'open' && state !== 'opening') || closeRequested) return;
+    closeRequested = true;
     if (isCaseState()) history.back(); // → popstate → syncFromURL → hideCase
     else {
       history.replaceState(null, '', location.pathname + location.search);
@@ -81,7 +84,7 @@
     }
   }
 
-  function hideCase({ alreadyClosed = false } = {}) {
+  function hideCase({ alreadyClosed = false, sync = true } = {}) {
     clearTimeout(openTimer);
     state = 'closing';
 
@@ -97,9 +100,10 @@
         lastTrigger.focus({ preventScroll: true });
       }
       lastTrigger = null;
+      closeRequested = false;
       state = 'closed';
       //Пока закрывались, могли нажать «вперёд»
-      syncFromURL();
+      if (sync) syncFromURL();
     };
 
     if (alreadyClosed) return finish();
@@ -136,6 +140,8 @@
 
   //Esc идёт через историю и анимацию
   dialog.addEventListener('cancel', (e) => {
+    //Без жеста пользователя Chrome не даёт отменить cancel и сам закроет диалог: это ловит close
+    if (!e.cancelable) return;
     e.preventDefault();
     requestClose();
   });
@@ -143,9 +149,13 @@
   //Диалог закрыл сам браузер (повторный Esc в Chrome, «назад» на Android)
   dialog.addEventListener('close', () => {
     if (dialog.open || (state !== 'open' && state !== 'opening')) return;
-    const back = isCaseState();
-    hideCase({ alreadyClosed: true });
-    if (back) history.back();
+    const backPending = closeRequested;
+    state = 'closing';
+    //Без syncFromURL: хеш ещё #case-sum, иначе поп-ап откроется снова
+    hideCase({ alreadyClosed: true, sync: false });
+    if (backPending) return; // history.back() уже вызван в requestClose
+    if (isCaseState()) history.back();
+    else if (location.hash === HASH) history.replaceState(null, '', location.pathname + location.search);
   });
 
   //Клик по тёмному фону: только если и нажали, и отпустили на самом фоне
