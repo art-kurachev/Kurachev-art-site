@@ -8,7 +8,7 @@
 - Скриншоты: /mnt/project-files/cases/phase4-shots/.
 
 Осталось:
-- Ручная проверка в Safari, iPhone, Firefox (пункты 5, 12, 13, 15 чек-листа case-popup-flow.md).
+- iPhone + Safari: Артём проверил 2026-10-23, всё чётко. Осталось: Firefox, Android, скринридеры (пункты 5, 13, 15 чек-листа case-popup-flow.md).
 - Цифры Behance записаны по памяти: сверить, когда в окружении разрешат behance.net.
 - Мелочи из ревью: курсор считает раскладку каждый кадр под поп-апом; scrollbar-gutter в Firefox; при 404 case-popup.js ссылка СУМ не работает.
 - Порядок Tab: первым идёт не крестик (фокус на h1).
