@@ -5,6 +5,11 @@ window.onbeforeunload = function () {
 
 // Прелоадер
 window.onload = function() {
+  //Прямая ссылка на кейс (#case-sum): прелоадер пропускаем, входим без звука
+  if (document.documentElement.classList.contains('skip-preloader')) {
+    enterSite({ sound: false });
+    return;
+  }
   document.body.style.overflowY = 'hidden';
   document.querySelector('.circleLoadItem').style.strokeDashoffset = '0';
   setTimeout(() => {
@@ -41,12 +46,15 @@ function playSound() {
 }
 
 //Вход на сайт по кнопке
-document.querySelector('.preBtn').onclick = () => {
+let siteEntered = false;
+function enterSite({ sound = true } = {}) {
   let preloader = document.querySelector('.preloader');
   const bgVideo = document.querySelector('.bgvideo');
-  if (bgVideo) bgVideo.play().catch(() => {});
+  siteEntered = true;
+  //Под открытым кейсом видео не запускаем, оно стартует после закрытия
+  if (bgVideo && !document.documentElement.classList.contains('case-open')) bgVideo.play().catch(() => {});
 
-  playSound();
+  if (sound) playSound();
   innerCursor.classList.add('active-cursor');
   document.querySelector('.prelogo').style.opacity = 0;
   document.querySelector('.preBtn').style.opacity = 0;
@@ -60,6 +68,7 @@ document.querySelector('.preBtn').onclick = () => {
     strokeAnimate ('.artkurachev');
   }, 800);
 }
+document.querySelector('.preBtn').onclick = () => enterSite();
 
 //Скролл наверх по лого
 document.querySelector('.logotype').onclick = () => {
@@ -374,9 +383,10 @@ if (window.innerWidth > 768) {
   });
 }
 
-rendererMoon.setAnimationLoop(_ => {
+const renderMoon = _ => {
   rendererMoon.render(sceneMoon, cameraMoon);
-})
+}
+rendererMoon.setAnimationLoop(renderMoon)
 
 
 //Вращение по скроллу
@@ -434,6 +444,23 @@ InverseItem ('.net_works');
 InverseItem ('.logotype');
 InverseItem ('.prelogo');
 
+//Пауза 3D и фонового видео, пока открыт кейс (события из js/case-popup.js)
+let casePaused = false;
+document.addEventListener('casepopup:open', () => {
+  const bgVideo = document.querySelector('.bgvideo');
+  casePaused = true;
+  rendererMoon.setAnimationLoop(null);
+  if (bgVideo && !bgVideo.paused) bgVideo.pause();
+  innerCursor.classList.add('hidden-cursor');
+});
+document.addEventListener('casepopup:close', () => {
+  const bgVideo = document.querySelector('.bgvideo');
+  casePaused = false;
+  rendererMoon.setAnimationLoop(renderMoon);
+  //Курсор появится сам на следующем движении мыши
+  if (bgVideo && siteEntered) bgVideo.play().catch(() => {});
+});
+
 //Aнимация up-down наушников
 const clock = new THREE.Clock();
 let lastElaptedTime = 0;
@@ -446,7 +473,7 @@ const tick = () => {
   if (!!sceneHeadset){
     sceneHeadset.position.y = Math.sin(elapsedTime * 0.5);
   }
-  renderer.render(sceneHeadset,camera)
+  if (!casePaused) renderer.render(sceneHeadset,camera)
 
   window.requestAnimationFrame(tick)
 }

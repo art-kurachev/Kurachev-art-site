@@ -5,14 +5,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
+    <!-- Прямая ссылка на кейс: без прелоадера, главную закрываем чёрным до открытия поп-апа -->
+    <script>
+      if (location.hash === '#case-sum') {
+        document.documentElement.classList.add('skip-preloader', 'case-pending');
+        //Страховка: если js/case-popup.js не загрузился, не держим чёрный экран
+        setTimeout(function () { document.documentElement.classList.remove('case-pending'); }, 4000);
+      }
+    </script>
+
     <!-- Стили -->
     <link rel="stylesheet" href="./css/global.css" />
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./fonts/fonts.css" />
     <link rel="stylesheet" href="./css/media.css" />
+    <link rel="stylesheet" href="./css/case-popup.css" />
 
     <!-- Скрипты -->
     <script type="text/javascript" src="./js/main.js" defer></script>
+    <script type="text/javascript" src="./js/case-popup.js" defer></script>
     
     <!-- Three.js -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
@@ -487,7 +498,10 @@
         </div>
       </a>
       <hr class="hr-text">
-      <a href="https://www.behance.net/gallery/257238445/sum-upravlenie-videostenoj-UXUI-Redesign" target="_blank" rel="noopener" class="projectLink" data-preview="./img/projects/sum.jpg">
+      <a href="#case-sum" class="projectLink" data-case="sum"
+        data-behance="https://www.behance.net/gallery/257238445/sum-upravlenie-videostenoj-UXUI-Redesign"
+        data-preview="./img/cases/sum/cover-1206.webp"
+        aria-haspopup="dialog" aria-label="Открыть кейс СУМ — Urban Intel, 2024">
         <div class="strokeAnimateItem">
           <h1 class="texxt3 histRaw">
             <b>2o24</b>
@@ -849,5 +863,346 @@
       
       <audio id="audio" src="./video/btn.mp3"></audio>
     </footer>
+
+    <!-- Поп-ап кейса СУМ (js/case-popup.js, css/case-popup.css) -->
+    <dialog id="case-sum-dialog" class="case-popup" aria-labelledby="case-sum-title">
+      <button type="button" class="case-popup__close" aria-label="Закрыть кейс" title="Закрыть (Esc)">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M3 3L17 17M17 3L3 17"/>
+        </svg>
+      </button>
+      <div class="case-popup__inner">
+        <header class="case-popup__head">
+          <img class="case-popup__avatar" src="./img/avatar.webp" width="40" height="40" alt="">
+          <div class="case-popup__titles">
+            <h1 id="case-sum-title" class="case-popup__title" tabindex="-1">СУМ — управление видеостеной</h1>
+            <p class="case-popup__author">Артём Курачев</p>
+          </div>
+        </header>
+        <div class="case-popup__canvas">
+          <figure class="case-slide">
+            <img src="./img/cases/sum/01-1440.webp"
+              srcset="./img/cases/sum/01-960.webp 960w, ./img/cases/sum/01-1440.webp 1440w, ./img/cases/sum/01-1920.webp 1920w, ./img/cases/sum/01-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1307" loading="lazy" decoding="async" fetchpriority="high"
+              alt="Обложка кейса СУМ: планшет с тёмным интерфейсом управления видеостеной лежит на синем бархате">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/02-1440.webp"
+              srcset="./img/cases/sum/02-960.webp 960w, ./img/cases/sum/02-1440.webp 1440w, ./img/cases/sum/02-1920.webp 1920w, ./img/cases/sum/02-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1210" loading="lazy" decoding="async"
+              alt="О проекте: СУМ — планшетное приложение для управления видеостеной ситуационного центра, 70+ экранов, 290+ состояний">
+            <div class="visually-hidden">
+              <p>О проекте. B2G · Tablet App · 70+ экранов · 290+ состояний · 4 раздела · 7 инструментов.</p>
+              <p>СУМ помогает докладчикам управлять видеостеной с одного планшета. Редизайн убрал лишнее, чтобы выводить материалы на экран можно было без подготовки.</p>
+              <p>Задача: пересобрать устаревшую систему: упростить навигацию, ускорить вывод материалов и заложить структуру для новых функций.</p>
+              <p>СУМ — система ситуационного центра. С планшета докладчики и операторы выводят на огромную видеостену презентации, дашборды, видео и трансляции — прямо во время выступления.</p>
+              <p>Я провёл полный редизайн продукта: от аудита и интервью до user flow, прототипов и UI Kit.</p>
+              <p>Детали.</p>
+              <ul>
+                <li>Проект: Система управления медиаконтентом</li>
+                <li>Отрасль: Ситуационный центр</li>
+                <li>Платформа: iPad · Desktop</li>
+                <li>Роль: Product designer, UX/UI</li>
+                <li>Срок: 4 месяца</li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/03-1440.webp"
+              srcset="./img/cases/sum/03-960.webp 960w, ./img/cases/sum/03-1440.webp 1440w, ./img/cases/sum/03-1920.webp 1920w, ./img/cases/sum/03-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="753" loading="lazy" decoding="async"
+              alt="Планшет с открытым суфлёром в руке и цитата спикера Андрея: «Во время доклада я смотрю на зал, а не в планшет. Интерфейс должен работать, пока я говорю»">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/04-1440.webp"
+              srcset="./img/cases/sum/04-960.webp 960w, ./img/cases/sum/04-1440.webp 1440w, ./img/cases/sum/04-1920.webp 1920w, ./img/cases/sum/04-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1295" loading="lazy" decoding="async"
+              alt="Проблемы и решение: четыре боли старого интерфейса и решение — запуск сценария в одно касание, тёмная тема, крупные цели касания">
+            <div class="visually-hidden">
+              <p>Проблемы и решение. Аудит UX · Боли докладчиков · Технический долг · Приоритизация.</p>
+              <p>Решаем проблемы через дизайн.</p>
+              <p>Проблемы:</p>
+              <ol>
+                <li>Хаос в навигации. Разделы без подписей и разные паттерны в каждом модуле. Чтобы вернуться к активному сценарию, докладчик искал плашку в шапке.</li>
+                <li>Долгая публикация.</li>
+                <li>Ошибки в прямом эфире.</li>
+                <li>Устаревший интерфейс.</li>
+              </ol>
+              <p>Решение: простой и понятный интерфейс, где сценарий запускается за одно касание, а статус «На экране» всегда виден. Интерфейс не спорит с видеостеной: тёмная тема, крупные превью и цели касания под палец.</p>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/05-1440.webp"
+              srcset="./img/cases/sum/05-960.webp 960w, ./img/cases/sum/05-1440.webp 1440w, ./img/cases/sum/05-1920.webp 1920w, ./img/cases/sum/05-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="753" loading="lazy" decoding="async"
+              alt="Панель навигации СУМ с иконками разделов и инструментов рядом с экраном «Статусы» на планшете">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/06-1440.webp"
+              srcset="./img/cases/sum/06-960.webp 960w, ./img/cases/sum/06-1440.webp 1440w, ./img/cases/sum/06-1920.webp 1920w, ./img/cases/sum/06-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1518" loading="lazy" decoding="async"
+              alt="Процесс за 4 месяца: таймлайн из четырёх этапов — исследование, концепция, проектирование и дизайн">
+            <div class="visually-hidden">
+              <p>Процесс. 4 месяца · Соло-проект · Research-first · Double Diamond.</p>
+              <p>Процесс, основанный на исследованиях, а не на догадках.</p>
+              <p>Я вёл проект один, поэтому этапы шли внахлёст: пока собирались прототипы, уже росла библиотека компонентов, а тесты сразу возвращали правки.</p>
+              <p>Методичный процесс · Решения на основе интервью · Тесты на каждом этапе · Итерации без потери темпа.</p>
+              <p>Таймлайн, 16 недель:</p>
+              <ol>
+                <li>Исследование, 3 недели: аудит и интервью с докладчиками (3 нед), анализ аналогов (3 нед).</li>
+                <li>Концепция, 4 недели: информационная архитектура (5 нед), user flow (4 нед).</li>
+                <li>Проектирование, 6 недель: прототипы ключевых сценариев (5 нед), юзабилити-тесты и итерации (5 нед).</li>
+                <li>Дизайн, 7 недель: UI и дизайн-система (5 нед), передача в разработку (3 нед).</li>
+              </ol>
+              <p>Веха: первые тесты.</p>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/07-1440.webp"
+              srcset="./img/cases/sum/07-960.webp 960w, ./img/cases/sum/07-1440.webp 1440w, ./img/cases/sum/07-1920.webp 1920w, ./img/cases/sum/07-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="807" loading="lazy" decoding="async"
+              alt="Окно мониторинга ГИС с графиками доступности четырёх систем, одна офлайн, и экран входа в СУМ">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/08-1440.webp"
+              srcset="./img/cases/sum/08-960.webp 960w, ./img/cases/sum/08-1440.webp 1440w, ./img/cases/sum/08-1920.webp 1920w, ./img/cases/sum/08-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1640" loading="lazy" decoding="async"
+              alt="Контекст: фото ситуационного центра с видеостеной и четыре сущности системы — презентация, статус, рабочий стол, инструменты">
+            <div class="visually-hidden">
+              <p>Контекст. Ситуационный центр · Видеостена · Live-режим.</p>
+              <p>Один планшет управляет экраном размером со стену.</p>
+              <p>Видеостена показывает сразу несколько источников: презентации, дашборды, камеры, видеосвязь. Всем этим управляют с планшета — прямо во время доклада.</p>
+              <ol>
+                <li>Презентация — эпизоды по порядку, как слайды.</li>
+                <li>Статус — до пяти колонок с плейлистами.</li>
+                <li>Рабочий стол — окна, камеры и ВКС в любом месте.</li>
+                <li>Инструменты — таймеры, суфлёр и ГИС поверх всего.</li>
+              </ol>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/09-1440.webp"
+              srcset="./img/cases/sum/09-960.webp 960w, ./img/cases/sum/09-1440.webp 1440w, ./img/cases/sum/09-1920.webp 1920w, ./img/cases/sum/09-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="624" loading="lazy" decoding="async"
+              alt="Поиск презентаций с фильтрами по темам и карточка презентации с эпизодами и превью окон видеостены">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/10-1440.webp"
+              srcset="./img/cases/sum/10-960.webp 960w, ./img/cases/sum/10-1440.webp 1440w, ./img/cases/sum/10-1920.webp 1920w, ./img/cases/sum/10-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1403" loading="lazy" decoding="async"
+              alt="User flow: схема навигации СУМ от пяти разделов к функциям и результату на видеостене, один тап до эфира">
+            <div class="visually-hidden">
+              <p>User flow. Сценарии · Навигация · 1 касание до эфира · ≤ 3 шага до цели · Модули · Состояния · Edge cases.</p>
+              <p>Понятный путь, который помогает сосредоточиться на докладе.</p>
+              <p>Схема по уровням: продукт → разделы → функции → действия → результат.</p>
+              <ul>
+                <li>Главная: недавние сценарии; запуск в одно касание → вывод на экран → на видеостене.</li>
+                <li>Презентации: эпизоды; режим редактирования → импорт, мультизамена, перестановка списком.</li>
+                <li>Статусы: раскладка → на видеостене; плейлист → тайминг материалов → на видеостене.</li>
+                <li>Библиотека: загрузки; общий доступ → права доступа.</li>
+                <li>Инструменты: таймер и секундомер, суфлёр → на видеостене.</li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/11-1440.webp"
+              srcset="./img/cases/sum/11-960.webp 960w, ./img/cases/sum/11-1440.webp 1440w, ./img/cases/sum/11-1920.webp 1920w, ./img/cases/sum/11-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1358" loading="lazy" decoding="async"
+              alt="UX-анализ: подробная схема user scenarios и user flow по всем разделам СУМ — от авторизации до таймера">
+            <div class="visually-hidden">
+              <p>UX-анализ · User Scenarios · User Flow.</p>
+              <p>Провёл детальный анализ системы и ключевых пользовательских сценариев, чтобы выявить UX-проблемы, упростить взаимодействие с интерфейсом и сократить путь пользователя к цели.</p>
+              <p>На схеме блоки: авторизация, библиотека рабочих столов, библиотека презентаций, редактирование эпизодов, библиотека статусов, кнопки сверху, панель инструментов, секундомер, таймер.</p>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/12-1440.webp"
+              srcset="./img/cases/sum/12-960.webp 960w, ./img/cases/sum/12-1440.webp 1440w, ./img/cases/sum/12-1920.webp 1920w, ./img/cases/sum/12-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1844" loading="lazy" decoding="async"
+              alt="Решение 01, главный экран: блок «Сейчас на экране» сверху, запуск в одно касание; запуск сценария в 3 раза быстрее">
+            <div class="visually-hidden">
+              <p>Решение 01. Главный экран · Статус эфира · Быстрый запуск.</p>
+              <p>Докладчик всегда видит, что сейчас на стене, и запускает нужное в одно касание.</p>
+              <p>Было: три одинаковых списка без приоритета. Чтобы понять, что идёт на видеостене, спикер уточнял у оператора.</p>
+              <p>Стало: блок «Сейчас на экране» показывает эфир сверху. Перейти к управлению эфиром, можно прямо с главного экрана, без долгого поиска.</p>
+              <ul>
+                <li>3× — быстрее запуск сценария</li>
+                <li>0 — переходов, чтобы проверить эфир</li>
+                <li>−40% — ошибок вывода на стену</li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/13-1440.webp"
+              srcset="./img/cases/sum/13-960.webp 960w, ./img/cases/sum/13-1440.webp 1440w, ./img/cases/sum/13-1920.webp 1920w, ./img/cases/sum/13-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="720" loading="lazy" decoding="async"
+              alt="Библиотека файлов с сортировкой и фильтрами по типу и окно добавления материала">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/14-1440.webp"
+              srcset="./img/cases/sum/14-960.webp 960w, ./img/cases/sum/14-1440.webp 1440w, ./img/cases/sum/14-1920.webp 1920w, ./img/cases/sum/14-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1681" loading="lazy" decoding="async"
+              alt="Решение 02, раскладка: у каждой раскладки видеостены мини-схема окон; ошибок «не та колонка» на 70% меньше">
+            <div class="visually-hidden">
+              <p>Решение 02. Раскладка · Видеостена · Превью · Заглушки.</p>
+              <p>Раскладку видеостены выбирают по превью, а не по названию.</p>
+              <p>Было: раскладки были списком названий: «Триптих», «Большая левая колонка». Что получится на стене, становилось понятно только после вывода.</p>
+              <p>Стало: у каждой раскладки мини-схема окон. Для каждого окна сразу видна заглушка, если материал не загрузился.</p>
+              <ul>
+                <li>6 — раскладок с наглядной схемой окон</li>
+                <li>2 касания — чтобы сменить раскладку в эпизоде</li>
+                <li>−70% — ошибок «не та колонка» на стене</li>
+              </ul>
+              <p>«Я наконец перестал путаться в приложении. Вижу схему — и сразу понимаю, где будет материал». Константин, оператор, участник интервью.</p>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/15-1440.webp"
+              srcset="./img/cases/sum/15-960.webp 960w, ./img/cases/sum/15-1440.webp 1440w, ./img/cases/sum/15-1920.webp 1920w, ./img/cases/sum/15-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1728" loading="lazy" decoding="async"
+              alt="Решение 03: суфлёр, таймер и секундомер открываются поверх эфира, не уводя докладчика из сценария">
+            <div class="visually-hidden">
+              <p>Решение 03. Суфлёр · Таймер · Секундомер · Поверх эфира · Без переключений.</p>
+              <p>Суфлёр и таймер работают поверх эфира — докладчику не нужно уходить из сценария.</p>
+              <ol>
+                <li>Текст крупно и в темпе. Размер шрифта и скорость прокрутки меняются одной кнопкой прямо во время доклада.</li>
+                <li>Таймер не закрывает эфир. Поп-ап у панели инструментов, контент под ним размыт, но читается.</li>
+                <li>Всё в одной точке. Суфлёр, таймер и секундомер вызываются из левой панели инструментов в любом режиме.</li>
+              </ol>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/16-1440.webp"
+              srcset="./img/cases/sum/16-960.webp 960w, ./img/cases/sum/16-1440.webp 1440w, ./img/cases/sum/16-1920.webp 1920w, ./img/cases/sum/16-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1759" loading="lazy" decoding="async"
+              alt="Решение 04: мониторинг ГИС и превью видеосвязи в том же интерфейсе, что и показ; упавшую систему видно меньше чем за 5 секунд">
+            <div class="visually-hidden">
+              <p>Решение 04. ГИС · ВКС · Статусы систем.</p>
+              <p>Мониторинг систем и трансляция — в том же интерфейсе, что и показ.</p>
+              <p>Мониторинг ГИС. Доступность систем за неделю видна сразу. Офлайн-система подсвечена красным ещё до выхода на стену.</p>
+              <ul>
+                <li>12 экранов — под контролем с планшета</li>
+              </ul>
+              <p>Превью трансляции ВКС. Карта из 13 экранов стены: выбрал экран — сразу видишь, что на нём идёт.</p>
+              <ul>
+                <li>&lt; 5 сек — чтобы заметить упавшую систему</li>
+                <li>1 интерфейс — вместо трёх отдельных приложений</li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/17-1440.webp"
+              srcset="./img/cases/sum/17-960.webp 960w, ./img/cases/sum/17-1440.webp 1440w, ./img/cases/sum/17-1920.webp 1920w, ./img/cases/sum/17-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1930" loading="lazy" decoding="async"
+              alt="Решение 05, голосование: опрос запускается на видеостене, участники входят по QR-коду и отвечают с телефонов">
+            <div class="visually-hidden">
+              <p>Решение 05. Голосование · QR-вход · Мобильный · Результаты онлайн.</p>
+              <p>Модуль голосование запускается на стене, а участники отвечают со своих телефонов.</p>
+              <ol>
+                <li>Создать за минуту. Вопросы, варианты ответов и баллы настраиваются прямо с планшета.</li>
+                <li>Войти по QR. Участники сканируют код со стены и сразу попадают в голосование.</li>
+                <li>Итоги в реальном времени. Сколько проголосовало и кто ответил верно — видно на стене и у ведущего.</li>
+              </ol>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/18-1440.webp"
+              srcset="./img/cases/sum/18-960.webp 960w, ./img/cases/sum/18-1440.webp 1440w, ./img/cases/sum/18-1920.webp 1920w, ./img/cases/sum/18-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1020" loading="lazy" decoding="async"
+              alt="Иконография: набор из 55 линейных иконок, линия 1,5 px, иконка 18 px в зоне касания 44 × 44 px">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/19-1440.webp"
+              srcset="./img/cases/sum/19-960.webp 960w, ./img/cases/sum/19-1440.webp 1440w, ./img/cases/sum/19-1920.webp 1920w, ./img/cases/sum/19-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1169" loading="lazy" decoding="async"
+              alt="Типографика: один шрифт Gilroy Regular и Medium на весь интерфейс, шкала 24, 18, 14 и 12 px">
+            <div class="visually-hidden">
+              <p>Типографика. Один шрифт для всего интерфейса.</p>
+              <p>Gilroy, Regular · Medium. Геометрический гротеск с крупными округлыми формами. Хорошо читается на планшете с расстояния вытянутой руки и поддерживает мягкую, скруглённую пластику интерфейса.</p>
+              <p>Шкала: H1 — 24, H2 — 18, Body — 14, Caption — 12.</p>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/20-1440.webp"
+              srcset="./img/cases/sum/20-960.webp 960w, ./img/cases/sum/20-1440.webp 1440w, ./img/cases/sum/20-1920.webp 1920w, ./img/cases/sum/20-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1473" loading="lazy" decoding="async"
+              alt="Палитра для работы в темноте: голубой акцент #059DCC, четыре оттенка чёрного, два серых и светлый">
+            <div class="visually-hidden">
+              <p>Палитра. 11 цветов · 1 акцент · 3 служебных.</p>
+              <p>Цвета, выбранные для работы в темноте.</p>
+              <ul>
+                <li>Акцент: HEX 059DCC, RGB 5 157 204</li>
+                <li>Чёрный №1: HEX 090909, RGB 9 9 9</li>
+                <li>Чёрный №2: HEX 141414, RGB 20 20 20</li>
+                <li>Чёрный №3: HEX 1D1D1D, RGB 29 29 29</li>
+                <li>Чёрный №4: HEX 2C2C2C, RGB 44 44 44</li>
+                <li>Серый №5: HEX 8D9196, RGB 141 145 150</li>
+                <li>Серый №6: HEX B3B3B3, RGB 179 179 179</li>
+                <li>Светлый: HEX F2F4F5, RGB 242 244 245</li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/21-1440.webp"
+              srcset="./img/cases/sum/21-960.webp 960w, ./img/cases/sum/21-1440.webp 1440w, ./img/cases/sum/21-1920.webp 1920w, ./img/cases/sum/21-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1053" loading="lazy" decoding="async"
+              alt="Система в цифрах: работает с 2021 года, 1 000+ мероприятий, 155 дней без остановки на выставке «Россия»">
+            <div class="visually-hidden">
+              <p>В цифрах. С 2021 года · Выставка «Россия» · Продакшн.</p>
+              <p>Система работает каждый день: на ней проходят заседания, выставки и трансляции.</p>
+              <ul>
+                <li>1 000+ — мероприятий проведено в системе</li>
+                <li>1 100+ — дней постоянной эксплуатации</li>
+                <li>155 дней — непрерывной работы на выставке «Россия»</li>
+                <li>700+ — сборок системы</li>
+                <li>235 000+ — человеко-часов разработки</li>
+                <li>5 474 463 — строк кода</li>
+                <li>30 минут — занимает обучение нового докладчика</li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/sum/22-1440.webp"
+              srcset="./img/cases/sum/22-960.webp 960w, ./img/cases/sum/22-1440.webp 1440w, ./img/cases/sum/22-1920.webp 1920w, ./img/cases/sum/22-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1000" loading="lazy" decoding="async"
+              alt="Спасибо за просмотр! Система управления медиаконтентом, UX/UI-кейс, 4 месяца, Tablet App. Автор kurachev.art, роль Product designer, UX/UI">
+          </figure>
+        </div>
+        <footer class="case-popup__foot">
+          <h2 class="case-popup__foot-title">СУМ — управление видеостеной</h2>
+          <p class="case-popup__foot-sub">UX/UI-редизайн · Tablet App · 2024</p>
+          <p class="case-popup__foot-lead">Нужен продуктовый дизайнер в команду или на проект? Напишите — отвечу в течение дня.</p>
+          <div class="case-popup__actions">
+            <a class="case-popup__btn case-popup__btn--primary" href="https://t.me/artkurachev" target="_blank" rel="noopener">Написать в Telegram<span class="visually-hidden">, откроется в новой вкладке</span></a>
+            <a class="case-popup__btn case-popup__btn--secondary" href="https://www.behance.net/gallery/257238445/sum-upravlenie-videostenoj-UXUI-Redesign" target="_blank" rel="noopener" data-case-behance>Смотреть на Behance<span class="visually-hidden">, откроется в новой вкладке</span></a>
+          </div>
+          <a class="case-popup__mail" href="mailto:art.kurachev@ya.ru">Написать на почту: art.kurachev@ya.ru</a>
+          <button type="button" class="case-popup__back">Вернуться к проектам</button>
+        </footer>
+      </div>
+      <p class="visually-hidden case-popup__live" aria-live="polite"></p>
+    </dialog>
   </body>
 </html>

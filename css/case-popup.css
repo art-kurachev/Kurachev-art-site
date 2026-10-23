@@ -1,0 +1,417 @@
+/* Поп-ап кейса (как на Behance). Логика: js/case-popup.js, флоу: .studio/ux/case-popup-flow.md
+   Размеры в px: у html font-size .8vw, rem тянется вместе с окном */
+
+/* Прямая ссылка #case-sum: прелоадер не показываем, главную прячем до открытия поп-апа */
+.skip-preloader .preloader{
+  display: none;
+}
+.case-pending body::after{
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 800;
+}
+
+/* Пока поп-ап открыт, главная не скроллится. scrollbar-gutter держит место скроллбара (Firefox), страница не сдвигается */
+html.case-open{
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+/* Кастомный курсор рисуется под диалогом: прячем, чтобы не просвечивал */
+html.case-open .cursor{
+  opacity: 0 !important;
+}
+
+.case-popup{
+  /* Токены поп-апа */
+  --case-bg: rgba(0, 0, 0, .9);
+  --case-canvas: #09090A;
+  --case-foot: #191919;
+  --case-brand: #E9D4C3;
+  --case-dark: #0D0D0D;
+  --case-text: #fff;
+  --case-muted: rgba(255, 255, 255, .7);
+  --case-subtle: rgba(255, 255, 255, .6);
+  --case-width: min(1400px, calc(100vw - 160px));
+  --case-ease: cubic-bezier(.2, .8, .2, 1);
+
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--case-bg);
+  color: var(--case-text);
+  font-family: var(--text-block), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.case-popup::backdrop{
+  background: transparent;
+}
+.case-popup:focus{
+  outline: none;
+}
+
+/* Внутри поп-апа нативный курсор (на сайте cursor: none) */
+.case-popup,
+.case-popup *{
+  cursor: auto;
+}
+.case-popup a,
+.case-popup button{
+  cursor: pointer !important;
+}
+.case-popup :focus-visible{
+  outline: 2px solid var(--case-brand);
+  outline-offset: 3px;
+}
+
+/* Анимация открытия и закрытия */
+.case-popup[open]{
+  animation: casePopupFade .2s ease-out;
+}
+.case-popup[open] .case-popup__inner{
+  animation: casePopupRise .3s var(--case-ease) .05s both;
+}
+.case-popup.is-closing{
+  animation: casePopupFadeOut .2s ease-in forwards;
+}
+.case-popup.is-closing[open] .case-popup__inner{
+  animation: none;
+}
+/* Прямая ссылка: без анимации */
+.case-popup.no-anim[open],
+.case-popup.no-anim[open] .case-popup__inner{
+  animation: none;
+}
+@keyframes casePopupFade{
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes casePopupFadeOut{
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes casePopupRise{
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Крестик: всегда в углу окна */
+.case-popup__close{
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--case-text);
+  transition: opacity .2s ease-out;
+}
+.case-popup__close:hover{
+  opacity: .7;
+}
+.case-popup__close svg{
+  display: block;
+}
+
+.case-popup__inner{
+  width: var(--case-width);
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+/* Шапка над полотном */
+.case-popup__head{
+  display: flex;
+  align-items: center;
+  height: 88px;
+  padding: 24px 0;
+  box-sizing: border-box;
+}
+.case-popup__avatar{
+  flex: none;
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.case-popup__titles{
+  min-width: 0;
+}
+.case-popup__title{
+  overflow: hidden;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  color: var(--case-text);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.case-popup__title:focus{
+  outline: none;
+}
+.case-popup__author{
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--case-muted);
+}
+
+/* Полотно: слайды стопкой, без зазоров */
+.case-popup__canvas{
+  background: var(--case-canvas);
+  line-height: 0;
+}
+.case-slide{
+  position: relative;
+  margin: 0;
+}
+.case-slide img{
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+.case-slide.is-loaded img{
+  opacity: 1;
+}
+
+/* Слайд не загрузился: блок той же пропорции, растёт, если текст не влез */
+.case-slide.is-failed img{
+  display: none;
+}
+.case-slide__error{
+  display: none;
+}
+.case-slide.is-failed .case-slide__error{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 24px;
+  box-sizing: border-box;
+  line-height: normal;
+  text-align: center;
+}
+.case-slide__error-title{
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--case-muted);
+}
+.case-slide__error-text{
+  max-width: 420px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--case-subtle);
+}
+.case-slide__error-actions{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-top: 4px;
+}
+
+/* Футер под полотном (перебиваем общие стили footer из style.css) */
+.case-popup__foot{
+  position: static;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 56px 40px;
+  background-color: var(--case-foot);
+  text-align: center;
+}
+.case-popup__foot-title{
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 700;
+  color: var(--case-text);
+}
+.case-popup__foot-sub{
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--case-subtle);
+}
+.case-popup__foot-lead{
+  max-width: 520px;
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--case-muted);
+}
+.case-popup__actions{
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+.case-popup__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 28px;
+  box-sizing: border-box;
+  border: 2px solid var(--case-brand);
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color .3s ease-out, color .3s ease-out;
+}
+.case-popup__btn--primary{
+  background-color: var(--case-brand);
+  color: var(--case-dark);
+}
+.case-popup__btn--primary:hover{
+  background-color: transparent;
+  color: var(--case-brand);
+}
+.case-popup__btn--secondary{
+  background-color: transparent;
+  color: var(--case-brand);
+}
+.case-popup__btn--secondary:hover{
+  background-color: var(--case-brand);
+  color: var(--case-dark);
+}
+.case-popup__mail,
+.case-popup__back,
+.case-slide__retry,
+.case-slide__behance{
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--case-brand);
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+.case-popup__mail{
+  margin-top: 20px;
+}
+.case-popup__back{
+  margin-top: 28px;
+  color: var(--case-muted);
+}
+.case-popup__mail:hover,
+.case-popup__back:hover,
+.case-slide__retry:hover,
+.case-slide__behance:hover{
+  color: var(--case-text);
+}
+.case-slide__retry[disabled]{
+  cursor: progress !important;
+  opacity: .6;
+}
+
+/* Полотно уже */
+@media screen and (max-width: 1279px) {
+  .case-popup{
+    --case-width: calc(100vw - 96px);
+  }
+}
+@media screen and (max-width: 1023px) {
+  .case-popup{
+    --case-width: calc(100vw - 48px);
+  }
+}
+
+/* Телефон: проект на весь экран, панель с названием закреплена сверху */
+@media screen and (max-width: 768px) {
+  .case-popup{
+    --case-bg: #000;
+    --case-width: 100%;
+  }
+  .case-popup__inner{
+    padding-bottom: 0;
+  }
+  .case-popup__head{
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    height: 56px;
+    padding: 0 52px 0 16px;
+    background: #000;
+  }
+  .case-popup__avatar{
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+  }
+  .case-popup__title{
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+  }
+  .case-popup__author{
+    display: none;
+  }
+  /* Крестик стоит в правой части панели */
+  .case-popup__close{
+    top: 6px;
+    right: 4px;
+    width: 44px;
+    height: 44px;
+  }
+  .case-popup__foot{
+    padding: 40px 16px;
+  }
+  .case-popup__foot-title{
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .case-popup__actions{
+    flex-direction: column;
+    align-self: stretch;
+  }
+  .case-popup__btn{
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-popup[open]{
+    animation-duration: .15s;
+  }
+  .case-popup[open] .case-popup__inner{
+    animation: casePopupFade .15s ease-out both;
+  }
+  .case-popup.is-closing{
+    animation-duration: .15s;
+  }
+  .case-slide img,
+  .case-popup__close,
+  .case-popup__btn{
+    transition: none;
+  }
+}
