@@ -5,7 +5,7 @@ window.onbeforeunload = function () {
 
 // Прелоадер
 window.onload = function() {
-  //Прямая ссылка на кейс (#case-sum): прелоадер пропускаем, входим без звука
+  //Прямая ссылка на кейс (#case-…): прелоадер пропускаем, входим без звука
   if (document.documentElement.classList.contains('skip-preloader')) {
     enterSite({ sound: false });
     return;

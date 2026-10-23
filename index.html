@@ -7,7 +7,7 @@
 
     <!-- Прямая ссылка на кейс: без прелоадера, главную закрываем чёрным до открытия поп-апа -->
     <script>
-      if (location.hash === '#case-sum') {
+      if (/^#case-(sum|planeta-erp|planeta-mobile)$/.test(location.hash)) {
         document.documentElement.classList.add('skip-preloader', 'case-pending');
         //Страховка: если js/case-popup.js не загрузился, не держим чёрный экран.
         //Скрипт с defer открывает поп-ап до DOMContentLoaded, так что после него снимаем с запасом
@@ -463,7 +463,10 @@
         <h3 class="containerTitle">Projects</h3>
       </div>
       <hr class="hr-text">
-      <a href="https://www.behance.net/gallery/256672939/Planeta-Enterprise-ERP-Platform-UXUI-Case-Study" target="_blank" rel="noopener" class="projectLink" data-preview="./img/projects/planeta-erp.jpg">
+      <a href="#case-planeta-erp" class="projectLink" data-case="planeta-erp"
+        data-behance="https://www.behance.net/gallery/256672939/Planeta-Enterprise-ERP-Platform-UXUI-Case-Study"
+        data-preview="./img/projects/planeta-erp.jpg"
+        aria-haspopup="dialog" aria-label="Открыть кейс Planeta ERP — Bestcon, 2026">
         <div class="strokeAnimateItem">
           <h1 class="texxt3 histRaw">
             <b>2o26</b>
@@ -482,7 +485,10 @@
         </div>
       </a>
       <hr class="hr-text">
-      <a href="https://www.behance.net/gallery/256313731/Planeta-Mobile-Product-Design-UXUI" target="_blank" rel="noopener" class="projectLink" data-preview="./img/projects/planeta-mobile.jpg">
+      <a href="#case-planeta-mobile" class="projectLink" data-case="planeta-mobile"
+        data-behance="https://www.behance.net/gallery/256313731/Planeta-Mobile-Product-Design-UXUI"
+        data-preview="./img/projects/planeta-mobile.jpg"
+        aria-haspopup="dialog" aria-label="Открыть кейс Planeta Mobile — Bestcon, 2026">
         <div class="strokeAnimateItem">
           <h1 class="texxt3 histRaw">
             <b>2o26</b>
@@ -1200,6 +1206,285 @@
           <div class="case-popup__actions">
             <a class="case-popup__btn case-popup__btn--primary" href="https://t.me/artkurachev" target="_blank" rel="noopener">Написать в Telegram<span class="visually-hidden">, откроется в новой вкладке</span></a>
             <a class="case-popup__btn case-popup__btn--secondary" href="https://www.behance.net/gallery/257238445/sum-upravlenie-videostenoj-UXUI-Redesign" target="_blank" rel="noopener">Смотреть на Behance<span class="visually-hidden">, откроется в новой вкладке</span></a>
+          </div>
+          <a class="case-popup__mail" href="mailto:art.kurachev@ya.ru">Написать на почту: art.kurachev@ya.ru</a>
+          <button type="button" class="case-popup__back">Вернуться к проектам</button>
+        </footer>
+      </div>
+      <p class="visually-hidden case-popup__live" aria-live="polite"></p>
+    </dialog>
+    <!-- Поп-ап кейса Planeta ERP -->
+    <dialog id="case-planeta-erp-dialog" class="case-popup" aria-labelledby="case-planeta-erp-title">
+      <button type="button" class="case-popup__close" aria-label="Закрыть кейс" title="Закрыть (Esc)">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M3 3L17 17M17 3L3 17"/>
+        </svg>
+      </button>
+      <div class="case-popup__inner">
+        <header class="case-popup__head">
+          <img class="case-popup__avatar" src="./img/avatar.webp" width="40" height="40" alt="">
+          <div class="case-popup__titles">
+            <h1 id="case-planeta-erp-title" class="case-popup__title" tabindex="-1">Planeta ERP — корпоративная система</h1>
+            <p class="case-popup__author">Артём Курачев</p>
+          </div>
+        </header>
+        <div class="case-popup__canvas">
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/01-1440.webp"
+              srcset="./img/cases/planeta-erp/01-960.webp 960w, ./img/cases/planeta-erp/01-1440.webp 1440w, ./img/cases/planeta-erp/01-1920.webp 1920w, ./img/cases/planeta-erp/01-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1367" loading="lazy" decoding="async" fetchpriority="high"
+              alt="Обложка кейса Planeta ERP: UX/UI-дизайн корпоративной системы для строительной компании">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/02-1440.webp"
+              srcset="./img/cases/planeta-erp/02-960.webp 960w, ./img/cases/planeta-erp/02-1440.webp 1440w, ./img/cases/planeta-erp/02-1920.webp 1920w, ./img/cases/planeta-erp/02-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3264" loading="lazy" decoding="async"
+              alt="О проекте: «Планета» — корпоративная система для управления проектами, финансами, снабжением и документами строительной компании">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/03-1440.webp"
+              srcset="./img/cases/planeta-erp/03-960.webp 960w, ./img/cases/planeta-erp/03-1440.webp 1440w, ./img/cases/planeta-erp/03-1920.webp 1920w, ./img/cases/planeta-erp/03-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="4723" loading="lazy" decoding="async"
+              alt="От заказа материалов до приёмки на объекте: ключевые UX-решения и единая рабочая область вместо канбан-доски">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/04-1440.webp"
+              srcset="./img/cases/planeta-erp/04-960.webp 960w, ./img/cases/planeta-erp/04-1440.webp 1440w, ./img/cases/planeta-erp/04-1920.webp 1920w, ./img/cases/planeta-erp/04-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3176" loading="lazy" decoding="async"
+              alt="Создание заявки — с 30 до 7 минут: заявка материала с объекта и контроль снабжения">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/05-1440.webp"
+              srcset="./img/cases/planeta-erp/05-960.webp 960w, ./img/cases/planeta-erp/05-1440.webp 1440w, ./img/cases/planeta-erp/05-1920.webp 1920w, ./img/cases/planeta-erp/05-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3694" loading="lazy" decoding="async"
+              alt="От письма поставщику до сравнения счетов: переписка в контексте закупки и сравнение позиций">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/06-1440.webp"
+              srcset="./img/cases/planeta-erp/06-960.webp 960w, ./img/cases/planeta-erp/06-1440.webp 1440w, ./img/cases/planeta-erp/06-1920.webp 1920w, ./img/cases/planeta-erp/06-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="2950" loading="lazy" decoding="async"
+              alt="Почта внутри рабочей системы: из письма — в рабочий процесс">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/07-1440.webp"
+              srcset="./img/cases/planeta-erp/07-960.webp 960w, ./img/cases/planeta-erp/07-1440.webp 1440w, ./img/cases/planeta-erp/07-1920.webp 1920w, ./img/cases/planeta-erp/07-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3260" loading="lazy" decoding="async"
+              alt="Обсуждения рядом с рабочими данными: запрос клиента в данных сделки и совместное обсуждение">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/08-1440.webp"
+              srcset="./img/cases/planeta-erp/08-960.webp 960w, ./img/cases/planeta-erp/08-1440.webp 1440w, ./img/cases/planeta-erp/08-1920.webp 1920w, ./img/cases/planeta-erp/08-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3952" loading="lazy" decoding="async"
+              alt="Звонки, совместная работа и общение: от исследования к рабочему сценарию">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/09-1440.webp"
+              srcset="./img/cases/planeta-erp/09-960.webp 960w, ./img/cases/planeta-erp/09-1440.webp 1440w, ./img/cases/planeta-erp/09-1920.webp 1920w, ./img/cases/planeta-erp/09-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="4649" loading="lazy" decoding="async"
+              alt="Три итерации создания заявки: от заполнения каждого материала заново к нескольким материалам сразу">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/10-1440.webp"
+              srcset="./img/cases/planeta-erp/10-960.webp 960w, ./img/cases/planeta-erp/10-1440.webp 1440w, ./img/cases/planeta-erp/10-1920.webp 1920w, ./img/cases/planeta-erp/10-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="5934" loading="lazy" decoding="async"
+              alt="Дизайн-система для рабочих сценариев: шрифт Inter, цвета, компоненты и состояния">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/11-1440.webp"
+              srcset="./img/cases/planeta-erp/11-960.webp 960w, ./img/cases/planeta-erp/11-1440.webp 1440w, ./img/cases/planeta-erp/11-1920.webp 1920w, ./img/cases/planeta-erp/11-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1985" loading="lazy" decoding="async"
+              alt="За рамками этого кейса: что осталось за кадром">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-erp/12-1440.webp"
+              srcset="./img/cases/planeta-erp/12-960.webp 960w, ./img/cases/planeta-erp/12-1440.webp 1440w, ./img/cases/planeta-erp/12-1920.webp 1920w, ./img/cases/planeta-erp/12-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="830" loading="lazy" decoding="async"
+              alt="Спасибо за просмотр! Корпоративная «Планета», UX/UI-кейс, 2026">
+          </figure>
+        </div>
+        <footer class="case-popup__foot">
+          <h2 class="case-popup__foot-title">Planeta ERP — корпоративная система</h2>
+          <p class="case-popup__foot-sub">UX/UI-дизайн · Web App · 2026</p>
+          <p class="case-popup__foot-lead">Нужен продуктовый дизайнер в команду или на проект? Напишите — отвечу в течение дня.</p>
+          <div class="case-popup__actions">
+            <a class="case-popup__btn case-popup__btn--primary" href="https://t.me/artkurachev" target="_blank" rel="noopener">Написать в Telegram<span class="visually-hidden">, откроется в новой вкладке</span></a>
+            <a class="case-popup__btn case-popup__btn--secondary" href="https://www.behance.net/gallery/256672939/Planeta-Enterprise-ERP-Platform-UXUI-Case-Study" target="_blank" rel="noopener">Смотреть на Behance<span class="visually-hidden">, откроется в новой вкладке</span></a>
+          </div>
+          <a class="case-popup__mail" href="mailto:art.kurachev@ya.ru">Написать на почту: art.kurachev@ya.ru</a>
+          <button type="button" class="case-popup__back">Вернуться к проектам</button>
+        </footer>
+      </div>
+      <p class="visually-hidden case-popup__live" aria-live="polite"></p>
+    </dialog>
+    <!-- Поп-ап кейса Planeta Mobile -->
+    <dialog id="case-planeta-mobile-dialog" class="case-popup" aria-labelledby="case-planeta-mobile-title">
+      <button type="button" class="case-popup__close" aria-label="Закрыть кейс" title="Закрыть (Esc)">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <path d="M3 3L17 17M17 3L3 17"/>
+        </svg>
+      </button>
+      <div class="case-popup__inner">
+        <header class="case-popup__head">
+          <img class="case-popup__avatar" src="./img/avatar.webp" width="40" height="40" alt="">
+          <div class="case-popup__titles">
+            <h1 id="case-planeta-mobile-title" class="case-popup__title" tabindex="-1">Planeta Mobile — мобильное приложение ERP</h1>
+            <p class="case-popup__author">Артём Курачев</p>
+          </div>
+        </header>
+        <div class="case-popup__canvas">
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/01-1440.webp"
+              srcset="./img/cases/planeta-mobile/01-960.webp 960w, ./img/cases/planeta-mobile/01-1440.webp 1440w, ./img/cases/planeta-mobile/01-1920.webp 1920w, ./img/cases/planeta-mobile/01-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="high"
+              alt="Обложка кейса Planeta Mobile: телефон с приложением «Планета» на фоне тёмных камней">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/02-1440.webp"
+              srcset="./img/cases/planeta-mobile/02-960.webp 960w, ./img/cases/planeta-mobile/02-1440.webp 1440w, ./img/cases/planeta-mobile/02-1920.webp 1920w, ./img/cases/planeta-mobile/02-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="788" loading="lazy" decoding="async"
+              alt="О проекте: «Планета» — корпоративная система, которая объединяет ключевые процессы строительной компании">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/03-1440.webp"
+              srcset="./img/cases/planeta-mobile/03-960.webp 960w, ./img/cases/planeta-mobile/03-1440.webp 1440w, ./img/cases/planeta-mobile/03-1920.webp 1920w, ./img/cases/planeta-mobile/03-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="2585" loading="lazy" decoding="async"
+              alt="Экраны приложения: лента событий, согласование документов, мои задачи, финансовый отчёт">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/04-1440.webp"
+              srcset="./img/cases/planeta-mobile/04-960.webp 960w, ./img/cases/planeta-mobile/04-1440.webp 1440w, ./img/cases/planeta-mobile/04-1920.webp 1920w, ./img/cases/planeta-mobile/04-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="980" loading="lazy" decoding="async"
+              alt="Как создавалась мобильная «Планета»: этапы работы от анализа системы">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/05-1440.webp"
+              srcset="./img/cases/planeta-mobile/05-960.webp 960w, ./img/cases/planeta-mobile/05-1440.webp 1440w, ./img/cases/planeta-mobile/05-1920.webp 1920w, ./img/cases/planeta-mobile/05-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1584" loading="lazy" decoding="async"
+              alt="От большой веб-системы к мобильному продукту: отзывы участников проекта">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/06-1440.webp"
+              srcset="./img/cases/planeta-mobile/06-960.webp 960w, ./img/cases/planeta-mobile/06-1440.webp 1440w, ./img/cases/planeta-mobile/06-1920.webp 1920w, ./img/cases/planeta-mobile/06-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1294" loading="lazy" decoding="async"
+              alt="Как собрать разные сценарии в одном приложении: задача и решение">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/07-1440.webp"
+              srcset="./img/cases/planeta-mobile/07-960.webp 960w, ./img/cases/planeta-mobile/07-1440.webp 1440w, ./img/cases/planeta-mobile/07-1920.webp 1920w, ./img/cases/planeta-mobile/07-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1081" loading="lazy" decoding="async"
+              alt="Найти нужный файл и поделиться: облако документов">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/08-1440.webp"
+              srcset="./img/cases/planeta-mobile/08-960.webp 960w, ./img/cases/planeta-mobile/08-1440.webp 1440w, ./img/cases/planeta-mobile/08-1920.webp 1920w, ./img/cases/planeta-mobile/08-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1504" loading="lazy" decoding="async"
+              alt="Вход в систему, уведомления и личный профиль: базовые сценарии">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/09-1440.webp"
+              srcset="./img/cases/planeta-mobile/09-960.webp 960w, ./img/cases/planeta-mobile/09-1440.webp 1440w, ./img/cases/planeta-mobile/09-1920.webp 1920w, ./img/cases/planeta-mobile/09-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1353" loading="lazy" decoding="async"
+              alt="Для кого я проектировал мобильную «Планету»: три персоны">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/10-1440.webp"
+              srcset="./img/cases/planeta-mobile/10-960.webp 960w, ./img/cases/planeta-mobile/10-1440.webp 1440w, ./img/cases/planeta-mobile/10-1920.webp 1920w, ./img/cases/planeta-mobile/10-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1474" loading="lazy" decoding="async"
+              alt="В офисе, в дороге и на объекте: сотрудники на объекте, руководство, офисные сотрудники">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/11-1440.webp"
+              srcset="./img/cases/planeta-mobile/11-960.webp 960w, ./img/cases/planeta-mobile/11-1440.webp 1440w, ./img/cases/planeta-mobile/11-1920.webp 1920w, ./img/cases/planeta-mobile/11-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1432" loading="lazy" decoding="async"
+              alt="Две темы, один интерфейс: светлая и тёмная темы приложения">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/12-1440.webp"
+              srcset="./img/cases/planeta-mobile/12-960.webp 960w, ./img/cases/planeta-mobile/12-1440.webp 1440w, ./img/cases/planeta-mobile/12-1920.webp 1920w, ./img/cases/planeta-mobile/12-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1171" loading="lazy" decoding="async"
+              alt="Консистентный UX в разных рабочих контекстах: система компонентов">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/13-1440.webp"
+              srcset="./img/cases/planeta-mobile/13-960.webp 960w, ./img/cases/planeta-mobile/13-1440.webp 1440w, ./img/cases/planeta-mobile/13-1920.webp 1920w, ./img/cases/planeta-mobile/13-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="2222" loading="lazy" decoding="async"
+              alt="Принятие решения в три клика: user flow согласования документа">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/14-1440.webp"
+              srcset="./img/cases/planeta-mobile/14-960.webp 960w, ./img/cases/planeta-mobile/14-1440.webp 1440w, ./img/cases/planeta-mobile/14-1920.webp 1920w, ./img/cases/planeta-mobile/14-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="1081" loading="lazy" decoding="async"
+              alt="Отчёты всегда под рукой: цифры и динамика проекта с телефона">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/15-1440.webp"
+              srcset="./img/cases/planeta-mobile/15-960.webp 960w, ./img/cases/planeta-mobile/15-1440.webp 1440w, ./img/cases/planeta-mobile/15-1920.webp 1920w, ./img/cases/planeta-mobile/15-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3176" loading="lazy" decoding="async"
+              alt="Прозрачный workflow от постановки задачи до результата: полный цикл работы с задачами">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/16-1440.webp"
+              srcset="./img/cases/planeta-mobile/16-960.webp 960w, ./img/cases/planeta-mobile/16-1440.webp 1440w, ./img/cases/planeta-mobile/16-1920.webp 1920w, ./img/cases/planeta-mobile/16-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="2193" loading="lazy" decoding="async"
+              alt="Диалоги с сохранением контекста задачи: мессенджер и групповые чаты">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/17-1440.webp"
+              srcset="./img/cases/planeta-mobile/17-960.webp 960w, ./img/cases/planeta-mobile/17-1440.webp 1440w, ./img/cases/planeta-mobile/17-1920.webp 1920w, ./img/cases/planeta-mobile/17-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3013" loading="lazy" decoding="async"
+              alt="Пошаговая сверка документов и фактической поставки: приёмка материалов">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/18-1440.webp"
+              srcset="./img/cases/planeta-mobile/18-960.webp 960w, ./img/cases/planeta-mobile/18-1440.webp 1440w, ./img/cases/planeta-mobile/18-1920.webp 1920w, ./img/cases/planeta-mobile/18-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="3028" loading="lazy" decoding="async"
+              alt="От потребности проекта к составу заказа: заказ материалов">
+          </figure>
+          <figure class="case-slide">
+            <img src="./img/cases/planeta-mobile/19-1440.webp"
+              srcset="./img/cases/planeta-mobile/19-960.webp 960w, ./img/cases/planeta-mobile/19-1440.webp 1440w, ./img/cases/planeta-mobile/19-1920.webp 1920w, ./img/cases/planeta-mobile/19-2880.webp 2880w"
+              sizes="(max-width: 768px) 100vw, (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc(100vw - 96px), min(1400px, calc(100vw - 160px))"
+              width="1920" height="766" loading="lazy" decoding="async"
+              alt="Спасибо за просмотр! Мобильная «Планета», UX/UI-кейс, 2026">
+          </figure>
+        </div>
+        <footer class="case-popup__foot">
+          <h2 class="case-popup__foot-title">Planeta Mobile — мобильное приложение ERP</h2>
+          <p class="case-popup__foot-sub">Product Design · Mobile App · 2026</p>
+          <p class="case-popup__foot-lead">Нужен продуктовый дизайнер в команду или на проект? Напишите — отвечу в течение дня.</p>
+          <div class="case-popup__actions">
+            <a class="case-popup__btn case-popup__btn--primary" href="https://t.me/artkurachev" target="_blank" rel="noopener">Написать в Telegram<span class="visually-hidden">, откроется в новой вкладке</span></a>
+            <a class="case-popup__btn case-popup__btn--secondary" href="https://www.behance.net/gallery/256313731/Planeta-Mobile-Product-Design-UXUI" target="_blank" rel="noopener">Смотреть на Behance<span class="visually-hidden">, откроется в новой вкладке</span></a>
           </div>
           <a class="case-popup__mail" href="mailto:art.kurachev@ya.ru">Написать на почту: art.kurachev@ya.ru</a>
           <button type="button" class="case-popup__back">Вернуться к проектам</button>
