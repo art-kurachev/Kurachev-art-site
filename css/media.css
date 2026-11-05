@@ -1,6 +1,5 @@
 @media screen and (max-width: 768px) {
   /* Отключаем блоки */
-  .model-container-moon,
   .model-container-headset{
     display: none;
   }
@@ -12,7 +11,7 @@
     height: 100dvh;
   }
   .prelogo{
-    top: 48.5%;
+    top: 50%;
   }
   .fstScr-text h2{
     font-size: 15.5rem;
@@ -35,28 +34,40 @@
   .ul__reset{
     font-size: 4rem;
   }
+  /* Оба SVG имеют общий центр, размер не зависит от vw-корня. */
   .logotype{
-    top: 11rem;
-    left: 9rem;
+    top: 24px;
+    left: 24px;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    transform: none !important;
   }
-  .logotype svg{
-    height: 12rem;
-    width: 12rem;
-  }
-  .logotype .rotatelogo svg{
-    height: 16.5rem;
-    width: 16.5rem;
+  .logotype > svg{
+    height: 36px;
+    width: 36px;
+    display: block;
+    margin: 0;
   }
   .logotype .rotatelogo{
-    right: -7.5px;
-    top: -7.5px;
+    inset: 0;
+    width: 56px;
+    height: 56px;
+    transform-origin: center;
+  }
+  .logotype .rotatelogo svg{
+    height: 100%;
+    width: 100%;
+    display: block;
+    margin: 0;
   }
   .preloader{
     background-size: max(200vw, 200vh);
     background-position-y: 45%;
   }
   .prelogo .rotatelogo{
-    top: 2px;
+    top: 4px;
   }
   .preProc{
     font-size: 8rem;
@@ -69,6 +80,9 @@
   }
   .about-text h2,
   .myphoto-text h2,
+  .motto-text{
+    width: 85%;
+  }
   .motto-text h2{
     font-size: 14em;
     line-height: 1;
@@ -156,7 +170,7 @@
   .fbAvaCont{
     box-sizing: border-box;
     gap: 7rem;
-    right: 10rem;
+    right: calc(28.75vw - 18rem - 32px);
     padding: 48rem 0;
   }
   .arrowAv{
@@ -168,20 +182,22 @@
     max-height: 80vh;
   }
   .motto-text h2{
-    font-size: 11rem;
+    font-size: clamp(24px, 6.4vw, 32px);
   }
   .mottoName{
-    font-size: 4.5rem;
+    font-size: clamp(14px, 3.6vw, 18px);
+    padding-top: 16px;
+    line-height: 1.5;
   }
   .motto-text .leftKav{
     top: 14rem;
     font-size: 19rem;
-    left: -8rem;
+    left: -4rem;
   }
   .motto-text .rightKav{
     bottom: 6rem;
     font-size: 19rem;
-    right: -6rem;
+    right: -4rem;
   }
   .motto-container img{
     margin-bottom: 470rem;
@@ -265,7 +281,7 @@
   }
   .about-text h2,
   .myphoto-text h2{
-    font-size: 10.5em;
+    font-size: clamp(26px, 7.2vw, 40px);
   }
   .sectionSkills .texxt2 b,
   .sectionMoon .texxt2 b{
@@ -281,6 +297,53 @@
     width: 75%;
   }
   #feedback h2{
-    font-size: 8.5rem;
+    font-size: clamp(22px, 5.8vw, 28px);
+  }
+}
+
+/* Одинаковый шаг строки при переносе внутри h2 и между парными слоями. */
+@media screen and (max-width: 768px) {
+  .about-text .mpt-stroke,
+  .myphoto-text .mpt-stroke,
+  .motto-text .motto-stroke {
+    margin-bottom: 0;
+  }
+  .about-text h2,
+  .myphoto-text h2,
+  .motto-text h2 {
+    display: block;
+    width: 100%;
+    line-height: 1.2;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sectionMoon { isolation: isolate; }
+  .sectionMoon .model-container-moon {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(90vw, 360px);
+    aspect-ratio: 1;
+    margin: 0;
+    opacity: 0.24;
+    z-index: 0;
+  }
+  .sectionMoon > :not(.model-container-moon) {
+    position: relative;
+    z-index: 1;
+  }
+  .model-container-moon canvas { display: block; width: 100%; height: 100%; }
+}
+
+/* Skills и блок с луной используют общую левую ось. */
+@media screen and (max-width: 768px) {
+  .sectionSkills .strokeAnimateItem h1,
+  .sectionSkills .strokeAnimateItem2 h1,
+  .sectionMoon .strokeAnimateItem h1,
+  .sectionMoon .strokeAnimateItem2 h1 {
+    padding-left: 11rem;
   }
 }

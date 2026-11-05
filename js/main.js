@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const circle = document.querySelector('.circleLoadItem');
   const started = performance.now();
   function updateIntro(now) {
-    const progress = Math.min((now - started) / 1400, 1);
+    const progress = Math.max(0, Math.min((now - started) / 1400, 1));
     percent.textContent = Math.floor(progress * 100) + '%';
     circle.style.strokeDashoffset = 596.9 * (1 - progress);
     if (progress < 1) requestAnimationFrame(updateIntro);
@@ -346,7 +346,16 @@ cameraMoon.position.z = 30; // Отдаление камеры
 
 let rendererMoon = new THREE.WebGLRenderer({ alpha: true } );
 rendererMoon.setClearColor( 0x000000, 0 );
-rendererMoon.setSize(innerWidth, innerHeight);
+rendererMoon.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+function resizeMoon() {
+  const mobile = window.innerWidth <= 768;
+  const width = mobile ? document.querySelector('.model-container-moon').clientWidth : window.innerWidth;
+  const height = mobile ? width : window.innerHeight;
+  cameraMoon.aspect = width / height;
+  cameraMoon.updateProjectionMatrix();
+  rendererMoon.setSize(width, height);
+}
+resizeMoon();
 
 rendererMoon.domElement.setAttribute("id", "Church3DObj");
 document.querySelector('.model-container-moon').insertBefore(rendererMoon.domElement, document.querySelector('.model-container-moon').firstChild);
@@ -360,33 +369,36 @@ sceneMoon.add(aLightMoon, new THREE.AmbientLight(0xffffff, 0.5));
 let loaderMoon = new THREE.GLTFLoader();
 let objMoon = null;
 
-if (window.innerWidth > 768) {
-  loaderMoon.load('./3d/moon/moon.gltf', function(gltf) {
-    objMoon = gltf.scene;
-    sceneMoon.add(objMoon);
-  });
-}
+loaderMoon.load('./3d/moon/moon.gltf', function(gltf) {
+  objMoon = gltf.scene;
+  sceneMoon.add(objMoon);
+});
 
-const renderMoon = _ => {
+const reduce3DMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let moonInView = false;
+const moonObserver = new IntersectionObserver(([entry]) => { moonInView = entry.isIntersecting; });
+moonObserver.observe(document.querySelector('.model-container-moon'));
+const renderMoon = (time) => {
+  if (!moonInView || document.hidden) return;
+  sceneMoon.rotation.y = reduce3DMotion.matches ? 0 : time * 0.00005;
   rendererMoon.render(sceneMoon, cameraMoon);
 }
 rendererMoon.setAnimationLoop(renderMoon)
-
-
-//Вращение по скроллу
-window.onscroll = (e) => {
-  // sceneMoon.rotation.y = window.innerHeight + this.scrollY / 1500.0;
-
-  sceneHeadset.rotation.y = window.innerHeight + 700 + this.scrollY / 4000.0;
-  sceneHeadset.rotation.x = -this.scrollY / 5000.0;
-}
-
 
 
 //3d сцена c наушниками
 let sceneHeadset = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 33; // Отдаление камеры
+
+// Ракурс три четверти остаётся стабильным при разных высотах окна.
+function updateHeadsetAngle() {
+  const rect = document.querySelector('.sectionSkills').getBoundingClientRect();
+  const progress = Math.max(-1, Math.min(1, (window.innerHeight / 2 - rect.top) / rect.height));
+  sceneHeadset.rotation.set(-0.12, -Math.PI / 4 + progress * 0.12, 0.08);
+}
+updateHeadsetAngle();
+window.addEventListener('scroll', updateHeadsetAngle, { passive: true });
 
 let renderer = new THREE.WebGLRenderer({ alpha: true } );
 renderer.setClearColor( 0x000000, 0 );
@@ -455,7 +467,7 @@ const tick = () => {
   lastElaptedTime = elapsedTime;
 
   if (!!sceneHeadset){
-    sceneHeadset.position.y = Math.sin(elapsedTime * 0.5);
+    sceneHeadset.position.y = reduce3DMotion.matches ? 0 : Math.sin(elapsedTime * 0.5);
   }
   if (!casePaused) renderer.render(sceneHeadset,camera)
 
@@ -470,9 +482,8 @@ window.addEventListener('scroll', e => {
 
 //Подгоняем 3D-сцены под новый размер окна
 window.addEventListener('resize', () => {
-  cameraMoon.aspect = window.innerWidth / window.innerHeight;
-  cameraMoon.updateProjectionMatrix();
-  rendererMoon.setSize(innerWidth, innerHeight);
+  resizeMoon();
+  updateHeadsetAngle();
 
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -484,21 +495,6 @@ document.querySelectorAll('a[href=""]').forEach((link) => {
   link.addEventListener('click', (e) => e.preventDefault());
 })
 
-
-
-//Aнимация вращения луны
-const clockMoon = new THREE.Clock();
-
-const moonRotation = () => {
-  const TimeTwo = clockMoon.getElapsedTime();
-
-  if (!!sceneMoon){
-    sceneMoon.rotation.y = TimeTwo * 0.05;
-  }
-
-  window.requestAnimationFrame(moonRotation);
-}
-moonRotation();
 
 
 //Фиксим аватарки при прокрутке
@@ -529,44 +525,21 @@ window.addEventListener('scroll', e => {
   }
 })
 
-//Поведение аватаров
-window.addEventListener('scroll', e => {
-  let item = document.querySelector('.feedbackItem').getBoundingClientRect().top,
-  item2 = document.querySelector('.item2').getBoundingClientRect().top,
-  ava1 = document.querySelector('.ava1'),
-  ava2 = document.querySelector('.ava2'),
-  ava3 = document.querySelector('.ava3'),
-  topPos = '22rem', midPos = '30.2rem', botPos = '37.5rem', itt = 0;
-
-  if (window.innerWidth <= 768) {
-    topPos = '53.5rem';
-    midPos = '78.2rem';
-    botPos = '103.5rem';
-    itt = 250;
-  }
-
-  if (item <= 0 - itt) {
-    document.querySelector('.arrowAv').style.top = midPos;
-    ava1.style.opacity = '0.3';
-    ava2.style.opacity = '1';
-
-    if (item2 <= 0 - itt) {
-      document.querySelector('.arrowAv').style.top = botPos;
-      ava2.style.opacity = '0.3';
-      ava3.style.opacity = '1';
-    } else {
-      document.querySelector('.arrowAv').style.top = midPos;
-      ava2.style.opacity = '1';
-      ava3.style.opacity = '0.3';
-    }
-    
-  } else {
-    ava1.style.opacity = '1';
-    ava2.style.opacity = '0.3';
-    document.querySelector('.arrowAv').style.top = topPos;
-  }
-
-})
+// Активный автор — цветной, остальные аватары приглушены и чёрно-белые.
+function updateReviewAvatars() {
+  const reviews = document.querySelectorAll('.feedbackItem');
+  const avatars = document.querySelectorAll('.fbAvaItem');
+  const mobile = window.innerWidth <= 768;
+  const threshold = mobile ? -250 : 0;
+  const active = reviews[0].getBoundingClientRect().top > threshold ? 0
+    : reviews[1].getBoundingClientRect().top > threshold ? 1 : 2;
+  avatars.forEach((avatar, index) => avatar.classList.toggle('is-active', index === active));
+  const positions = mobile ? ['53.5rem', '78.2rem', '103.5rem'] : ['22rem', '30.2rem', '37.5rem'];
+  document.querySelector('.arrowAv').style.top = positions[active];
+}
+window.addEventListener('scroll', updateReviewAvatars, { passive: true });
+window.addEventListener('resize', updateReviewAvatars);
+updateReviewAvatars();
 
 //Превью проекта при наведении
 const projectPreview = document.querySelector('.projectPreview');

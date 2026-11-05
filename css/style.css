@@ -31,26 +31,46 @@
 .preloader .preProc {
   position: absolute;
   top: calc(50% + 116px);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
   padding: 0 !important;
   font-variant-numeric: tabular-nums;
 }
 .prelogo{
-  will-change: transform;
+  will-change: opacity;
   z-index: 726;
   position: absolute;
   top: 50%;
-  transform: translateX(-50%);
-  transform: translateY(-50%);
-  padding: 17px 19px;
-  transition: .6s ease-out;
-  transition-delay: .4s;
+  left: 50%;
+  width: 108px;
+  height: 108px;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  transition: opacity .15s ease-out;
+}
+.preloader .prelogo > svg {
+  width: 70px;
+  height: 70px;
+  margin: 0;
+  display: block;
+}
+.preloader .prelogo .rotatelogo svg {
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  display: block;
 }
 .prelogo:hover svg{
   fill:var(--accent);
 }
 .prelogo .rotatelogo{
-  right: 4px;
-  top: 0;
+  width: 100px;
+  height: 100px;
+  right: auto;
+  left: 4px;
+  top: 4px;
   opacity: 1;
 }
 .preProc{
@@ -782,10 +802,12 @@ footer .h3Clip {
   gap: 1.25rem;
   position: absolute;
   top: 0;
-  right: 22.40625rem;
+  right: calc(13vw - 6.25rem - 32px);
   padding: 20.25rem 0;
 }
 .fbAvaItem{
+  filter: grayscale(100%);
+  object-fit: cover;
   border-radius: 50%;
   height: 6.25rem;
   width: 6.25rem;
@@ -936,4 +958,42 @@ footer .h3Clip {
 .texxt p, .texxt2 p, .texxt3 p,
 .texxt h4, .texxt2 h4, .texxt3 h4{
   -webkit-text-stroke: 0;
+}
+
+/* Подписи контактов не перекрывают соседнюю ссылку. */
+.footerColumn .colTwo .footerStroke { display: grid; }
+.footerColumn .colTwo .footerStroke h2 { grid-area: 1 / 1; }
+.footerColumn .colTwo .footerMask {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.fbAvaInitials {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background-color: #252820;
+  color: #E9D4C3;
+  font-family: var(--text-block);
+  font-size: clamp(16px, 2.25vw, 28px);
+  font-weight: 600;
+}
+
+/* Отзывы: спокойный кегль и отдельная правая полоса для аватаров. */
+#feedback h2 {
+  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 48px);
+  line-height: 1.25;
+  display: block;
+  width: 100%;
+}
+#feedback .mpt-stroke { margin-bottom: 0; }
+
+.fbAvaItem.is-active {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+.fbAvaItem:not(.is-active) {
+  filter: grayscale(100%);
+  opacity: 0.3;
 }
