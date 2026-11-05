@@ -11,54 +11,28 @@
   justify-content: center;  
   background-image: url(../img/EllipseBG.svg);
   background-repeat: no-repeat;
-  background-size: 150%;
+  background-size: max(200vw, 200vh);
   background-position: 50% 50%;
   transition: all 1s;
   opacity: 1;
   flex-direction: column-reverse;
   gap: 24px;
 }
-.preBtn{
-  z-index: 200;
-  transition: 0.3s ease-out;
-  display: inline-flex;
-  padding: 16px 50px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 32px;
-  border: 2px solid #E9D4C3;
-  opacity: 0;
-  will-change: opacity, transform, background-color;
-  transition: opacity .5s ease-out, transform .5s ease-out, background-color .5s ease-out;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-.preBtn .preTitle{
-  width: 95%;
-  font-family: 'SONGER SE Regular';
-  padding: 0;
-  text-align: center;
-  will-change: opacity, transform;
-  transition: .3s ease-out;
-}
-.preBtn:hover{
-  background-color: #E9D4C3;
-}
-.preBtn:hover .preTitle{
-  color: #0D0D0D;
-}
-.circleLoad{
-  height: 200px;
+.circleLoad {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  transition: opacity .15s;
 }
-.circleLoad svg{
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-.circleLoadItem {
-  will-change: opacity, stroke-dashoffset;
-  transition: stroke-dashoffset 3s cubic-bezier(.35,0,.26,1), opacity .5s ease-out ;
+.circleLoad svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.preloader .preProc {
+  position: absolute;
+  top: calc(50% + 116px);
+  padding: 0 !important;
+  font-variant-numeric: tabular-nums;
 }
 .prelogo{
   will-change: transform;

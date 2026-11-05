@@ -3,41 +3,25 @@ window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 }
 
-// Прелоадер
-window.onload = function() {
-  //Прямая ссылка на кейс (#case-…): прелоадер пропускаем, входим без звука
+// Короткая заставка, затем автоматический вход без звука.
+document.body.style.overflowY = 'hidden';
+document.addEventListener('DOMContentLoaded', () => {
   if (document.documentElement.classList.contains('skip-preloader')) {
     enterSite({ sound: false });
     return;
   }
-  document.body.style.overflowY = 'hidden';
-  document.querySelector('.circleLoadItem').style.strokeDashoffset = '0';
-  setTimeout(() => {
-
-      const preBtn = document.querySelector('.preBtn').style;
-      
-      setTimeout(()=>{
-        preBtn.transform = 'translateY(-80%)';
-        preBtn.opacity = 1;
-      }, 500);
-      
-      document.querySelector('.prelogo').style.transform = 'translateY(-80%)';
-      preBtn.pointerEvents = 'auto';
-      document.querySelector('.circleLoadItem').style.opacity = 0;
-      document.querySelector('.preProc').style.opacity = 0;
-      document.querySelector('.preProc').style.transform = 'translateY(-50%)';
-    }, 3500);
-};
-
-//Изменение процента загрузки
-for (let i = 1; i < 101; i++) {
-  let preProc = document.querySelector('.preProc');
-  setTimeout(
-    function (){
-      preProc.textContent = [i] + '%';
-    }
-    , [i]*28);
-}
+  const percent = document.querySelector('.preProc');
+  const circle = document.querySelector('.circleLoadItem');
+  const started = performance.now();
+  function updateIntro(now) {
+    const progress = Math.min((now - started) / 1400, 1);
+    percent.textContent = Math.floor(progress * 100) + '%';
+    circle.style.strokeDashoffset = 596.9 * (1 - progress);
+    if (progress < 1) requestAnimationFrame(updateIntro);
+    else setTimeout(() => enterSite({ sound: false }), 100);
+  }
+  requestAnimationFrame(updateIntro);
+});
 
 //Функция проигрывания звука
 function playSound() {
@@ -57,7 +41,8 @@ function enterSite({ sound = true } = {}) {
   if (sound) playSound();
   innerCursor.classList.add('active-cursor');
   document.querySelector('.prelogo').style.opacity = 0;
-  document.querySelector('.preBtn').style.opacity = 0;
+  document.querySelector('.circleLoad').style.opacity = '0';
+  document.querySelector('.preProc').style.opacity = '0';
   preloader.style.zIndex = -10;
   preloader.style.backgroundSize = 0;
   document.body.style.overflowY = 'auto';
@@ -68,7 +53,6 @@ function enterSite({ sound = true } = {}) {
     strokeAnimate ('.artkurachev');
   }, 800);
 }
-document.querySelector('.preBtn').onclick = () => enterSite();
 
 //Скролл наверх по лого
 document.querySelector('.logotype').onclick = () => {

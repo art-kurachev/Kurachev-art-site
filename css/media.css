@@ -52,7 +52,7 @@
     top: -7.5px;
   }
   .preloader{
-    background-size: 300%;
+    background-size: max(200vw, 200vh);
     background-position-y: 45%;
   }
   .prelogo .rotatelogo{
