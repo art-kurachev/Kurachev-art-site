@@ -1,0 +1,80 @@
+/* Figma: Iprit / 1384:9176 — три изображения во всю ширину окна. */
+.personal-projects {
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: 0;
+  padding-bottom: 0;
+  align-items: stretch;
+}
+.personal-projects[hidden] { display: none; }
+.personal-projects > .h3Clip {
+  box-sizing: border-box;
+  margin: 0;
+  padding-bottom: 1.25vw;
+}
+.personal-projects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+.personal-project {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 640 / 387;
+  overflow: hidden;
+  background: #000;
+}
+.personal-project__link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: #E9D4C3;
+}
+.personal-project__link:focus-visible {
+  outline: 2px solid #E9D4C3;
+  outline-offset: -4px;
+}
+.personal-project__image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Фон превью #0D0D0D становится чёрным; светлые детали сохраняются. */
+  filter: brightness(0.951493) contrast(1.107438);
+}
+.personal-project__branding {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6.25%;
+  gap: clamp(6px, .416667vw, 8px);
+}
+.personal-project__platform {
+  box-sizing: border-box;
+  padding: 6px 12px;
+  border-radius: 50px;
+  background: rgba(233, 212, 195, .1);
+  color: #E9D4C3;
+  font-family: 'Geologica', var(--text-block);
+  font-weight: 200;
+  font-size: 12px;
+  line-height: 15px;
+}
+.personal-project__logo { display: block; height: auto; }
+.personal-project__logo--iprit { width: 21.09375%; }
+.personal-project__logo--observer { width: 50.9375%; }
+.personal-project__logo--bus { width: 23.4375%; }
+@media screen and (max-width: 768px) {
+  .personal-projects > .h3Clip { padding-bottom: 24px; }
+  .personal-projects__grid { grid-template-columns: minmax(0, 1fr); }
+  .personal-project__branding { gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .personal-projects .containerTitle { transform: none; opacity: 1; transition: none; }
+}

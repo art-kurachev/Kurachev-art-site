@@ -171,7 +171,7 @@
     box-sizing: border-box;
     gap: 7rem;
     right: calc(28.75vw - 18rem - 32px);
-    padding: 48rem 0;
+    padding: 0;
   }
   .arrowAv{
     height: 8rem;

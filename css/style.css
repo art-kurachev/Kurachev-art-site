@@ -84,41 +84,32 @@
 
 /* Курсор */
 .cursor {
+  --cursor-size: 2rem;
   position: fixed;
   pointer-events: none;
   user-select: none;
-  width: 2rem;
-  height: 2rem;
-  left: -1rem;
-  top: -1.125rem;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  left: 0;
+  top: 0;
   border-radius: 50%;
   z-index: 727;
   background: var(--accent);
-  transition: transform .3s ease-out;
   opacity: 1;
+  transition: width .2s ease-out, height .2s ease-out, opacity .2s ease-out;
   will-change: transform;
 }
 .hidden-cursor{
-  left: 0;
-  top: 0;
-  height: 0;
-  width: 0;
+  --cursor-size: 0rem;
   opacity: 0;
-  transition: 0.2s ease-out;
-  will-change: opacity;
-}
-.visible-cursor{
-  transition: 0.2s ease-out;
-  will-change: opacity;
 }
 .active-cursor{
+  --cursor-size: .125rem;
   opacity: 0;
-  left: -0.0625rem;
-  top: -0.0625rem;
-  width: .125rem;
-  height: .125rem;
-  transition: 0.4s ease-out;
-  will-change: transform;
+  transition-duration: .4s;
+}
+.cursor--menu{
+  --cursor-size: .3125rem;
 }
 .preloader .mottoName{
   margin: 0;
@@ -327,6 +318,7 @@ section {
 }
 .model-container-moon{
   width: 100%;
+  aspect-ratio: 16 / 9;
   top:48%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -335,10 +327,18 @@ section {
 }
 
 .model-container-headset{
+  width: 66.666667%;
+  aspect-ratio: 16 / 9;
   transform: translate(50%, 2%);
   will-change: transform;
   opacity: 1;
   z-index: 1;
+}
+.model-container-moon canvas,
+.model-container-headset canvas{
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .clip-texxt{
   position: absolute;
@@ -433,9 +433,8 @@ section {
   mask-image: url("../img/EllipseBG.svg");
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: var(--sizeMask), contain;
-  mask-size: var(--sizeMask), contain;
-  transition: .3s cubic-bezier(0,.09,.65,1);
+  -webkit-mask-size: var(--sizeMask, 0rem) var(--sizeMask, 0rem);
+  mask-size: var(--sizeMask, 0rem) var(--sizeMask, 0rem);
   -webkit-mask-position: calc(var(--x) - var(--sizeMask)/2) calc(var(--y) - var(--sizeMask)/2),center;
   mask-position: calc(var(--x) - var(--sizeMask)/2) calc(var(--y) - var(--sizeMask)/2),center;
   will-change: mask-position;
@@ -632,6 +631,10 @@ section {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
+.sectionSkills .texxt2 p{
+  box-sizing: border-box;
+  padding-left: 24px;
+}
 .sectionSkills .texxt2 p,
 .sectionMoon .texxt2 p{
   color: #0D0D0D;
@@ -803,7 +806,7 @@ footer .h3Clip {
   position: absolute;
   top: 0;
   right: calc(13vw - 6.25rem - 32px);
-  padding: 20.25rem 0;
+  padding: 0;
 }
 .fbAvaItem{
   filter: grayscale(100%);
@@ -814,26 +817,27 @@ footer .h3Clip {
 }
 .ava1{
   will-change: opacity;
-  transition: .3s ease-out;
+  transition: opacity 150ms ease-out;
   opacity: 1;
 }
 .ava2, .ava3{
   will-change: opacity;
-  transition: .3s ease-out;
+  transition: opacity 150ms ease-out;
   opacity: 0.3;
 }
 .arrowAv{
   background-image: url(../img/arrow.svg);
   background-repeat: no-repeat;
+  background-position: center;
   background-size: 56%;
   content: "";
   display: block;
   height: 1.75rem;
   left: -1.75em;
   position: absolute;
-  top: 23.5rem;
+  top: 0;
   width: 1.5rem;
-  transition: .4s ease-out;
+  transition: transform 200ms ease-out;
   will-change: transform;
 }
 
@@ -943,7 +947,6 @@ footer .h3Clip {
   mask-position: calc(var(--x, 0px) - var(--ox, 0px) - var(--sizeMask, 0rem)/2) calc(var(--y, 0px) - var(--oy, 0px) - var(--sizeMask, 0rem)/2), 0 0;
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  transition: -webkit-mask-position .3s cubic-bezier(0,.09,.65,1), -webkit-mask-size .3s cubic-bezier(0,.09,.65,1), mask-position .3s cubic-bezier(0,.09,.65,1), mask-size .3s cubic-bezier(0,.09,.65,1);
 }
 
 /* Жирность для шрифтов SONGER: ровная обводка вместо ложного bold браузера */
@@ -1006,3 +1009,7 @@ footer .h3Clip {
 }
 
 .motto-quote-mobile { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .arrowAv, .fbAvaItem { transition: none; }
+}

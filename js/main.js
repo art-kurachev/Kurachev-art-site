@@ -152,9 +152,9 @@ const innerCursor = document.querySelector(".cursor");
 const initCursor = () => {
   //Скрываем курсор на блоках текста
   document.querySelectorAll('.cursorHide').forEach((item) => {
-    item.addEventListener('mouseover', () => {
+    item.addEventListener('mouseenter', () => {
       innerCursor.classList.add('active-cursor');
-      maskSize = '30';
+      maskSize = 30;
     })
     item.addEventListener('mouseleave', () => {
       innerCursor.classList.remove('active-cursor');
@@ -182,17 +182,28 @@ const initCursor = () => {
   document.addEventListener('touchstart', touchPos, { passive: true });
   document.addEventListener('touchmove', touchPos, { passive: true });
 
-  const render = () => {
-    innerCursor.style.transform = `translate(${clientX}px, ${clientY}px)`;
-    //Пока координат нет, круг не показываем
+  // Позиция и диаметр обеих масок обновляются одним кадром.
+  // CSS-переходы mask-position и mask-size рассинхронизировали центр при сжатии.
+  let cursorX, cursorY, currentMaskSize = 0, previousFrame;
+  const reduceCursorMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const render = (time) => {
     const ready = clientX !== undefined;
-    const size = ready ? maskSize : 0;
-    const maskVars = `--x:${(clientX || 0)+15}px; --y:${(clientY || 0)+this.scrollY}px;--sizeMask:${size}rem`;
-    maskedFirst.style.cssText = maskVars;
-    //Тот же круг вырезаем в нижнем тексте, чтобы он не просвечивал по краям букв
-    const mRect = maskedFirst.getBoundingClientRect(), bRect = baseFirst.getBoundingClientRect();
-    baseFirst.style.cssText = `${maskVars}; --ox:${bRect.left - mRect.left}px; --oy:${bRect.top - mRect.top}px`;
-    baseFirst.classList.toggle('maskReady', ready);
+    const delta = previousFrame === undefined ? 16 : Math.min(time - previousFrame, 64);
+    previousFrame = time;
+    if (ready) {
+      const follow = reduceCursorMotion.matches ? 1 : 1 - Math.exp(-delta / 65);
+      const resize = reduceCursorMotion.matches ? 1 : 1 - Math.exp(-delta / 70);
+      cursorX = cursorX === undefined ? clientX : cursorX + (clientX - cursorX) * follow;
+      cursorY = cursorY === undefined ? clientY : cursorY + (clientY - cursorY) * follow;
+      currentMaskSize += (maskSize - currentMaskSize) * resize;
+      if (Math.abs(maskSize - currentMaskSize) < .001) currentMaskSize = maskSize;
+      innerCursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+      const mRect = maskedFirst.getBoundingClientRect(), bRect = baseFirst.getBoundingClientRect();
+      const maskVars = `--x:${cursorX - mRect.left}px; --y:${cursorY - mRect.top}px; --sizeMask:${currentMaskSize}rem`;
+      maskedFirst.style.cssText = maskVars;
+      baseFirst.style.cssText = `${maskVars}; --ox:${bRect.left - mRect.left}px; --oy:${bRect.top - mRect.top}px`;
+      baseFirst.classList.add('maskReady');
+    }
     requestAnimationFrame(render);
   };
   requestAnimationFrame(render);
@@ -230,18 +241,12 @@ for (let i = 0; i < foot.length; i++) {
 
 
 //Уменьшение курсора в меню
-document.querySelector('.header_menu').addEventListener('mouseover', () => {
-  document.querySelector(".cursor").style.width = '0.3125rem';
-  document.querySelector(".cursor").style.top = '0.125rem';
-  document.querySelector(".cursor").style.height = '0.3125rem';
-  document.querySelector(".cursor").style.left = '0.125rem';
-})
+document.querySelector('.header_menu').addEventListener('mouseenter', () => {
+  innerCursor.classList.add('cursor--menu');
+});
 document.querySelector('.header_menu').addEventListener('mouseleave', () => {
-  document.querySelector(".cursor").style.width = '1.875rem';
-  document.querySelector(".cursor").style.top = '-1.0625rem';
-  document.querySelector(".cursor").style.height = '1.875rem';
-  document.querySelector(".cursor").style.left = '-0.9375rem';
-})
+  innerCursor.classList.remove('cursor--menu');
+});
 
 
 
@@ -347,13 +352,19 @@ cameraMoon.position.z = 30; // Отдаление камеры
 let rendererMoon = new THREE.WebGLRenderer({ alpha: true } );
 rendererMoon.setClearColor( 0x000000, 0 );
 rendererMoon.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+// Размер сцены задаёт её CSS-контейнер, а не высота окна.
+const moonContainer = document.querySelector('.model-container-moon');
+const headsetContainer = document.querySelector('.model-container-headset');
+function resizeScene(container, sceneCamera, sceneRenderer) {
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+  if (!width || !height) return;
+  sceneCamera.aspect = width / height;
+  sceneCamera.updateProjectionMatrix();
+  sceneRenderer.setSize(width, height, false);
+}
 function resizeMoon() {
-  const mobile = window.innerWidth <= 768;
-  const width = mobile ? document.querySelector('.model-container-moon').clientWidth : window.innerWidth;
-  const height = mobile ? width : window.innerHeight;
-  cameraMoon.aspect = width / height;
-  cameraMoon.updateProjectionMatrix();
-  rendererMoon.setSize(width, height);
+  resizeScene(moonContainer, cameraMoon, rendererMoon);
 }
 resizeMoon();
 
@@ -402,7 +413,10 @@ window.addEventListener('scroll', updateHeadsetAngle, { passive: true });
 
 let renderer = new THREE.WebGLRenderer({ alpha: true } );
 renderer.setClearColor( 0x000000, 0 );
-renderer.setSize(innerWidth/1.5, innerHeight/1.5);
+function resizeHeadset() {
+  resizeScene(headsetContainer, camera, renderer);
+}
+resizeHeadset();
 
 renderer.domElement.setAttribute("id", "Church3DObj");
 document.querySelector('.model-container-headset').insertBefore(renderer.domElement, document.querySelector('.model-container-headset').firstChild);
@@ -416,12 +430,32 @@ sceneHeadset.add(aLight, new THREE.AmbientLight(0xffffff, 0.5));
 let loader = new THREE.GLTFLoader();
 let obj = null;
 
-if (window.innerWidth > 768) {
+let headsetLoading = false;
+function loadHeadset() {
+  if (!headsetContainer.clientWidth || obj || headsetLoading) return;
+  headsetLoading = true;
   loader.load('./3d/headset/headset.gltf', function(gltf) {
     obj = gltf.scene;
     sceneHeadset.add(obj);
+    headsetLoading = false;
+  }, undefined, function(error) {
+    headsetLoading = false;
+    console.error('Не удалось загрузить наушники:', error);
   });
 }
+loadHeadset();
+
+const modelResizeObserver = new ResizeObserver((entries) => {
+  for (const { target } of entries) {
+    if (target === moonContainer) resizeMoon();
+    if (target === headsetContainer) {
+      resizeHeadset();
+      loadHeadset();
+    }
+  }
+});
+modelResizeObserver.observe(moonContainer);
+modelResizeObserver.observe(headsetContainer);
 
 
 
@@ -493,15 +527,8 @@ window.addEventListener('scroll', updateMottoParallax, { passive: true });
 window.addEventListener('resize', updateMottoParallax);
 updateMottoParallax();
 
-//Подгоняем 3D-сцены под новый размер окна
-window.addEventListener('resize', () => {
-  resizeMoon();
-  updateHeadsetAngle();
-
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth/1.5, innerHeight/1.5);
-})
+// Ракурс учитывает новую высоту окна; размер сцен обновляет ResizeObserver.
+window.addEventListener('resize', updateHeadsetAngle);
 
 //Пустые ссылки в футере не перезагружают страницу
 document.querySelectorAll('a[href=""]').forEach((link) => {
@@ -510,48 +537,64 @@ document.querySelectorAll('a[href=""]').forEach((link) => {
 
 
 
-//Фиксим аватарки при прокрутке
-window.addEventListener('scroll', e => {
-  const AvaCont = document.querySelector('.fbAvaCont');
-  const a = document.querySelector('#feedback')
-  let scrollContainer = a.getBoundingClientRect().top;
-  let ins = 0.55;
+// Автор переключается, когда начало его текста достигает середины экрана.
+const feedbackSection = document.querySelector('#feedback');
+const reviewItems = [...feedbackSection.querySelectorAll('.feedbackItem')];
+const reviewAvatars = [...feedbackSection.querySelectorAll('.fbAvaItem')];
+const reviewAvatarContainer = feedbackSection.querySelector('.fbAvaCont');
+const reviewArrow = feedbackSection.querySelector('.arrowAv');
+let reviewFramePending = false;
+let reviewLayoutWidth;
 
-  if (window.innerWidth <= 768) {
-    ins = 0.65;
-  }
-
-  if (scrollContainer <= 0) {
-    AvaCont.style.position = 'fixed';
-    AvaCont.style.top = 0;
-    let offset = document.querySelector('#feedback').offsetHeight * ins;
-  
-    if (scrollContainer <= -offset) {
-      AvaCont.style.position = 'absolute';
-      AvaCont.style.transform = `translateY(${offset}px)`;
-    } else {
-      AvaCont.style.transform = 'translateY(0)';
-    }
-  } else {
-    AvaCont.style.position = 'absolute';
-    AvaCont.style.top = '0';
-  }
-})
-
-// Активный автор — цветной, остальные аватары приглушены и чёрно-белые.
 function updateReviewAvatars() {
-  const reviews = document.querySelectorAll('.feedbackItem');
-  const avatars = document.querySelectorAll('.fbAvaItem');
-  const mobile = window.innerWidth <= 768;
-  const threshold = mobile ? -250 : 0;
-  const active = reviews[0].getBoundingClientRect().top > threshold ? 0
-    : reviews[1].getBoundingClientRect().top > threshold ? 1 : 2;
-  avatars.forEach((avatar, index) => avatar.classList.toggle('is-active', index === active));
-  const positions = mobile ? ['53.5rem', '78.2rem', '103.5rem'] : ['22rem', '30.2rem', '37.5rem'];
-  document.querySelector('.arrowAv').style.top = positions[active];
+  const sectionRect = feedbackSection.getBoundingClientRect();
+  const stackHeight = reviewAvatarContainer.offsetHeight;
+  const anchorTop = Math.max(16, (window.innerHeight - stackHeight) / 2);
+  const firstTextTop = reviewItems[0].querySelector('.mpt-stroke').getBoundingClientRect().top;
+  const startTop = firstTextTop - sectionRect.top;
+  const endTop = Math.max(startTop, feedbackSection.offsetHeight - stackHeight);
+  const localTop = anchorTop - sectionRect.top;
+  const pinned = localTop >= startTop && localTop <= endTop;
+  const top = pinned ? anchorTop : Math.min(endTop, Math.max(startTop, localTop));
+  const readingLine = anchorTop + stackHeight / 2;
+  let active = 0;
+  reviewItems.forEach((review, index) => {
+    const text = review.querySelector('.mpt-stroke');
+    if (text.getBoundingClientRect().top <= readingLine) active = index;
+  });
+  const avatar = reviewAvatars[active];
+  const arrowY = avatar.offsetTop + (avatar.offsetHeight - reviewArrow.offsetHeight) / 2;
+
+  // Фиксированная колонка не отстаёт от прокрутки на узком экране.
+  reviewAvatarContainer.style.position = pinned ? 'fixed' : 'absolute';
+  reviewAvatarContainer.style.top = `${top}px`;
+  reviewAvatars.forEach((item, index) => {
+    item.classList.toggle('is-active', index === active);
+  });
+  // При смене ширины сразу ставим стрелку на новый центр аватара.
+  if (reviewLayoutWidth !== window.innerWidth) {
+    reviewArrow.style.transition = 'none';
+    reviewLayoutWidth = window.innerWidth;
+    reviewArrow.style.transform = `translateY(${arrowY}px)`;
+    reviewArrow.getBoundingClientRect();
+    reviewArrow.style.removeProperty('transition');
+  } else {
+    reviewArrow.style.transform = `translateY(${arrowY}px)`;
+  }
 }
-window.addEventListener('scroll', updateReviewAvatars, { passive: true });
-window.addEventListener('resize', updateReviewAvatars);
+function scheduleReviewUpdate() {
+  if (reviewFramePending) return;
+  reviewFramePending = true;
+  requestAnimationFrame(() => {
+    reviewFramePending = false;
+    updateReviewAvatars();
+  });
+}
+window.addEventListener('scroll', scheduleReviewUpdate, { passive: true });
+window.addEventListener('resize', scheduleReviewUpdate);
+const reviewResizeObserver = new ResizeObserver(scheduleReviewUpdate);
+[feedbackSection, reviewAvatarContainer, ...reviewItems].forEach((item) => reviewResizeObserver.observe(item));
+document.fonts.ready.then(scheduleReviewUpdate);
 updateReviewAvatars();
 
 //Превью проекта при наведении

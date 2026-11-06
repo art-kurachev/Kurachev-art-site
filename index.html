@@ -19,13 +19,15 @@
 
     <!-- Стили -->
     <link rel="stylesheet" href="./css/global.css" />
-    <link rel="stylesheet" href="./css/style.css?v=20261106-quote8" />
+    <link rel="stylesheet" href="./css/style.css?v=20261106-reviews3" />
     <link rel="stylesheet" href="./fonts/fonts.css" />
-    <link rel="stylesheet" href="./css/media.css?v=20261106-quote8" />
+    <link rel="stylesheet" href="./css/media.css?v=20261106-reviews3" />
     <link rel="stylesheet" href="./css/case-popup.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@200&display=swap" />
+    <link rel="stylesheet" href="./css/personal-projects.css?v=20261106-hidden1" />
 
     <!-- Скрипты -->
-    <script type="text/javascript" src="./js/main.js?v=20261106-quote8" defer></script>
+    <script type="text/javascript" src="./js/main.js?v=20261106-reviews3" defer></script>
     <script type="text/javascript" src="./js/case-popup.js" defer></script>
     
     <!-- Three.js -->
@@ -166,8 +168,8 @@
         <li class="header_menu_item js-cursor-contract">
           <a href="#projects" class="desc text-uppercase has-tag-handle" >
             <span class="header_menu_item_inner">
-              <span class="header_menu_item_link header_menu_item_link__deep">Projects</span>
-              <span class="header_menu_item_link header_menu_item_link__active">Projects</span>
+              <span class="header_menu_item_link header_menu_item_link__deep">Cases</span>
+              <span class="header_menu_item_link header_menu_item_link__active">Cases</span>
             </span>
           </a>
         </li>
@@ -347,7 +349,7 @@
       <div class="myphoto-text">
 
         <div class="h3Clip">
-          <h3 class="containerTitle">experience</h3>
+          <h3 class="containerTitle">Experience</h3>
         </div>
         
         <div class="mpt-stroke">
@@ -372,7 +374,7 @@
 
       <div class="hist">
         <div class="h3Clip">
-          <h3 class="containerTitle">history</h3>
+          <h3 class="containerTitle">History</h3>
         </div>
         
       </div>
@@ -451,11 +453,50 @@
     </section>
 
 
+    <!-- Личные проекты -->
+    <section id="personal-projects" class="personal-projects" aria-labelledby="personal-projects-title" hidden>
+      <div class="h3Clip histPS">
+        <h3 id="personal-projects-title" class="containerTitle">Personal Projects</h3>
+      </div>
+      <div class="personal-projects__grid">
+        <article class="personal-project" aria-labelledby="personal-iprit-title">
+          <a class="personal-project__link" href="https://t.me/iprit_hma_bot" target="_blank" rel="noopener noreferrer" aria-label="Iprit — открыть Telegram мини-апп в новой вкладке">
+            <img class="personal-project__image" src="./img/personal-projects/iprit-cover.png" width="1280" height="774" alt="" loading="lazy" decoding="async">
+            <div class="personal-project__branding">
+              <span class="personal-project__platform">tg mini-app</span>
+              <img class="personal-project__logo personal-project__logo--iprit" src="./img/personal-projects/iprit-logo.svg" width="135" height="62" alt="Iprit">
+            </div>
+            <h4 id="personal-iprit-title" class="visually-hidden">Iprit</h4>
+            <p class="visually-hidden">Telegram mini app. Кальянный ассистент с&nbsp;AI.</p>
+          </a>
+        </article>
+        <article class="personal-project" aria-labelledby="personal-observer-title">
+          <img class="personal-project__image" src="./img/personal-projects/observer-cover.png" width="1280" height="774" alt="" loading="lazy" decoding="async">
+          <div class="personal-project__branding">
+            <span class="personal-project__platform">macOS</span>
+            <img class="personal-project__logo personal-project__logo--observer" src="./img/personal-projects/observer-logo.svg" width="326" height="48" alt="Observer">
+          </div>
+          <h4 id="personal-observer-title" class="visually-hidden">Observer</h4>
+          <p class="visually-hidden">macOS desktop. Приложение для&nbsp;киберспорта.</p>
+        </article>
+        <article class="personal-project" aria-labelledby="personal-bus-title">
+          <img class="personal-project__image" src="./img/personal-projects/mybusstop-cover.png" width="1280" height="774" alt="" loading="lazy" decoding="async">
+          <div class="personal-project__branding">
+            <span class="personal-project__platform">Apple Watch</span>
+            <img class="personal-project__logo personal-project__logo--bus" src="./img/personal-projects/mybusstop-logo.svg" width="150" height="48" alt="rout">
+          </div>
+          <h4 id="personal-bus-title" class="visually-hidden">myBusStop — rout</h4>
+          <p class="visually-hidden">Apple Watch app. Приложение для&nbsp;отслеживания автобусов.</p>
+        </article>
+      </div>
+    </section>
+
+
     <!-- Проекты -->
     <section id="projects" class="sectionProjects menuItemCont">
       <div class="projectPreview"><img src="./img/projects/planeta-erp.jpg" width="808" height="632" alt="Превью проекта"></div>
       <div class="h3Clip histPS">
-        <h3 class="containerTitle">Projects</h3>
+        <h3 class="containerTitle">Cases</h3>
       </div>
       <hr class="hr-text">
       <a href="#case-planeta-erp" class="projectLink" data-case="planeta-erp"
@@ -473,7 +514,7 @@
           <h1 class="texxt2 texxt-mask histRaw">
             <b>2o26</b>
             <b>
-              <p class="histCol">ERP для строительного бизнеса</p>
+              <p class="histCol">ERP для строительства</p>
               <h4>Веб-система и дизайн-система</h4>
             </b>
           </h1>
@@ -567,7 +608,6 @@
           </h1>
         </div>
       </a>
-      <hr class="hr-text">
     </section>
 
 
@@ -576,7 +616,7 @@
       <div class="about-text">
 
         <div class="h3Clip">
-          <h3 class="containerTitle">Мои клиенты</h3>
+          <h3 class="containerTitle">Clients</h3>
         </div>
         
         <div class="mpt-stroke">
@@ -729,7 +769,7 @@
         <span class="rightKav">“</span>
 
         <div class="h3Clip">
-          <h3 class="containerTitle">Умные мысли - умных людей</h3>
+          <h3 class="containerTitle">Words of Wisdom</h3>
         </div>
         
         <div class="motto-stroke">
@@ -761,7 +801,7 @@
     <!-- Футер -->
     <footer>
       <div class="h3Clip">
-        <h3 class="containerTitle">Контакты</h3>
+        <h3 class="containerTitle">Contacts</h3>
       </div>
 
       <div class="footerColumn">
