@@ -1,0 +1,226 @@
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/GoogleSans-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/GoogleSans-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+html.iprit-open { overflow: hidden; }
+html.iprit-open .cursor { opacity: 0 !important; }
+
+/* Figma 1405:11341: одна колонка поверх затемнённой страницы. */
+.iprit-popup {
+  box-sizing: border-box;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  padding: 80px 24px;
+  border: 0;
+  margin: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: transparent;
+  color: #E9D4C3;
+  font-family: var(--text-block), sans-serif;
+}
+.iprit-popup::backdrop { background: rgba(0, 0, 0, .94); }
+.iprit-popup,
+.iprit-popup * { cursor: auto; }
+.iprit-popup button { cursor: pointer !important; }
+.iprit-popup [hidden] { display: none !important; }
+.iprit-popup :focus-visible { outline: 2px solid #E9D4C3; outline-offset: 4px; }
+.iprit-popup__close {
+  position: sticky;
+  z-index: 2;
+  top: 24px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 40px;
+  padding: 0;
+  border: 0;
+  background: rgba(233, 212, 195, .1);
+  color: #E9D4C3;
+}
+.iprit-popup__close svg { width: 26px; height: 26px; pointer-events: none; }
+.iprit-popup__layout {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: min(1600px, 100%);
+  margin-inline: auto;
+}
+.iprit-popup__stage {
+  position: relative;
+  width: 100%;
+  height: min(1100px, calc(100dvh - 220px));
+  min-height: 360px;
+  overflow: hidden;
+}
+.iprit-popup__stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.iprit-popup__stage canvas:active { cursor: grabbing; }
+.iprit-popup__content {
+  width: min(678px, 100%);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+.iprit-popup__branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.iprit-popup__platform {
+  margin: 0;
+  opacity: .6;
+  color: #E9D4C3;
+  font-family: 'Geologica', var(--text-block), sans-serif;
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 18px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+.iprit-popup__title { margin: 0; line-height: 0; }
+.iprit-popup__title img { display: block; width: 135px; height: 62px; }
+.project-popup--observer { --project-popup-logo-width: 327px; }
+.project-popup--rout { --project-popup-logo-width: 150px; }
+.project-popup .iprit-popup__title { width: var(--project-popup-logo-width); max-width: 100%; }
+.project-popup .iprit-popup__title img { width: 100%; height: auto; }
+.project-popup__preview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  -webkit-mask-image: linear-gradient(transparent, #000 20%, #000 85%, transparent);
+  mask-image: linear-gradient(transparent, #000 20%, #000 85%, transparent);
+}
+.iprit-popup__description {
+  margin: 0;
+  color: #CABB9F;
+  font-family: 'Google Sans', var(--text-block), sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.iprit-popup__status {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.iprit-popup__status.is-error { top: auto; }
+.iprit-popup__retry {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid #7E8772;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.iprit-popup__screen-fallback {
+  position: absolute;
+  inset: 0 0 112px;
+  width: auto;
+  max-width: 75%;
+  height: calc(100% - 112px);
+  margin: auto;
+  object-fit: contain;
+}
+.iprit-popup[open] { animation: ipritPopupEnter 200ms ease-out; }
+@keyframes ipritPopupEnter { from { opacity: 0; } to { opacity: 1; } }
+@media (min-width: 769px) {
+  .iprit-popup {
+    padding: clamp(16px, 3dvh, 32px) 24px;
+    overflow: hidden;
+  }
+  .iprit-popup[open] { display: flex; flex-direction: column; }
+  .iprit-popup__close {
+    position: relative;
+    top: auto;
+    flex-shrink: 0;
+    margin: 0 auto clamp(8px, 1.5dvh, 16px);
+  }
+  .iprit-popup__layout {
+    display: grid;
+    flex: 1;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: clamp(12px, 2dvh, 24px);
+  }
+  .iprit-popup__stage { height: 100%; min-height: 0; }
+  .iprit-popup__content { gap: clamp(12px, 2dvh, 24px); }
+  .project-popup--observer .iprit-popup__layout { width: min(1800px, 100%); }
+}
+@media (max-width: 768px) {
+  .iprit-popup {
+    padding: max(12px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+    overflow: hidden;
+  }
+  .iprit-popup[open] { display: flex; flex-direction: column; }
+  .iprit-popup__close {
+    position: relative;
+    top: auto;
+    flex-shrink: 0;
+    order: 1;
+    margin: clamp(8px, 1.5dvh, 16px) auto 0;
+  }
+  .iprit-popup__layout {
+    display: grid;
+    flex: 1;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: clamp(8px, 1.5dvh, 16px);
+  }
+  /* Текст занимает свою высоту, модель получает всё оставшееся место. */
+  .iprit-popup__stage { height: 100%; min-height: 0; }
+  .iprit-popup__content { gap: clamp(8px, 1.5dvh, 16px); }
+  .iprit-popup__branding { gap: 6px; }
+  .iprit-popup__platform { font-size: 12px; line-height: 16px; }
+  .iprit-popup__title img { width: clamp(84px, 13dvh, 120px); height: auto; }
+  .project-popup--observer .iprit-popup__title { width: clamp(180px, 32dvh, 260px); }
+  .project-popup--rout .iprit-popup__title { width: clamp(100px, 16dvh, 140px); }
+  .iprit-popup__description { font-size: clamp(14px, 2dvh, 16px); line-height: 1.45; }
+}
+@media (max-width: 768px) and (orientation: portrait) {
+  .iprit-popup__stage {
+    width: calc(100% + 40px);
+    margin-inline: -20px;
+  }
+}
+@media (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
+  .iprit-popup__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .iprit-popup[open] { animation: none; }
+}

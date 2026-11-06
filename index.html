@@ -24,11 +24,15 @@
     <link rel="stylesheet" href="./css/media.css?v=20261106-reviews3" />
     <link rel="stylesheet" href="./css/case-popup.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@200&display=swap" />
-    <link rel="stylesheet" href="./css/personal-projects.css?v=20261106-hidden1" />
+    <link rel="stylesheet" href="./css/personal-projects.css?v=20261106-figma13" />
+
+    <link rel="stylesheet" href="./css/iprit-popup.css?v=20261106-fit11" />
 
     <!-- Скрипты -->
-    <script type="text/javascript" src="./js/main.js?v=20261106-reviews3" defer></script>
+    <script type="text/javascript" src="./js/main.js?v=20261106-projectcursor4" defer></script>
     <script type="text/javascript" src="./js/case-popup.js" defer></script>
+    <script type="text/javascript" src="./js/iprit-popup.js?v=20261106-fit13" defer></script>
+    <script type="text/javascript" src="./js/project-popups.js?v=20261106-mac4" defer></script>
     
     <!-- Three.js -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
@@ -454,40 +458,72 @@
 
 
     <!-- Личные проекты -->
-    <section id="personal-projects" class="personal-projects" aria-labelledby="personal-projects-title" hidden>
+    <section id="personal-projects" class="personal-projects" aria-labelledby="personal-projects-title">
       <div class="h3Clip histPS">
         <h3 id="personal-projects-title" class="containerTitle">Personal Projects</h3>
       </div>
-      <div class="personal-projects__grid">
-        <article class="personal-project" aria-labelledby="personal-iprit-title">
-          <a class="personal-project__link" href="https://t.me/iprit_hma_bot" target="_blank" rel="noopener noreferrer" aria-label="Iprit — открыть Telegram мини-апп в новой вкладке">
-            <img class="personal-project__image" src="./img/personal-projects/iprit-cover.png" width="1280" height="774" alt="" loading="lazy" decoding="async">
+      <div class="personal-projects__row">
+        <div class="personal-projects__grid">
+          <article class="personal-project" aria-labelledby="personal-iprit-title">
+            <a class="personal-project__link" href="https://t.me/iprit_hma_bot" target="_blank" rel="noopener noreferrer" data-iprit-popup aria-haspopup="dialog" aria-controls="iprit-dialog" aria-label="Подробнее об Iprit">
+              <img class="personal-project__image" src="./img/personal-projects/iprit-cover.png?v=20261106-figma13" width="1280" height="774" alt="" loading="lazy" decoding="async">
+              <div class="personal-project__branding">
+                <span class="personal-project__platform">PWA</span>
+                <img class="personal-project__logo personal-project__logo--iprit" src="./img/personal-projects/iprit-logo.svg?v=20261106-layout2" width="135" height="62" alt="Iprit">
+              </div>
+              <h4 id="personal-iprit-title" class="visually-hidden">Iprit</h4>
+              <p class="visually-hidden">Кальянный ассистент в&nbsp;Telegram с&nbsp;AI. Помогает разобраться, как забить кальян, и&nbsp;собрать список покупок, чтобы в&nbsp;магазине не&nbsp;приходилось вспоминать, что нужно купить.</p>
+
+              <div class="personal-project__reveal" aria-hidden="true">
+                <div class="personal-project__branding">
+                  <span class="personal-project__platform">PWA</span>
+                  <img class="personal-project__logo personal-project__logo--iprit" src="./img/personal-projects/iprit-logo.svg?v=20261106-layout2" width="135" height="62" alt="">
+                </div>
+                <div class="personal-project__description">
+                  <p class="personal-project__copy">Кальянный ассистент в&nbsp;Telegram с&nbsp;AI. Помогает разобраться, как забить кальян, и&nbsp;собрать список покупок, чтобы в&nbsp;магазине не&nbsp;приходилось вспоминать, что нужно купить.</p>
+                </div>
+              </div>
+            </a>
+          </article>
+          <article class="personal-project" tabindex="0" role="button" data-project-popup="observer" aria-haspopup="dialog" aria-controls="observer-dialog" aria-expanded="false" aria-labelledby="personal-observer-title">
+            <img class="personal-project__image" src="./img/personal-projects/observer-cover.png?v=20261106-srgb10" width="1280" height="774" alt="" loading="lazy" decoding="async">
             <div class="personal-project__branding">
-              <span class="personal-project__platform">tg mini-app</span>
-              <img class="personal-project__logo personal-project__logo--iprit" src="./img/personal-projects/iprit-logo.svg" width="135" height="62" alt="Iprit">
+              <span class="personal-project__platform">macOS</span>
+              <img class="personal-project__logo personal-project__logo--observer" src="./img/personal-projects/observer-logo.svg?v=20261106-layout2" width="327" height="48" alt="Observer">
             </div>
-            <h4 id="personal-iprit-title" class="visually-hidden">Iprit</h4>
-            <p class="visually-hidden">Telegram mini app. Кальянный ассистент с&nbsp;AI.</p>
-          </a>
-        </article>
-        <article class="personal-project" aria-labelledby="personal-observer-title">
-          <img class="personal-project__image" src="./img/personal-projects/observer-cover.png" width="1280" height="774" alt="" loading="lazy" decoding="async">
-          <div class="personal-project__branding">
-            <span class="personal-project__platform">macOS</span>
-            <img class="personal-project__logo personal-project__logo--observer" src="./img/personal-projects/observer-logo.svg" width="326" height="48" alt="Observer">
-          </div>
-          <h4 id="personal-observer-title" class="visually-hidden">Observer</h4>
-          <p class="visually-hidden">macOS desktop. Приложение для&nbsp;киберспорта.</p>
-        </article>
-        <article class="personal-project" aria-labelledby="personal-bus-title">
-          <img class="personal-project__image" src="./img/personal-projects/mybusstop-cover.png" width="1280" height="774" alt="" loading="lazy" decoding="async">
-          <div class="personal-project__branding">
-            <span class="personal-project__platform">Apple Watch</span>
-            <img class="personal-project__logo personal-project__logo--bus" src="./img/personal-projects/mybusstop-logo.svg" width="150" height="48" alt="rout">
-          </div>
-          <h4 id="personal-bus-title" class="visually-hidden">myBusStop — rout</h4>
-          <p class="visually-hidden">Apple Watch app. Приложение для&nbsp;отслеживания автобусов.</p>
-        </article>
+            <h4 id="personal-observer-title" class="visually-hidden">Observer</h4>
+            <p class="visually-hidden">Приложение для&nbsp;киберспорта на&nbsp;macOS. Личный проект, в&nbsp;котором я исследую, как может выглядеть удобный десктопный инструмент для&nbsp;киберспортивной среды.</p>
+
+            <div class="personal-project__reveal" aria-hidden="true">
+              <div class="personal-project__branding">
+                <span class="personal-project__platform">macOS</span>
+                <img class="personal-project__logo personal-project__logo--observer" src="./img/personal-projects/observer-logo.svg?v=20261106-layout2" width="327" height="48" alt="">
+              </div>
+              <div class="personal-project__description">
+                <p class="personal-project__copy">Приложение для&nbsp;киберспорта на&nbsp;macOS. Личный проект, в&nbsp;котором я исследую, как может выглядеть удобный десктопный инструмент для&nbsp;киберспортивной среды.</p>
+              </div>
+            </div>
+          </article>
+          <article class="personal-project" tabindex="0" role="button" data-project-popup="rout" aria-haspopup="dialog" aria-controls="rout-dialog" aria-expanded="false" aria-labelledby="personal-bus-title">
+            <img class="personal-project__image" src="./img/personal-projects/mybusstop-cover.png?v=20261106-srgb10" width="1280" height="774" alt="" loading="lazy" decoding="async">
+            <div class="personal-project__branding">
+              <span class="personal-project__platform">Apple Watch</span>
+              <img class="personal-project__logo personal-project__logo--bus" src="./img/personal-projects/mybusstop-logo.svg?v=20261106-layout2" width="150" height="48" alt="rout">
+            </div>
+            <h4 id="personal-bus-title" class="visually-hidden">myBusStop — rout</h4>
+            <p class="visually-hidden">Приложение для&nbsp;отслеживания автобусов на&nbsp;Apple Watch. Идея проекта — перенести нужную в&nbsp;дороге информацию на&nbsp;запястье, чтобы реже доставать телефон на&nbsp;остановке.</p>
+
+            <div class="personal-project__reveal" aria-hidden="true">
+              <div class="personal-project__branding">
+                <span class="personal-project__platform">Apple Watch</span>
+                <img class="personal-project__logo personal-project__logo--bus" src="./img/personal-projects/mybusstop-logo.svg?v=20261106-layout2" width="150" height="48" alt="">
+              </div>
+              <div class="personal-project__description">
+                <p class="personal-project__copy">Приложение для&nbsp;отслеживания автобусов на&nbsp;Apple Watch. Идея проекта — перенести нужную в&nbsp;дороге информацию на&nbsp;запястье, чтобы реже доставать телефон на&nbsp;остановке.</p>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -817,8 +853,8 @@
           </a>
         </ul>
         <ul class="colOne">
-          <a href="https://t.me/iprit_hma_bot" target="_blank" rel="noopener noreferrer" aria-label="Iprit — Telegram мини-апп">
-            <li class="footerStroke"><h2>Mini app</h2><h2 class="footerMask">Iprit App.</h2></li>
+          <a href="https://t.me/iprit_hma_bot" target="_blank" rel="noopener noreferrer" aria-label="Iprit — PWA">
+            <li class="footerStroke"><h2>PWA</h2><h2 class="footerMask">Iprit App.</h2></li>
           </a>
           <a class="footerPlaceholder footerWhatsapp" role="link" aria-disabled="true" aria-label="WhatsApp — не работает">
             <li class="footerStroke">
@@ -1709,6 +1745,72 @@
         </footer>
       </div>
       <p class="visually-hidden case-popup__live" aria-live="polite"></p>
+    </dialog>
+    <!-- Iprit: описание и 3D-превью приложения -->
+    <dialog id="iprit-dialog" class="iprit-popup" aria-labelledby="iprit-popup-title" aria-describedby="iprit-popup-description">
+      <button type="button" class="iprit-popup__close" aria-label="Закрыть окно Iprit" autofocus>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <div class="iprit-popup__layout">
+        <div class="iprit-popup__stage" aria-busy="false">
+          <img class="iprit-popup__screen-fallback" src="./img/personal-projects/iprit-screen.png?v=20261106-screen6" width="512" height="1024" alt="Главный экран Iprit: кальян, моя полка и режимы рекомендаций" loading="lazy" hidden>
+          <div class="iprit-popup__status" role="status" aria-live="polite">
+            <span class="iprit-popup__status-text">Загружаю 3D-модель…</span>
+            <button type="button" class="iprit-popup__retry" hidden>Попробовать ещё раз</button>
+          </div>
+        </div>
+        <div class="iprit-popup__content">
+          <div class="iprit-popup__branding">
+            <p class="iprit-popup__platform">PWA</p>
+            <h2 id="iprit-popup-title" class="iprit-popup__title"><img src="./img/personal-projects/iprit-logo.svg?v=20261106-layout2" width="135" height="62" alt="Iprit"></h2>
+          </div>
+          <p id="iprit-popup-description" class="iprit-popup__description">Кальянный ассистент с&nbsp;AI: помогает подобрать микс и&nbsp;разобраться с&nbsp;забивкой под&nbsp;твою чашу, вкус и&nbsp;уголь. А&nbsp;список покупок сохраняет всё нужное, чтобы в&nbsp;магазине не&nbsp;приходилось вспоминать, что купить.</p>
+        </div>
+      </div>
+    </dialog>
+    <!-- Observer: превью до подключения 3D-модели -->
+    <dialog id="observer-dialog" class="iprit-popup project-popup project-popup--observer" aria-labelledby="observer-popup-title" aria-describedby="observer-popup-description">
+      <button type="button" class="iprit-popup__close" aria-label="Закрыть окно Observer" autofocus>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <div class="iprit-popup__layout">
+        <div class="iprit-popup__stage" aria-busy="false">
+          <img class="iprit-popup__screen-fallback" src="./img/personal-projects/observer-cover.png?v=20261106-srgb10" width="1280" height="774" alt="Observer на MacBook" loading="lazy" decoding="async" hidden>
+          <div class="iprit-popup__status" role="status" aria-live="polite">
+            <span class="iprit-popup__status-text">Загружаю 3D-модель…</span>
+            <button type="button" class="iprit-popup__retry" hidden>Попробовать ещё раз</button>
+          </div>
+        </div>
+        <div class="iprit-popup__content">
+          <div class="iprit-popup__branding">
+            <p class="iprit-popup__platform">macOS</p>
+            <h2 id="observer-popup-title" class="iprit-popup__title"><img src="./img/personal-projects/observer-logo.svg?v=20261106-layout2" width="327" height="48" alt="Observer"></h2>
+          </div>
+          <p id="observer-popup-description" class="iprit-popup__description">Приложение для&nbsp;киберспорта на&nbsp;macOS. Личный проект, в&nbsp;котором я исследую, как может выглядеть удобный десктопный инструмент для&nbsp;киберспортивной среды.</p>
+        </div>
+      </div>
+    </dialog>
+    <!-- rout: превью до подключения 3D-модели -->
+    <dialog id="rout-dialog" class="iprit-popup project-popup project-popup--rout" aria-labelledby="rout-popup-title" aria-describedby="rout-popup-description">
+      <button type="button" class="iprit-popup__close" aria-label="Закрыть окно rout" autofocus>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <div class="iprit-popup__layout">
+        <div class="iprit-popup__stage" aria-busy="false">
+          <img class="iprit-popup__screen-fallback" src="./img/personal-projects/mybusstop-cover.png?v=20261106-srgb10" width="1280" height="774" alt="rout на Apple Watch" loading="lazy" decoding="async" hidden>
+          <div class="iprit-popup__status" role="status" aria-live="polite">
+            <span class="iprit-popup__status-text">Загружаю 3D-модель…</span>
+            <button type="button" class="iprit-popup__retry" hidden>Попробовать ещё раз</button>
+          </div>
+        </div>
+        <div class="iprit-popup__content">
+          <div class="iprit-popup__branding">
+            <p class="iprit-popup__platform">Apple Watch</p>
+            <h2 id="rout-popup-title" class="iprit-popup__title"><img src="./img/personal-projects/mybusstop-logo.svg?v=20261106-layout2" width="150" height="48" alt="rout"></h2>
+          </div>
+          <p id="rout-popup-description" class="iprit-popup__description">Приложение для&nbsp;отслеживания автобусов на&nbsp;Apple Watch. Идея проекта — перенести нужную в&nbsp;дороге информацию на&nbsp;запястье, чтобы реже доставать телефон на&nbsp;остановке.</p>
+        </div>
+      </div>
     </dialog>
   </body>
 </html>

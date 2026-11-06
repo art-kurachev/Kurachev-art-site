@@ -1,29 +1,41 @@
-/* Figma: Iprit / 1384:9176 — три изображения во всю ширину окна. */
+/* Figma: Iprit / 1401:11251 — центральная сетка с полноширинными линиями. */
 .personal-projects {
+  --personal-project-inset: 13vw;
+  --personal-project-spacing: clamp(64px, 7.8125vw, 150px);
+  --personal-project-next-section-padding: 18.75rem;
+  --personal-project-line: rgba(183, 171, 152, .3);
   box-sizing: border-box;
   width: 100%;
   padding-inline: 0;
-  padding-bottom: 0;
+  padding-top: calc(var(--personal-project-spacing) + var(--personal-project-next-section-padding));
+  padding-bottom: var(--personal-project-spacing);
   align-items: stretch;
 }
 .personal-projects[hidden] { display: none; }
 .personal-projects > .h3Clip {
   box-sizing: border-box;
   margin: 0;
-  padding-bottom: 1.25vw;
+  min-height: 56px;
+  padding: 0 var(--personal-project-inset) 24px;
 }
+.personal-projects__row { border-block: 1px solid var(--personal-project-line); }
 .personal-projects__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
 }
 .personal-project {
+  box-sizing: border-box;
   position: relative;
   min-width: 0;
-  aspect-ratio: 640 / 387;
+  container-type: inline-size;
+  /* Высоту можно переопределить через --personal-project-height у секции. */
+  height: var(--personal-project-height, max(280px, 23.28125vw));
+  min-height: 280px;
   overflow: hidden;
-  background: #000;
+  background: #0D0D0D;
 }
+.personal-project + .personal-project { border-left: 1px solid var(--personal-project-line); }
 .personal-project__link {
   position: absolute;
   inset: 0;
@@ -36,13 +48,14 @@
 }
 .personal-project__image {
   position: absolute;
-  inset: 0;
+  left: 0;
+  bottom: 0;
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Фон превью #0D0D0D становится чёрным; светлые детали сохраняются. */
-  filter: brightness(0.951493) contrast(1.107438);
+  height: auto;
+  aspect-ratio: 640 / 387;
+  object-fit: contain;
+  object-position: center bottom;
 }
 .personal-project__branding {
   position: absolute;
@@ -52,29 +65,88 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 6.25%;
-  gap: clamp(6px, .416667vw, 8px);
+  padding-top: clamp(32px, 2.916667vw, 56px);
+  gap: 8px;
 }
 .personal-project__platform {
   box-sizing: border-box;
-  padding: 6px 12px;
-  border-radius: 50px;
-  background: rgba(233, 212, 195, .1);
+  padding: 0;
+  opacity: .6;
   color: #E9D4C3;
   font-family: 'Geologica', var(--text-block);
   font-weight: 200;
-  font-size: 12px;
-  line-height: 15px;
+  font-size: clamp(12px, 3.153153cqw, 14px);
+  line-height: 1.285714;
+  letter-spacing: .22em;
+  text-transform: uppercase;
 }
 .personal-project__logo { display: block; height: auto; }
-.personal-project__logo--iprit { width: 21.09375%; }
-.personal-project__logo--observer { width: 50.9375%; }
-.personal-project__logo--bus { width: 23.4375%; }
+.personal-project__logo--iprit { width: min(135px, 30.405405cqw); }
+.personal-project__logo--observer { width: min(327px, 73.648649cqw); }
+.personal-project__logo--bus { width: min(150px, 33.783784cqw); }
+/* Та же шторка из центра, что у строк History. */
+.personal-project__reveal {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  color: #0D0D0D;
+  background: var(--accent);
+  pointer-events: none;
+  clip-path: inset(50% 0 50% 0);
+  transition: clip-path .4s cubic-bezier(.165, .84, .44, 1);
+}
+.personal-project__reveal .personal-project__branding { position: static; flex-shrink: 0; }
+.personal-project__reveal .personal-project__platform { color: inherit; }
+.personal-project__reveal .personal-project__logo {
+  filter: brightness(0) invert(.05098);
+}
+.personal-project__description {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0 clamp(24px, 7.03125cqw, 45px);
+}
+.personal-project__copy {
+  margin: 0;
+  color: inherit;
+  font-family: 'Google Sans', var(--text-block), sans-serif;
+  font-size: clamp(14px, 3.125cqw, 20px);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: initial;
+  line-height: 1.6;
+  text-align: center;
+  text-wrap: pretty;
+}
+@media (hover: hover) and (pointer: fine) {
+  .personal-project:hover .personal-project__reveal { clip-path: inset(0); }
+}
+.personal-project:focus-visible .personal-project__reveal,
+.personal-project__link:focus-visible .personal-project__reveal { clip-path: inset(0); }
+.personal-project:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
 @media screen and (max-width: 768px) {
+  .personal-projects {
+    --personal-project-inset: 10rem;
+    --personal-project-next-section-padding: 45rem;
+  }
   .personal-projects > .h3Clip { padding-bottom: 24px; }
   .personal-projects__grid { grid-template-columns: minmax(0, 1fr); }
-  .personal-project__branding { gap: 6px; }
+  .personal-project { height: var(--personal-project-height, max(300px, 70vw)); }
+  .personal-project__branding { padding-top: clamp(32px, 8.75vw, 56px); }
+  .personal-project + .personal-project {
+    border-left: 0;
+    border-top: 1px solid var(--personal-project-line);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
+  .personal-project__reveal { transition: none; }
   .personal-projects .containerTitle { transform: none; opacity: 1; transition: none; }
 }

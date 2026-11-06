@@ -218,7 +218,7 @@ document.body.addEventListener('mouseleave', () => {
 
 
 //Скрываем курсор на строках
-const links = document.querySelectorAll('.strokeAnimateItem');
+const links = document.querySelectorAll('.strokeAnimateItem, .personal-project');
 for (let i = 0; i < links.length; i++) {
   links[i].addEventListener('mouseover', () => {
     innerCursor.classList.add('active-cursor');
