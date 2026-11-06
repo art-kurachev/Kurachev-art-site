@@ -347,3 +347,76 @@
     padding-left: 11rem;
   }
 }
+
+/* Текст остаётся в потоке; параллакс двигает только фон внутри блока. */
+@media screen and (max-width: 768px) {
+  .motto-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    min-height: 560px;
+    max-height: none;
+    padding: 56px 7.5%;
+    align-content: normal;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .motto-container > img {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 80px);
+    margin: 0;
+    object-fit: cover;
+    object-position: 50% 40%;
+    transform: translate3d(0, var(--motto-parallax, 0px), 0);
+    opacity: 1;
+    z-index: 0;
+  }
+  .motto-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    z-index: 1;
+  }
+  .motto-text .h3Clip { order: 0; margin-bottom: 24px; }
+  .motto-text .containerTitle {
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: .2em;
+    text-wrap: balance;
+  }
+  .motto-text .leftKav {
+    order: 1;
+    display: block;
+    position: static;
+    font-size: 48px;
+    line-height: .8;
+    height: 20px;
+    margin-bottom: 8px;
+  }
+  .motto-text .rightKav,
+  .motto-text .motto-stroke { display: none; }
+  .motto-text .motto-quote-mobile { display: block; order: 2; }
+  .motto-text .motto-quote-mobile h2 {
+    font-size: clamp(22px, 5.8vw, 28px);
+    line-height: 1.25;
+    text-wrap: pretty;
+  }
+  .motto-text .animClipName { order: 3; }
+  .motto-text .mottoName {
+    padding-top: 24px;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: .02em;
+  }
+}

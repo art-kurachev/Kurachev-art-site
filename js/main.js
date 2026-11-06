@@ -480,6 +480,19 @@ window.addEventListener('scroll', e => {
   document.body.style.setProperty('--scrollTop', `${this.scrollY}px`)
 })
 
+// Мобильный параллакс ограничен запасом изображения за краями блока.
+function updateMottoParallax() {
+  const block = document.querySelector('.motto-container');
+  if (window.innerWidth > 768) return;
+  const rect = block.getBoundingClientRect();
+  const offset = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0
+    : Math.max(-32, Math.min(32, (window.innerHeight / 2 - rect.top - rect.height / 2) * 0.08));
+  block.style.setProperty('--motto-parallax', offset + 'px');
+}
+window.addEventListener('scroll', updateMottoParallax, { passive: true });
+window.addEventListener('resize', updateMottoParallax);
+updateMottoParallax();
+
 //Подгоняем 3D-сцены под новый размер окна
 window.addEventListener('resize', () => {
   resizeMoon();

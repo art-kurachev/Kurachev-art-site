@@ -997,3 +997,12 @@ footer .h3Clip {
   filter: grayscale(100%);
   opacity: 0.3;
 }
+
+/* Поднимаем портрет в кадре цитаты, сохраняя параллакс. */
+@media screen and (min-width: 769px) {
+  .motto-container > img {
+    transform: translate3d(0, calc(var(--scrollTop, 0px) / 4 - clamp(180px, 20vw, 360px)), 0);
+  }
+}
+
+.motto-quote-mobile { display: none; }
