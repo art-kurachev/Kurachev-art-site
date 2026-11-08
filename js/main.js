@@ -132,15 +132,19 @@ window.addEventListener('scroll', function(){
   }
 })
 
-//Анимация заголовка
-document.querySelectorAll('.containerTitle').forEach((item) => {
-  window.addEventListener('scroll', function(){
-    if (item.getBoundingClientRect().top <= 870) {
+// Анимация заголовка при входе его контейнера в видимую область.
+const sectionTitles = document.querySelectorAll('.containerTitle');
+function revealSectionTitles() {
+  sectionTitles.forEach((item) => {
+    if (!item.classList.contains('visibleSeven') &&
+        item.parentElement.getBoundingClientRect().top < window.innerHeight) {
       item.classList.add('visibleSeven');
     }
-  })
-})
-
+  });
+}
+window.addEventListener('scroll', revealSectionTitles, { passive: true });
+window.addEventListener('resize', revealSectionTitles);
+revealSectionTitles();
 
 
 // Задаем начальную позицию курсора за пределами экрана
