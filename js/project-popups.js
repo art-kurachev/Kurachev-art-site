@@ -38,7 +38,7 @@
       dialog.scrollTop = 0;
       root.classList.add('iprit-open');
       trigger.setAttribute('aria-expanded', 'true');
-      document.dispatchEvent(new CustomEvent('casepopup:open'));
+      document.dispatchEvent(new CustomEvent('casepopup:open', { detail: { dialog } }));
       close.focus({ preventScroll: true });
       dialog.dispatchEvent(new CustomEvent('projectpopup:open'));
     });

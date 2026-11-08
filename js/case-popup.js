@@ -74,7 +74,7 @@
       root.classList.remove('case-pending');
       title.focus({ preventScroll: true });
       document.title = caseTitle;
-      document.dispatchEvent(new CustomEvent('casepopup:open'));
+      document.dispatchEvent(new CustomEvent('casepopup:open', { detail: { dialog } }));
 
       const done = () => { if (state === 'opening') state = 'open'; };
       if (instant) done();

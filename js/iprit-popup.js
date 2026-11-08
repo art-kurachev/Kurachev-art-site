@@ -404,7 +404,7 @@
         dialog.showModal();
         dialog.scrollTop = 0;
         root.classList.add('iprit-open');
-        document.dispatchEvent(new CustomEvent('casepopup:open'));
+        document.dispatchEvent(new CustomEvent('casepopup:open', { detail: { dialog } }));
         closeButton.focus({ preventScroll: true });
         ensureModel();
       });

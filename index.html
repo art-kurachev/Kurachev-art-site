@@ -5,6 +5,44 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function(m,e,t,r,i,k,a){
+          m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+          m[i].l=1*new Date();
+          for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+          k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=114135152', 'ym');
+
+      ym(114135152, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+
+      document.addEventListener('casepopup:open', ({ detail }) => {
+        const dialog = detail?.dialog;
+        if (!dialog) return;
+        const slug = dialog.id.replace(/-dialog$/, '');
+        if (dialog.classList.contains('case-popup')) {
+          ym(114135152, 'reachGoal', 'case_open', { case: slug.slice('case-'.length) });
+        } else if (dialog.classList.contains('iprit-popup')) {
+          ym(114135152, 'reachGoal', 'project_open', { project: slug });
+        }
+      });
+
+      function trackContactClick(event) {
+        const link = event.target.closest('a[href]');
+        if (!link) return;
+        let channel;
+        if (link.protocol === 'mailto:') channel = 'email';
+        else if (link.protocol === 'tel:') channel = 'phone';
+        else if (link.hostname === 't.me' && link.pathname === '/artkurachev') channel = 'telegram';
+        if (channel) ym(114135152, 'reachGoal', 'contact_click', { channel });
+      }
+      document.addEventListener('click', trackContactClick, true);
+      document.addEventListener('auxclick', (event) => {
+        if (event.button === 1) trackContactClick(event);
+      }, true);
+    </script>
+    <!-- /Yandex.Metrika counter -->
+
     <!-- Прямая ссылка на кейс: без прелоадера, главную закрываем чёрным до открытия поп-апа -->
     <script>
       if (/^#case-(sum|planeta-erp|planeta-mobile|tanceklass|unit-systems)$/.test(location.hash)) {
@@ -30,9 +68,9 @@
 
     <!-- Скрипты -->
     <script type="text/javascript" src="./js/main.js?v=20261108-section-titles" defer></script>
-    <script type="text/javascript" src="./js/case-popup.js" defer></script>
-    <script type="text/javascript" src="./js/iprit-popup.js?v=20261106-fit13" defer></script>
-    <script type="text/javascript" src="./js/project-popups.js?v=20261106-mac4" defer></script>
+    <script type="text/javascript" src="./js/case-popup.js?v=metrika1" defer></script>
+    <script type="text/javascript" src="./js/iprit-popup.js?v=metrika1" defer></script>
+    <script type="text/javascript" src="./js/project-popups.js?v=metrika1" defer></script>
     
     <!-- Three.js -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
@@ -52,6 +90,7 @@
 
   </head>
   <body>
+    <noscript><div><img src="https://mc.yandex.ru/watch/114135152" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     
     <!-- Прелоадер -->
     <div class="preloader">
